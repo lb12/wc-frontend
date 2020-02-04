@@ -1,0 +1,12 @@
+nav.main-navbar {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: red;
+    height: 3.5rem;
+}
+.main-navbar div {
+    margin: 0 2rem;
+}

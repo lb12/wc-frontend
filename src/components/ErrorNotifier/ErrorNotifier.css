@@ -1,0 +1,9 @@
+.error-container {
+  background-color: red;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.error-container li {
+  color: white;
+}

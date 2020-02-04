@@ -1,0 +1,20 @@
+footer.main-footer {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    width: 100%;
+    background-color: greenyellow;
+    height: 3.5rem;
+}
+
+footer.main-footer aside {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-flow: row wrap;
+    margin: 0 3rem;
+}
+
+footer.main-footer aside > span {
+    padding-right: .3rem;
+}
