@@ -7,7 +7,13 @@ export const signUpUser = user => {
     dispatch(signUpRequest(user));
     try {
       const response = await API.signUp(user);
-      dispatch(signUpSuccess(response));
+
+      if (!response.success || response.errors) {
+        dispatch(signUpFailure(response));
+        return;
+      }
+      
+      dispatch(signUpSuccess(response.result));
     } catch (error) {
       dispatch(signUpFailure(error));
     }

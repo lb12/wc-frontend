@@ -47,10 +47,8 @@ export default class SignUp extends React.Component {
 
     const result = this.props.user;
 
-    console.log(result);
-
     // El usuario NO se guardó bien
-    if ( !result.success) {
+    if (result.errors) {
       this.setState({ showError: true, errorMessage: result.errors });
       return;
     }
@@ -65,7 +63,7 @@ export default class SignUp extends React.Component {
       <div>
         <h1>Sign up</h1>
 
-        {showError && errorMessage.length > 0 && (
+        {showError && errorMessage && errorMessage.length > 0 && (
           <ErrorNotifier errors={errorMessage} />
         )}
 

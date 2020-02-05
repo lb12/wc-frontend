@@ -57,10 +57,9 @@ const signUp = async userObj => {
   };
 
   try {
-    result = { result } = await postRequest(`${API_URL}/user`, userObj);
+    result = { result } = await postRequest(`${API_URL}/auth/signup`, userObj);
   } catch (error) {
     const errorAux = error.response.data;
-
     // Si se trata de un caso de credenciales
     if (errorAux.error && Object.keys(errorAux.error.errors).length > 0) {
       const { errors } = errorAux.error;
@@ -76,4 +75,31 @@ const signUp = async userObj => {
   return result;
 };
 
-export { signUp };
+const getUserLogged = async storedUser => {
+  if (!storedUser || Object.entries(storedUser).length === 0 || !storedUser.token) {
+    return {};
+  }
+
+  let user = {};
+  try {
+    const result = await postRequest(`${API_URL}/auth/checkToken`, {
+      token: storedUser.token
+    });
+
+    // Si hay propiedad 'message' es porque ha habido un error, por lo que retornamos un objeto vacío.
+    if (result.message) {
+      return user;
+    }
+
+    user = {
+      user: result.result,
+      token: storedUser.token
+    }    
+  } catch (error) {
+    console.log('The token expired, you have been logged out');
+  }
+
+  return user;
+};
+
+export { signUp, getUserLogged };

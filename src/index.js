@@ -12,8 +12,10 @@ import * as serviceWorker from "./serviceWorker";
 import { storeConfiguration } from "./store";
 import { initialState } from "./store/reducers";
 import { getUser, setUser } from "./utils/storage";
+import { getUserLogged } from "./services/APIService";
 
-const preloadedState = { ...initialState, user: getUser() || {} };
+
+const preloadedState = { ...initialState, user: getUserLogged(getUser()) || {} };
 const store = storeConfiguration(preloadedState);
 
 // Save any user change into the LocalStorage
