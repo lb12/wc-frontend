@@ -20,6 +20,24 @@ export const signUpUser = user => {
   };
 };
 
+export const signInUser = user => {
+  return async function(dispatch) {
+    dispatch(signInRequest(user));
+    try {
+      const response = await API.signIn(user);
+
+      if (!response.success || response.errors) {
+        dispatch(signInFailure(response));
+        return;
+      }
+      
+      dispatch(signInSuccess(response.result));
+    } catch (error) {
+      dispatch(signInFailure(error));
+    }
+  };
+};
+
 export const setUser = user => ({
   type: Types.SET_USER,
   user
@@ -38,5 +56,20 @@ export const signUpSuccess = user => ({
 
 export const signUpFailure = error => ({
   type: Types.SIGN_UP_FAILURE,
+  error
+});
+
+// SIGN_IN CREATION
+export const signInRequest = () => ({
+  type: Types.SIGN_IN_REQUEST
+});
+
+export const signInSuccess = user => ({
+  type: Types.SIGN_IN_SUCCESS,
+  user
+});
+
+export const signInFailure = error => ({
+  type: Types.SIGN_IN_FAILURE,
   error
 });

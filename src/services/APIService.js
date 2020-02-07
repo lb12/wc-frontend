@@ -51,13 +51,21 @@ const putRequest = (url, data) => {
 };
 
 const signUp = async userObj => {
-  let result = {
-    success: false,
-    errors: []
-  };
+  let result = {};
 
   try {
     result = { result } = await postRequest(`${API_URL}/auth/signup`, userObj);
+  } catch (error) {
+    result = resolveSignErrors(error);
+  }
+  return result;
+};
+
+const signIn = async userObj => {
+  let result = {};
+
+  try {
+    result = await postRequest(`${API_URL}/auth/signin`, userObj);
   } catch (error) {
     result = resolveSignErrors(error);
   }
@@ -116,4 +124,4 @@ const getUserLogged = async storedUser => {
   return user;
 };
 
-export { signUp, getUserLogged };
+export { signUp, signIn, getUserLogged };

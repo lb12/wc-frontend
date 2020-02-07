@@ -4,38 +4,63 @@ import { Link } from "react-router-dom";
 
 import Form from "../Form";
 import Input from "../Input";
+import ErrorNotifier from "../ErrorNotifier";
 
 export default class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showError: false
+      showError: false,
+      errorMessage: []
     };
   }
 
-  onSubmit = inputs => {
+  onSubmit = async inputs => {
+    let errorMessage = [];
     const { username, password } = inputs;
 
     if (!username || !password) {
-      this.setState({ showError: true });
+      errorMessage.push("Rellena los campos obligatorios");
+      this.setState({ showError: true, errorMessage });
       return;
     }
 
-    this.setState({ showError: false });
+    if (username.length < 4 || password.length < 6) {
+
+      if (username.length < 4) {
+        errorMessage.push("Usuario 4 chars como minimo");
+      }
+
+      if (password.length < 6) {
+        errorMessage.push("Password 6 chars como minimo");
+      }
+
+      this.setState({ showError: true, errorMessage });
+      return;
+    }
 
     const user = { username, password };
 
-    // this.props.setUser(user); // Save user into redux-store
+    await this.props.signInUser(user);
+
+    const result = this.props.user;
+
+    // El usuario NO se guardó bien
+    if (result.errors) {
+      this.setState({ showError: true, errorMessage: result.errors });
+      return;
+    }
+
     this.props.history.push("/my-zone"); //  Redirect user to home page always
   };
 
   render() {
-    const { showError } = this.state;
+    const { showError, errorMessage } = this.state;
     return (
       <div>
         <h1>SignIn</h1>
-        {showError && (
-          <span className="empty-field-error">Rellena los campos obligatorios</span>
+        {showError && errorMessage && errorMessage.length > 0 && (
+          <ErrorNotifier errors={errorMessage} />
         )}
 
         <Form onSubmit={this.onSubmit}>
