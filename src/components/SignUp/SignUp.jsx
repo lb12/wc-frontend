@@ -14,21 +14,21 @@ export default class SignUp extends React.Component {
     super(props);
     this.state = {
       showError: false,
-      errorMessage: ["Rellena los campos obligatorios"]
+      errorMessage: []
     };
   }
 
   onSubmit = async inputs => {
+    let errorMessage = [];
     const { username, email, password } = inputs;
 
     if (!username || !email || !password) {
-      this.setState({ showError: true });
+      errorMessage.push("Rellena los campos obligatorios");
+      this.setState({ showError: true, errorMessage });
       return;
     }
 
     if (username.length < 4 || password.length < 6) {
-      let errorMessage = [];
-
       if (username.length < 4) {
         errorMessage.push("Usuario 4 chars como minimo");
       }

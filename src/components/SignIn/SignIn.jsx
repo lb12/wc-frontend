@@ -51,7 +51,7 @@ export default class SignIn extends React.Component {
       return;
     }
 
-    this.props.history.push("/my-zone"); //  Redirect user to home page always
+    this.props.history.push("/my-zone"); // Redirect user to home page always
   };
 
   render() {
