@@ -5,9 +5,10 @@ import React from "react";
 import Form from "../Form";
 import Input from "../Input";
 import ErrorNotifier from "../ErrorNotifier";
+import { useTranslation } from "react-i18next";
 
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,21 +23,22 @@ export default class SignUp extends React.Component {
 
   onSubmit = async inputs => {
     let errorMessage = [];
+    const { t } = this.props;
     const { username, email, password } = inputs;
 
     if (!username || !email || !password) {
-      errorMessage.push("Rellena los campos obligatorios");
+      errorMessage.push(t("ERROR_FILL_REQUIRED_FIELDS"));
       this.setState({ showError: true, errorMessage });
       return;
     }
 
     if (username.length < 4 || password.length < 6) {
       if (username.length < 4) {
-        errorMessage.push("Usuario 4 chars como minimo");
+        errorMessage.push(t("ERROR_USER_4_CHARS"));
       }
 
       if (password.length < 6) {
-        errorMessage.push("Password 6 chars como minimo");
+        errorMessage.push(t("ERROR_PASSWORD_6_CHARS"));
       }
 
       this.setState({ showError: true, errorMessage });
@@ -61,12 +63,12 @@ export default class SignUp extends React.Component {
 
   render() {
     const { showError, errorMessage } = this.state;
-    const { isLogged } = this.props;
+    const { t, isLogged } = this.props;
     return (
       <div>
         {!isLogged && (
           <React.Fragment>
-            <h1>Sign up</h1>
+            <h1>{t("SIGN_UP")}</h1>
 
             {showError && errorMessage && errorMessage.length > 0 && (
               <ErrorNotifier errors={errorMessage} />
@@ -78,23 +80,23 @@ export default class SignUp extends React.Component {
                 required
                 name="username"
                 className="form-control"
-                placeholder="Enter username"
+                placeholder={t("USERNAME")}
               />
               <Input
                 type="email"
                 required
                 name="email"
                 className="form-control"
-                placeholder="Enter email"
+                placeholder={t("EMAIL")}
               />
               <Input
                 type="password"
                 required
                 name="password"
                 className="form-control"
-                placeholder="Enter password"
+                placeholder={t("PASSWORD")}
               />
-              <button type="submit">Sign up</button>
+              <button type="submit">{t("SIGN_UP")}</button>
             </Form>
           </React.Fragment>
         )}
@@ -102,3 +104,4 @@ export default class SignUp extends React.Component {
     );
   }
 }
+export default useTranslation()(SignUp)

@@ -3,6 +3,13 @@
     "SIGN_IN": "Sign in",
     "SIGN_UP": "Sign up",
     "EXIT": "Exit",
-    "WEBPAGE_MADE_BY": "Web page made by"
+    "WEBPAGE_MADE_BY": "Web page made by",
+    "ERROR_FILL_REQUIRED_FIELDS": "Fill in the required fields",
+    "ERROR_USER_4_CHARS": "Username field requires at least 4 chars",
+    "ERROR_PASSWORD_6_CHARS": "Password field requires at least 6 chars",
+    "USERNAME": "Username",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Password",
+    "DONT_HAVE_AN_ACCOUNT": "Don't have an account"
   }
 }

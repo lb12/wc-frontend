@@ -1,14 +1,14 @@
 // React imports
 import React from "react";
 import { Link } from "react-router-dom";
+import { withTranslation } from "react-i18next";
 
 // Global components imports
 import Form from "../Form";
 import Input from "../Input";
 import ErrorNotifier from "../ErrorNotifier";
 
-
-export default class SignIn extends React.Component {
+class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,20 +24,21 @@ export default class SignIn extends React.Component {
   onSubmit = async inputs => {
     let errorMessage = [];
     const { username, password } = inputs;
+    const { t } = this.props;
 
     if (!username || !password) {
-      errorMessage.push("Rellena los campos obligatorios");
+      errorMessage.push(t("ERROR_FILL_REQUIRED_FIELDS"));
       this.setState({ showError: true, errorMessage });
       return;
     }
 
     if (username.length < 4 || password.length < 6) {
       if (username.length < 4) {
-        errorMessage.push("Usuario 4 chars como minimo");
+        errorMessage.push(t("ERROR_USER_4_CHARS"));
       }
 
       if (password.length < 6) {
-        errorMessage.push("Password 6 chars como minimo");
+        errorMessage.push(t("ERROR_PASSWORD_6_CHARS"));
       }
 
       this.setState({ showError: true, errorMessage });
@@ -61,12 +62,12 @@ export default class SignIn extends React.Component {
 
   render() {
     const { showError, errorMessage } = this.state;
-    const { isLogged } = this.props;
+    const { t, isLogged } = this.props;
     return (
       <div>
         {!isLogged && (
           <React.Fragment>
-            <h1>SignIn</h1>
+            <h1>{t("SIGN_IN")}</h1>
             {showError && errorMessage && errorMessage.length > 0 && (
               <ErrorNotifier errors={errorMessage} />
             )}
@@ -77,26 +78,25 @@ export default class SignIn extends React.Component {
                 required
                 name="username"
                 className="form-control"
-                placeholder="Enter username"
+                placeholder={t("USERNAME")}
               />
               <Input
                 type="password"
                 required
                 name="password"
                 className="form-control"
-                placeholder="Enter password"
+                placeholder={t("PASSWORD")}
               />
-              <button type="submit">Sign in</button>
+              <button type="submit">{t("SIGN_IN")}</button>
             </Form>
 
             <hr />
 
             <span>
-              No tengo cuenta,{" "}
+              <span>{t("DONT_HAVE_AN_ACCOUNT")}?</span>
               <Link to="/sign-up">
-                <span style={{ fontSize: "20px" }}>quiero registrarme</span>
+                <span> {t("SIGN_UP")}!</span>
               </Link>
-              .
             </span>
           </React.Fragment>
         )}
@@ -104,3 +104,4 @@ export default class SignIn extends React.Component {
     );
   }
 }
+export default withTranslation()(SignIn);
