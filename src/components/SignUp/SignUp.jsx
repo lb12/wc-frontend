@@ -5,7 +5,7 @@ import React from "react";
 import Form from "../Form";
 import Input from "../Input";
 import ErrorNotifier from "../ErrorNotifier";
-import { useTranslation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 
 class SignUp extends React.Component {
@@ -104,4 +104,4 @@ class SignUp extends React.Component {
     );
   }
 }
-export default useTranslation()(SignUp)
+export default withTranslation()(SignUp)
