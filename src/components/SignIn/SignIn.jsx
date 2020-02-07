@@ -1,10 +1,12 @@
+// React imports
 import React from "react";
-
 import { Link } from "react-router-dom";
 
+// Global components imports
 import Form from "../Form";
 import Input from "../Input";
 import ErrorNotifier from "../ErrorNotifier";
+
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -13,6 +15,10 @@ export default class SignIn extends React.Component {
       showError: false,
       errorMessage: []
     };
+  }
+
+  componentDidMount() {
+    this.props.isLogged && this.props.history.push("/my-zone"); // Redirect user to private zone
   }
 
   onSubmit = async inputs => {
@@ -26,7 +32,6 @@ export default class SignIn extends React.Component {
     }
 
     if (username.length < 4 || password.length < 6) {
-
       if (username.length < 4) {
         errorMessage.push("Usuario 4 chars como minimo");
       }
@@ -56,40 +61,45 @@ export default class SignIn extends React.Component {
 
   render() {
     const { showError, errorMessage } = this.state;
+    const { isLogged } = this.props;
     return (
       <div>
-        <h1>SignIn</h1>
-        {showError && errorMessage && errorMessage.length > 0 && (
-          <ErrorNotifier errors={errorMessage} />
+        {!isLogged && (
+          <React.Fragment>
+            <h1>SignIn</h1>
+            {showError && errorMessage && errorMessage.length > 0 && (
+              <ErrorNotifier errors={errorMessage} />
+            )}
+
+            <Form onSubmit={this.onSubmit}>
+              <Input
+                type="text"
+                required
+                name="username"
+                className="form-control"
+                placeholder="Enter username"
+              />
+              <Input
+                type="password"
+                required
+                name="password"
+                className="form-control"
+                placeholder="Enter password"
+              />
+              <button type="submit">Sign in</button>
+            </Form>
+
+            <hr />
+
+            <span>
+              No tengo cuenta,{" "}
+              <Link to="/sign-up">
+                <span style={{ fontSize: "20px" }}>quiero registrarme</span>
+              </Link>
+              .
+            </span>
+          </React.Fragment>
         )}
-
-        <Form onSubmit={this.onSubmit}>
-          <Input
-            type="text"
-            required
-            name="username"
-            className="form-control"
-            placeholder="Enter username"
-          />
-          <Input
-            type="password"
-            required
-            name="password"
-            className="form-control"
-            placeholder="Enter password"
-          />
-          <button type="submit">Sign in</button>
-        </Form>
-
-        <hr />
-
-        <span>
-          No tengo cuenta,{" "}
-          <Link to="/sign-up">
-            <span style={{ fontSize: "20px" }}>quiero registrarme</span>
-          </Link>
-          .
-        </span>
       </div>
     );
   }

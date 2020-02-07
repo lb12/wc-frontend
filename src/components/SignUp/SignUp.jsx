@@ -6,8 +6,6 @@ import Form from "../Form";
 import Input from "../Input";
 import ErrorNotifier from "../ErrorNotifier";
 
-// Utils and services imports
-import { signUp } from "../../services/APIService";
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -16,6 +14,10 @@ export default class SignUp extends React.Component {
       showError: false,
       errorMessage: []
     };
+  }
+
+  componentDidMount() {
+    this.props.isLogged && this.props.history.push("/my-zone"); // Redirect user to private zone
   }
 
   onSubmit = async inputs => {
@@ -52,45 +54,50 @@ export default class SignUp extends React.Component {
       this.setState({ showError: true, errorMessage: result.errors });
       return;
     }
-    
+
     // redirijo a su zona privada
     this.props.history.push("/my-zone");
   };
 
   render() {
     const { showError, errorMessage } = this.state;
+    const { isLogged } = this.props;
     return (
       <div>
-        <h1>Sign up</h1>
+        {!isLogged && (
+          <React.Fragment>
+            <h1>Sign up</h1>
 
-        {showError && errorMessage && errorMessage.length > 0 && (
-          <ErrorNotifier errors={errorMessage} />
+            {showError && errorMessage && errorMessage.length > 0 && (
+              <ErrorNotifier errors={errorMessage} />
+            )}
+
+            <Form onSubmit={this.onSubmit}>
+              <Input
+                type="text"
+                required
+                name="username"
+                className="form-control"
+                placeholder="Enter username"
+              />
+              <Input
+                type="email"
+                required
+                name="email"
+                className="form-control"
+                placeholder="Enter email"
+              />
+              <Input
+                type="password"
+                required
+                name="password"
+                className="form-control"
+                placeholder="Enter password"
+              />
+              <button type="submit">Sign up</button>
+            </Form>
+          </React.Fragment>
         )}
-
-        <Form onSubmit={this.onSubmit}>
-          <Input
-            type="text"
-            required
-            name="username"
-            className="form-control"
-            placeholder="Enter username"
-          />
-          <Input
-            type="email"
-            required
-            name="email"
-            className="form-control"
-            placeholder="Enter email"
-          />
-          <Input
-            type="password"
-            required
-            name="password"
-            className="form-control"
-            placeholder="Enter password"
-          />
-          <button type="submit">Sign up</button>
-        </Form>
       </div>
     );
   }
