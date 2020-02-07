@@ -59,28 +59,42 @@ const signUp = async userObj => {
   try {
     result = { result } = await postRequest(`${API_URL}/auth/signup`, userObj);
   } catch (error) {
-    const errorAux = error.response.data;
-    // Si se trata de un caso de credenciales
-    if (errorAux.error && Object.keys(errorAux.error.errors).length > 0) {
-      const { errors } = errorAux.error;
-
-      for (const prop in errors) {
-        result.errors = [...result.errors, errors[prop].msg];
-      }
-    } else if (errorAux.message) {
-      // Si ya existe el email o usuario
-      result.errors = ["Email or username currently used"];
-    }
+    result = resolveSignErrors(error);
   }
   return result;
 };
 
-const getUserLogged = async storedUser => {
-  if (!storedUser || Object.entries(storedUser).length === 0 || !storedUser.token) {
-    return {};
+const resolveSignErrors = error => {
+  let result = {
+    success: false,
+    errors: []
+  };
+  const errorAux = error.response.data;
+  // Si se trata de un caso de credenciales
+  if (errorAux.error && Object.keys(errorAux.error.errors).length > 0) {
+    const { errors } = errorAux.error;
+
+    for (const prop in errors) {
+      result.errors = [...result.errors, errors[prop].msg];
+    }
+  } else if (errorAux.message) {
+    result.errors = [errorAux.message];
   }
 
+  return result;
+};
+
+const getUserLogged = async storedUser => {
   let user = {};
+
+  if (
+    !storedUser ||
+    Object.entries(storedUser).length === 0 ||
+    !storedUser.token
+  ) {
+    return user;
+  }
+
   try {
     const result = await postRequest(`${API_URL}/auth/checkToken`, {
       token: storedUser.token
@@ -94,9 +108,9 @@ const getUserLogged = async storedUser => {
     user = {
       user: result.result,
       token: storedUser.token
-    }    
+    };
   } catch (error) {
-    console.log('The token expired, you have been logged out');
+    console.log("The token expired, you have been logged out");
   }
 
   return user;

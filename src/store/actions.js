@@ -20,6 +20,12 @@ export const signUpUser = user => {
   };
 };
 
+export const setUser = user => ({
+  type: Types.SET_USER,
+  user
+});
+
+
 // SIGN_UP CREATION
 export const signUpRequest = () => ({
   type: Types.SIGN_UP_REQUEST

@@ -1,6 +1,6 @@
 // React imports
 import React from "react";
-import { render } from 'react-dom';
+import { render } from "react-dom";
 
 // Global components imports
 import App from "./components/App";
@@ -14,19 +14,31 @@ import { initialState } from "./store/reducers";
 import { getUser, setUser } from "./utils/storage";
 import { getUserLogged } from "./services/APIService";
 
+let user = {};
 
-const preloadedState = { ...initialState, user: getUserLogged(getUser()) || {} };
-const store = storeConfiguration(preloadedState);
+getUserLogged(getUser())
+  .then(_user => { // Se obtiene el usuario con el token o un {}
+    user = _user;
+  })
+  .catch( () => { // Si ocurriese algún error, simplemente no conectamos al usuario, para que vuelva a hacer login.
+    user = {};
+  })
+  .finally(() => buildApp(user)); // Para ambos casos, construimos la SPA
 
-// Save any user change into the LocalStorage
-store.subscribe(() => {
-  const { user } = store.getState();
-  user && setUser(user);
-});
+const buildApp = user => {
+  const preloadedState = { ...initialState, user };
+  const store = storeConfiguration(preloadedState);
 
-render(<App store={store} />, document.getElementById("root"));
+  // Save any user change into the LocalStorage
+  store.subscribe(() => {
+    const { user } = store.getState();
+    user && setUser(user);
+  });
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  render(<App store={store} />, document.getElementById("root"));
+
+  // If you want your app to work offline and load faster, you can change
+  // unregister() to register() below. Note this comes with some pitfalls.
+  // Learn more about service workers: https://bit.ly/CRA-PWA
+  serviceWorker.unregister();
+};

@@ -13,14 +13,18 @@ class Navbar extends React.Component {
     return this.props.isLogged;
   };
 
+  logout = () => {
+    this.props.logout();
+  }
+
   render() {
     const { t } = this.props;
     return (
       <nav className="main-navbar">
         <div className="logo-container">
-          <a href="/">
+          <Link className="nav-link" to="/">
             <span>Wallaclone</span>
-          </a>
+          </Link>
         </div>
         {!this.isUserLogged() && (
           <div className="sign-in-container">
@@ -31,7 +35,7 @@ class Navbar extends React.Component {
         )}
         {this.isUserLogged() && (
           <div className="sign-in-container">
-            <Link className="nav-link" to="/logout">
+            <Link className="nav-link" onClick={this.logout} to="/">
             {t('EXIT')}
             </Link>
           </div>
