@@ -21,6 +21,11 @@
     "ON_PURCHASE": "Se compra",
     "ON_SALE": "En venta",
     "ALL": "Todos",
-    "NO_RESULTS_FOUND": "No se han encontrado resultados"
+    "NO_RESULTS_FOUND": "No se han encontrado resultados",
+    "SORT_BY": "Ordenar por",
+    "BY_DEFAULT": "Por defecto",
+    "NEWER_TO_OLDER": "Más reciente a antiguo",
+    "OLDER_TO_NEWER": "Más antiguo a reciente"
+    
   }
 }

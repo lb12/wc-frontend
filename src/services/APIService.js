@@ -6,7 +6,7 @@ const API_URL = "https://localhost:3000/api-v1";
 // API Adverts methods
 
 const listAdverts = async (
-  { name, price, tag, selling },
+  { name, price, tag, selling, sort },
   { adsPerPage, page }
 ) => {
   let queryParams = "";
@@ -19,6 +19,8 @@ const listAdverts = async (
     queryParams += `${getQueryParamToken(queryParams)}tag=${tag}`;
   if (selling && selling.length)
     queryParams += `${getQueryParamToken(queryParams)}for_sale=${selling}`;
+  if (sort && sort.length)
+    queryParams += `${getQueryParamToken(queryParams)}sort=${sort}`;
 
   queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
   queryParams +=

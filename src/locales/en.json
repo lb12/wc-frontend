@@ -21,6 +21,10 @@
     "ON_PURCHASE": "On purchase",
     "ON_SALE": "On sale",
     "ALL": "All",
-    "NO_RESULTS_FOUND": "No results found"
+    "NO_RESULTS_FOUND": "No results found",
+    "SORT_BY": "Sort by",
+    "BY_DEFAULT": "By default",
+    "NEWER_TO_OLDER": "Newer to older",
+    "OLDER_TO_NEWER": "Older to newer"
   }
 }

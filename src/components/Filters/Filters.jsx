@@ -14,7 +14,8 @@ class Filters extends React.Component {
         greaterPrice: "",
         price: "",
         tag: "",
-        selling: ""
+        selling: "",
+        sort: ""
       }
     };
   }
@@ -62,12 +63,19 @@ class Filters extends React.Component {
     this.setState({ filters });
   };
 
-  onSelectChange = optionSelected => {
+  onChangeTag = optionSelected => {    
     let filters = this.state.filters;
     filters.tag = optionSelected;
 
     this.setState({ filters });
   };
+
+  onChangeSortingMethod = evt => {
+    const value = evt.target.value;
+    let filters = this.state.filters;
+    filters.sort = value;
+    this.setState({ filters });
+  }
 
   render() {
     const { name, lowerPrice, greaterPrice, selling } = this.state.filters;
@@ -133,8 +141,25 @@ class Filters extends React.Component {
               <label className="input-label" htmlFor="tags-select">
                 Tag
               </label>
-              <Tags onTagSelected={this.onSelectChange} />
+              <Tags onTagSelected={this.onChangeTag} />
             </div>
+
+            <div className="form-group">
+              <label className="input-label" htmlFor="sortby-select">
+                {t("SORT_BY")}
+              </label>
+              <select
+                defaultValue=""
+                className="form-control"
+                id="tags-select"
+                onChange={this.onChangeSortingMethod}
+              >
+                <option value="">{t("BY_DEFAULT")}</option>
+                <option value="-1">{t("NEWER_TO_OLDER")}</option>
+                <option value="1">{t("OLDER_TO_NEWER")}</option>
+              </select>
+            </div>
+
             <div className="form-group">
               <div>
                 <span className="input-label">{t("STATUS")}</span>
