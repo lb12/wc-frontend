@@ -22,7 +22,7 @@ export default class AdvertList extends React.Component {
       <div>
         {adverts && adverts.length && adverts.count !== 0
           ? this.buildAdvertList(adverts)
-          : ""}
+          : "No hay resultados"}
       </div>
     );
   }

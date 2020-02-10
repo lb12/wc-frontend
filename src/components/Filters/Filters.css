@@ -1,0 +1,11 @@
+.submit-btn {
+    width: 100%;
+}
+
+.f-container {
+    padding: 2rem;
+}
+
+.f-container .input-label {
+    font-weight: bold;
+}
