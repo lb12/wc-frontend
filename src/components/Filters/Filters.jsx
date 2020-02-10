@@ -55,7 +55,7 @@ export default class Filters extends React.Component {
     const { id } = evt.target;
 
     let filters = this.state.filters;
-    filters.selling = (id === "sell-filter") + "";
+    filters.selling = (id === "sell-filter") ? 'true' : ((id === "buy-filter") ? 'false' : '') ; // '' means everyadvert
 
     this.setState({ filters });
   };
@@ -160,6 +160,19 @@ export default class Filters extends React.Component {
                 />
                 <label className="form-check-label" htmlFor="sell-filter">
                   Sell
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  type="radio"
+                  name="selling"
+                  value={selling}
+                  id="all-filter"
+                  className="form-check-input"
+                  onChange={this.onRadioChange}
+                />
+                <label className="form-check-label" htmlFor="all-filter">
+                  All
                 </label>
               </div>
             </div>

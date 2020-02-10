@@ -11,7 +11,7 @@ const listAdverts = async ({name, price, tag, selling}, {adsPerPage, page}) => {
   if (name && name.length) queryParams += (`${getQueryParamToken(queryParams)}name=${name}`); 
   if (price && price.length) queryParams += (`${getQueryParamToken(queryParams)}price=${price}`); 
   if (tag && tag.length) queryParams += (`${getQueryParamToken(queryParams)}tag=${tag}`); 
-  if (selling && selling.length) queryParams += (`${getQueryParamToken(queryParams)}venta=${selling}`);
+  if (selling && selling.length) queryParams += (`${getQueryParamToken(queryParams)}for_sale=${selling}`);
 
   queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
   queryParams += page > 1 ? (`${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`) : '';
