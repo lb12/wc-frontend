@@ -11,6 +11,15 @@
     "EMAIL": "E-mail",
     "PASSWORD": "Contraseña",
     "DONT_HAVE_AN_ACCOUNT": "No tienes una cuenta",
-    "PUBLIC_ZONE": "Zona pública"
+    "PUBLIC_ZONE": "Zona pública",
+    "ALL_TAGS": "Todos los tags",
+    "TO_FILTER": "Filtrar",
+    "NAME": "Nombre",
+    "LOWEST_PRICE": "Precio más bajo",
+    "GREATEST_PRICE": "Precio más alto",
+    "STATUS": "Estado",
+    "ON_PURCHASE": "Se compra",
+    "ON_SALE": "En venta",
+    "ALL": "Todos"
   }
 }

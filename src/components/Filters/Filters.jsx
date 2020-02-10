@@ -2,8 +2,9 @@ import React from "react";
 import Tags from "../Tags";
 
 import "./Filters.css";
+import { withTranslation } from "react-i18next";
 
-export default class Filters extends React.Component {
+class Filters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +56,8 @@ export default class Filters extends React.Component {
     const { id } = evt.target;
 
     let filters = this.state.filters;
-    filters.selling = (id === "sell-filter") ? 'true' : ((id === "buy-filter") ? 'false' : '') ; // '' means everyadvert
+    filters.selling =
+      id === "sell-filter" ? "true" : id === "buy-filter" ? "false" : ""; // '' means everyadvert
 
     this.setState({ filters });
   };
@@ -69,6 +71,7 @@ export default class Filters extends React.Component {
 
   render() {
     const { name, lowerPrice, greaterPrice, selling } = this.state.filters;
+    const { t } = this.props;
     return (
       <div className="card mt-4 mb-2">
         <div className="card-header pointer">
@@ -77,14 +80,14 @@ export default class Filters extends React.Component {
             data-toggle="collapse"
             data-target="#collapseFilters"
           >
-            Show filters
+            {t("TO_FILTER")}
           </h3>
         </div>
         <div className="collapse f-container" id="collapseFilters">
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <label className="input-label" htmlFor="name">
-                Name
+                {t("NAME")}
               </label>
               <input
                 type="text"
@@ -92,14 +95,14 @@ export default class Filters extends React.Component {
                 id="name"
                 className="form-control"
                 value={name}
-                placeholder="Name"
+                placeholder={t("NAME")}
                 onChange={this.onInputChange}
               />
             </div>
             <div className="form-group">
               <div className="form-group">
                 <label className="input-label" htmlFor="lowerPrice">
-                  Lower price
+                  {t("LOWEST_PRICE")}
                 </label>
                 <input
                   type="number"
@@ -107,13 +110,13 @@ export default class Filters extends React.Component {
                   id="lowerPrice"
                   className="form-control"
                   value={lowerPrice}
-                  placeholder="Lower Price"
+                  placeholder={t("LOWEST_PRICE")}
                   onChange={this.onInputChange}
                 />
               </div>
               <div>
                 <label className="input-label" htmlFor="greaterPrice">
-                  Greater price
+                  {t("GREATEST_PRICE")}
                 </label>
                 <input
                   type="number"
@@ -121,7 +124,7 @@ export default class Filters extends React.Component {
                   id="greaterPrice"
                   className="form-control"
                   value={greaterPrice}
-                  placeholder="Greater Price"
+                  placeholder={t("GREATEST_PRICE")}
                   onChange={this.onInputChange}
                 />
               </div>
@@ -134,7 +137,7 @@ export default class Filters extends React.Component {
             </div>
             <div className="form-group">
               <div>
-                <span className="input-label">Type</span>
+                <span className="input-label">{t("STATUS")}</span>
               </div>
               <div className="form-check form-check-inline">
                 <input
@@ -146,7 +149,7 @@ export default class Filters extends React.Component {
                   onChange={this.onRadioChange}
                 />
                 <label className="form-check-label" htmlFor="buy-filter">
-                  Buy
+                  {t("ON_PURCHASE")}
                 </label>
               </div>
               <div className="form-check form-check-inline">
@@ -159,7 +162,7 @@ export default class Filters extends React.Component {
                   onChange={this.onRadioChange}
                 />
                 <label className="form-check-label" htmlFor="sell-filter">
-                  Sell
+                  {t("ON_SALE")}
                 </label>
               </div>
               <div className="form-check form-check-inline">
@@ -172,13 +175,13 @@ export default class Filters extends React.Component {
                   onChange={this.onRadioChange}
                 />
                 <label className="form-check-label" htmlFor="all-filter">
-                  All
+                  {t("ALL")}
                 </label>
               </div>
             </div>
 
             <button type="submit" className="btn btn-primary submit-btn">
-              Filtrar
+              {t("TO_FILTER")}
             </button>
           </form>
         </div>
@@ -186,3 +189,4 @@ export default class Filters extends React.Component {
     );
   }
 }
+export default withTranslation()(Filters);

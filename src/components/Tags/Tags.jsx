@@ -1,10 +1,7 @@
 import React from "react";
+import { withTranslation } from "react-i18next";
 
-export default class Tags extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class Tags extends React.Component {
   componentDidMount() {
     this.props.getTags();
   }
@@ -32,7 +29,7 @@ export default class Tags extends React.Component {
   };
 
   render() {
-    const { tags } = this.props;
+    const { t, tags } = this.props;
     const required_ = this.props.required;
     return (
       <div>
@@ -44,9 +41,7 @@ export default class Tags extends React.Component {
             id="tags-select"
             onChange={this.onChange}
           >
-            <option value="">
-              Select a tag
-            </option>
+            <option value="">{t("ALL_TAGS")}</option>
             {this.renderTags(tags)}
           </select>
         ) : (
@@ -65,3 +60,4 @@ export default class Tags extends React.Component {
     );
   }
 }
+export default withTranslation()(Tags);

@@ -11,6 +11,15 @@
     "EMAIL": "E-mail",
     "PASSWORD": "Password",
     "DONT_HAVE_AN_ACCOUNT": "Don't have an account",
-    "PUBLIC_ZONE": "Public zone"
+    "PUBLIC_ZONE": "Public zone",
+    "ALL_TAGS": "All tags",
+    "TO_FILTER": "Filter",
+    "NAME": "Name",
+    "LOWEST_PRICE": "Lowest price",
+    "GREATEST_PRICE": "Greatest price",
+    "STATUS": "Status",
+    "ON_PURCHASE": "On purchase",
+    "ON_SALE": "On sale",
+    "ALL": "All"
   }
 }
