@@ -37,7 +37,7 @@ export default class App extends React.Component {
           <Provider store={store}>
             <Router>
               <Navbar />
-              <div className="asd">
+              <div>
                 <React.Fragment>
                   <Switch>
                     <Route path="/sign-in" component={SignIn} />
