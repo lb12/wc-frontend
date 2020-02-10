@@ -10,6 +10,7 @@
     "USERNAME": "Username",
     "EMAIL": "E-mail",
     "PASSWORD": "Password",
-    "DONT_HAVE_AN_ACCOUNT": "Don't have an account"
+    "DONT_HAVE_AN_ACCOUNT": "Don't have an account",
+    "PUBLIC_ZONE": "Public zone"
   }
 }

@@ -1,6 +1,40 @@
 import * as Types from "./types";
 import * as API from "../services/APIService";
 
+// Advert actions
+export const fetchAdverts = (filters, paginationFilters) => {
+  return async dispatch => {
+    dispatch(fetchAdvertsRequest());
+    try {
+      const response = await API.listAdverts(filters, paginationFilters);
+      
+      if (!response.success || response.errors) {
+        console.log("fallo");
+        dispatch(fetchAdvertsFailure(response));
+        return;
+      }
+
+      dispatch(fetchAdvertsSuccess(response.results));
+    } catch (error) {
+      dispatch(fetchAdvertsFailure(error));
+    }
+  };
+};
+
+export const fetchAdvertsRequest = () => ({
+  type: Types.FETCH_ADVERTS_REQUEST
+});
+
+export const fetchAdvertsSuccess = adverts => ({
+  type: Types.FETCH_ADVERTS_SUCCESS,
+  adverts
+});
+
+export const fetchAdvertsFailure = error => ({
+  type: Types.FETCH_ADVERTS_FAILURE,
+  error
+});
+
 // User actions
 export const signUpUser = user => {
   return async function(dispatch) {
@@ -12,7 +46,7 @@ export const signUpUser = user => {
         dispatch(signUpFailure(response));
         return;
       }
-      
+
       dispatch(signUpSuccess(response.result));
     } catch (error) {
       dispatch(signUpFailure(error));
@@ -30,7 +64,7 @@ export const signInUser = user => {
         dispatch(signInFailure(response));
         return;
       }
-      
+
       dispatch(signInSuccess(response.result));
     } catch (error) {
       dispatch(signInFailure(error));
@@ -42,7 +76,6 @@ export const setUser = user => ({
   type: Types.SET_USER,
   user
 });
-
 
 // SIGN_UP CREATION
 export const signUpRequest = () => ({

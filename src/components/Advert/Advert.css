@@ -1,0 +1,62 @@
+.type-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;    
+    border-radius: .3rem;
+    color: wheat;
+    font-weight: bold;
+    padding: .3rem;
+}
+
+.price {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: .4rem 1rem;
+    border-radius: 1rem;
+    background-color: rgba(255, 230, 0, 0.7);
+    font-weight: bold;
+}
+.pointer .card-img-top {
+    height: 300px;
+}
+
+.type-badge-buy {
+    background-color: red;
+}
+
+.type-badge-sell {
+    color: black;
+    background-color: greenyellow;
+}
+
+
+.tag-badge-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.tag-badge {
+    border-radius: .25rem;
+    padding: .1rem .5rem;
+    white-space: nowrap;
+    color: white;
+    margin: .3rem;
+}
+
+.tag-lifestyle {
+    background-color: #007BFF;
+}
+
+.tag-work {
+    background-color: #6C757D;
+}
+
+.tag-mobile {
+    background-color: #28A745;
+}
+
+.tag-motor {
+    background-color: #DC3545;
+}

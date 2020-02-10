@@ -1,54 +1,35 @@
-import axios from "axios";
+import { getRequest, postRequest, putRequest } from "../utils/axios";
+import Advert from "../models/Advert";
 
 const API_URL = "https://localhost:3000/api-v1";
 
-const getRequest = url => {
-  return axios
-    .get(url)
-    .then(res => res.data)
-    .catch(error => {
-      if (!error.response) {
-        // Network error
-        return {
-          success: false,
-          errors: ["Network error"]
-        };
-      }
-      throw error;
-    });
+// API Adverts methods
+
+const listAdverts = async ({name, price, tag, selling}, {adsPerPage, page}) => {
+  let queryParams = '';
+
+  if (name && name.length) queryParams += (`${getQueryParamToken(queryParams)}name=${name}`); 
+  if (price && price.length) queryParams += (`${getQueryParamToken(queryParams)}price=${price}`); 
+  if (tag && tag.length) queryParams += (`${getQueryParamToken(queryParams)}tag=${tag}`); 
+  if (selling && selling.length) queryParams += (`${getQueryParamToken(queryParams)}venta=${selling}`);
+
+  queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
+  queryParams += page > 1 ? (`${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`) : '';
+
+  const res = await getRequest(`${API_URL}/adverts${queryParams}`);
+
+  console.log('listAdverts desde APIService.js', res);
+
+  if (!res) return [];
+
+  res.results = res.results.map( advert => new Advert(advert));
+
+  return res;
 };
 
-const postRequest = (url, data) => {
-  return axios
-    .post(url, data)
-    .then(res => res.data)
-    .catch(error => {
-      if (!error.response) {
-        // Network error
-        return {
-          success: false,
-          errors: ["Network error"]
-        };
-      }
-      throw error;
-    });
-};
+const getQueryParamToken = queryParams => queryParams.length === 0 ? '?' : '&';
 
-const putRequest = (url, data) => {
-  return axios
-    .put(url, data)
-    .then(res => res.data)
-    .catch(error => {
-      if (!error.response) {
-        // Network error
-        return {
-          success: false,
-          errors: ["Network error"]
-        };
-      }
-      throw error;
-    });
-};
+// API Users methods
 
 const signUp = async userObj => {
   let result = {};
@@ -124,4 +105,4 @@ const getUserLogged = async storedUser => {
   return user;
 };
 
-export { signUp, signIn, getUserLogged };
+export { signUp, signIn, getUserLogged, listAdverts };

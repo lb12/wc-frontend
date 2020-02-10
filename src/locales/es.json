@@ -10,6 +10,7 @@
     "USERNAME": "Usuario",
     "EMAIL": "E-mail",
     "PASSWORD": "Contraseña",
-    "DONT_HAVE_AN_ACCOUNT": "No tienes una cuenta"
+    "DONT_HAVE_AN_ACCOUNT": "No tienes una cuenta",
+    "PUBLIC_ZONE": "Zona pública"
   }
 }

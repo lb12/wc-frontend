@@ -1,0 +1,33 @@
+.adverts-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+}
+
+.adverts-container .card {
+    margin-bottom: 3rem;;
+}
+
+
+@media(min-width: 576px) {
+    .adverts-container {
+        flex-flow: row wrap;
+    }
+    
+    .adverts-container .card {
+        flex-basis: 40%;
+    }
+}
+
+@media(min-width: 768px) {
+    .adverts-container .card {
+        flex-basis: 30%;
+    }
+}
+
+@media(min-width: 992px) {
+    .adverts-container .card {
+        flex-basis: 25%;
+        margin-right: 1rem;
+    }
+}
