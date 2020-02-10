@@ -1,6 +1,6 @@
 import React from "react";
-/* import Tags from "../Tags";
- */
+import Tags from "../Tags";
+
 import "./Filters.css";
 
 export default class Filters extends React.Component {
@@ -130,7 +130,7 @@ export default class Filters extends React.Component {
               <label className="input-label" htmlFor="tags-select">
                 Tag
               </label>
-              {/* <Tags onTagSelected={this.onSelectChange} /> */}
+              <Tags onTagSelected={this.onSelectChange} />
             </div>
             <div className="form-group">
               <div>

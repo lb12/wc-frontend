@@ -2,7 +2,8 @@ import * as Types from "./types";
 
 export const initialState = {
   user: {},
-  adverts: []
+  adverts: [],
+  tags: []
 };
 
 export const adverts = (state = initialState.adverts, action) => {
@@ -10,6 +11,17 @@ export const adverts = (state = initialState.adverts, action) => {
     case Types.FETCH_ADVERTS_SUCCESS:
       return action.adverts;
     case Types.FETCH_ADVERTS_FAILURE:
+      return action.error;
+    default:
+      return state;
+  }
+};
+
+export const tags = (state = initialState.tags, action) => {
+  switch (action.type) {
+    case Types.FETCH_TAGS_SUCCESS:
+      return action.tags;
+    case Types.FETCH_TAGS_FAILURE:
       return action.error;
     default:
       return state;

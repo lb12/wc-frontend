@@ -5,29 +5,51 @@ const API_URL = "https://localhost:3000/api-v1";
 
 // API Adverts methods
 
-const listAdverts = async ({name, price, tag, selling}, {adsPerPage, page}) => {
-  let queryParams = '';
+const listAdverts = async (
+  { name, price, tag, selling },
+  { adsPerPage, page }
+) => {
+  let queryParams = "";
 
-  if (name && name.length) queryParams += (`${getQueryParamToken(queryParams)}name=${name}`); 
-  if (price && price.length) queryParams += (`${getQueryParamToken(queryParams)}price=${price}`); 
-  if (tag && tag.length) queryParams += (`${getQueryParamToken(queryParams)}tag=${tag}`); 
-  if (selling && selling.length) queryParams += (`${getQueryParamToken(queryParams)}for_sale=${selling}`);
+  if (name && name.length)
+    queryParams += `${getQueryParamToken(queryParams)}name=${name}`;
+  if (price && price.length)
+    queryParams += `${getQueryParamToken(queryParams)}price=${price}`;
+  if (tag && tag.length)
+    queryParams += `${getQueryParamToken(queryParams)}tag=${tag}`;
+  if (selling && selling.length)
+    queryParams += `${getQueryParamToken(queryParams)}for_sale=${selling}`;
 
   queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
-  queryParams += page > 1 ? (`${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`) : '';
+  queryParams +=
+    page > 1
+      ? `${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`
+      : "";
 
   const res = await getRequest(`${API_URL}/adverts${queryParams}`);
 
-  console.log('listAdverts desde APIService.js', res);
+  console.log("listAdverts desde APIService.js", res);
 
   if (!res) return [];
 
-  res.results = res.results.map( advert => new Advert(advert));
+  res.results = res.results.map(advert => new Advert(advert));
 
   return res;
 };
 
-const getQueryParamToken = queryParams => queryParams.length === 0 ? '?' : '&';
+const getQueryParamToken = queryParams =>
+  queryParams.length === 0 ? "?" : "&";
+
+// API Tags methods
+
+/**
+ * GET all possible tags
+ */
+const getTags = async () => {
+  const res = await getRequest(`${API_URL}/tags`);
+
+  return res ? res : [];
+};
 
 // API Users methods
 
@@ -105,4 +127,4 @@ const getUserLogged = async storedUser => {
   return user;
 };
 
-export { signUp, signIn, getUserLogged, listAdverts };
+export { signUp, signIn, getUserLogged, listAdverts, getTags };

@@ -7,9 +7,8 @@ export const fetchAdverts = (filters, paginationFilters) => {
     dispatch(fetchAdvertsRequest());
     try {
       const response = await API.listAdverts(filters, paginationFilters);
-      
+
       if (!response.success || response.errors) {
-        console.log("fallo");
         dispatch(fetchAdvertsFailure(response));
         return;
       }
@@ -32,6 +31,45 @@ export const fetchAdvertsSuccess = adverts => ({
 
 export const fetchAdvertsFailure = error => ({
   type: Types.FETCH_ADVERTS_FAILURE,
+  error
+});
+
+// Tags actions
+export const fetchTags = () => {
+  return async (dispatch, getState) => {
+    const { tags } = getState();
+
+    // Compruebo si los tags YA están cargados en el redux antes de consultar API
+    if (!tags || Object.entries(tags).length === 0) {
+      dispatch(fetchTagsRequest());
+      try {
+        const response = await API.getTags();
+
+        if (!response.success || response.errors) {
+          dispatch(fetchTagsFailure(response));
+          return;
+        }
+
+        dispatch(fetchTagsSuccess(response.results));
+      } catch (error) {
+        dispatch(fetchTagsFailure(error));
+      }
+    }
+  };
+};
+
+// TAGS_FETCH
+export const fetchTagsRequest = () => ({
+  type: Types.FETCH_TAGS_REQUEST
+});
+
+export const fetchTagsSuccess = tags => ({
+  type: Types.FETCH_TAGS_SUCCESS,
+  tags
+});
+
+export const fetchTagsFailure = error => ({
+  type: Types.FETCH_TAGS_FAILURE,
   error
 });
 
