@@ -20,6 +20,7 @@
     "STATUS": "Estado",
     "ON_PURCHASE": "Se compra",
     "ON_SALE": "En venta",
-    "ALL": "Todos"
+    "ALL": "Todos",
+    "NO_RESULTS_FOUND": "No se han encontrado resultados"
   }
 }

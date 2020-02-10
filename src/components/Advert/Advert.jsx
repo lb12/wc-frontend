@@ -1,12 +1,11 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-
+/* import { withRouter } from "react-router-dom"; */
 import "./Advert.css";
+import { withTranslation } from "react-i18next";
 
 class Advert extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   render() {
@@ -43,4 +42,4 @@ class Advert extends React.Component {
   }
 }
 
-export default Advert;
+export default withTranslation()(Advert);

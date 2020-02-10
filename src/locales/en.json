@@ -20,6 +20,7 @@
     "STATUS": "Status",
     "ON_PURCHASE": "On purchase",
     "ON_SALE": "On sale",
-    "ALL": "All"
+    "ALL": "All",
+    "NO_RESULTS_FOUND": "No results found"
   }
 }

@@ -3,8 +3,9 @@ import React from "react";
 import Advert from "../Advert";
 
 import "./AdvertList.css";
+import { withTranslation } from "react-i18next";
 
-export default class AdvertList extends React.Component {
+class AdvertList extends React.Component {
   buildAdvertList = adverts => {
     return (
       <div className="adverts-container">
@@ -17,13 +18,15 @@ export default class AdvertList extends React.Component {
 
   render() {
     const adverts = this.props.adverts;
+    const { t } = this.props;
 
     return (
       <div>
         {adverts && adverts.length && adverts.count !== 0
           ? this.buildAdvertList(adverts)
-          : "No hay resultados"}
+          : t("NO_RESULTS_FOUND")}
       </div>
     );
   }
 }
+export default withTranslation()(AdvertList)
