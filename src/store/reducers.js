@@ -11,8 +11,10 @@ export const initialState = {
 export const adverts = (state = initialState.adverts, action) => {
   switch (action.type) {
     case Types.FETCH_ADVERTS_SUCCESS:
+    case Types.FETCH_MEMBER_ADVERTS_SUCCESS:
       return action.adverts;
     case Types.FETCH_ADVERTS_FAILURE:
+    case Types.FETCH_MEMBER_ADVERTS_FAILURE:
       return action.error;
     default:
       return state;

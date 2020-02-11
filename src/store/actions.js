@@ -8,7 +8,6 @@ export const fetchAdverts = filters => {
     dispatch(fetchAdvertsRequest());
     try {
       const { paginationFilters } = getState();
-      console.log(paginationFilters);
       const response = await API.listAdverts(filters, paginationFilters);
 
       if (!response.success || response.errors) {
@@ -28,6 +27,30 @@ export const fetchAdverts = filters => {
   };
 };
 
+export const fetchMemberAdverts = memberId => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMemberAdvertsRequest());
+    try {
+      const { paginationFilters } = getState();
+      const response = await API.listMemberAdverts(memberId, paginationFilters);
+
+      if (!response.success || response.errors) {
+        dispatch(fetchMemberAdvertsFailure(response));
+        return;
+      }
+
+      dispatch(
+        fetchMemberAdvertsSuccess({
+          adverts: response.results,
+          total: response.totalAdverts
+        })
+      );
+    } catch (error) {
+      dispatch(fetchMemberAdvertsFailure(error));
+    }
+  };
+};
+
 export const fetchAdvertsRequest = () => ({
   type: Types.FETCH_ADVERTS_REQUEST
 });
@@ -39,6 +62,20 @@ export const fetchAdvertsSuccess = adverts => ({
 
 export const fetchAdvertsFailure = error => ({
   type: Types.FETCH_ADVERTS_FAILURE,
+  error
+});
+
+export const fetchMemberAdvertsRequest = () => ({
+  type: Types.FETCH_MEMBER_ADVERTS_REQUEST
+});
+
+export const fetchMemberAdvertsSuccess = adverts => ({
+  type: Types.FETCH_MEMBER_ADVERTS_SUCCESS,
+  adverts
+});
+
+export const fetchMemberAdvertsFailure = error => ({
+  type: Types.FETCH_MEMBER_ADVERTS_FAILURE,
   error
 });
 

@@ -40,6 +40,29 @@ const listAdverts = async (
   return res;
 };
 
+const listMemberAdverts = async (memberId, { adsPerPage, page }) => {
+  let queryParams = "";
+
+  queryParams += `${getQueryParamToken(queryParams)}page=${page}`;
+  queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
+  queryParams +=
+    page > 1
+      ? `${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`
+      : "";
+
+  const res = await getRequest(
+    `${API_URL}/adverts/member/${memberId}${queryParams}`
+  );
+
+  console.log("listMemberAdverts desde APIService.js", res);
+
+  if (!res) return [];
+
+  res.results = res.results.map(advert => new Advert(advert));
+
+  return res;
+};
+
 const getQueryParamToken = queryParams =>
   queryParams.length === 0 ? "?" : "&";
 
@@ -130,4 +153,11 @@ const getUserLogged = async storedUser => {
   return user;
 };
 
-export { signUp, signIn, getUserLogged, listAdverts, getTags };
+export {
+  signUp,
+  signIn,
+  getUserLogged,
+  listAdverts,
+  getTags,
+  listMemberAdverts
+};

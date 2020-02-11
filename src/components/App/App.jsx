@@ -12,12 +12,15 @@ import ErrorBoundary from "../ErrorBoundary";
 import PublicHome from "../PublicHome";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
+import Profile from "../Profile";
+import AdvertDetail from "../AdvertDetail";
 
 // Private zone components imports
 import PrivateHome from "../PrivateHome";
 
 // Component imports
 import "./App.css";
+import NotFoundPage from "../NotFoundPage";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -38,14 +41,6 @@ export default class App extends React.Component {
             <Router>
               <Navbar />
               <div>
-                <React.Fragment>
-                  <Switch>
-                    <Route path="/sign-in" component={SignIn} />
-                    <Route path="/sign-up" component={SignUp} />
-                    <Route exact path="/" component={PublicHome} />
-                  </Switch>
-                </React.Fragment>
-
                 {this.isUserLogged() && (
                   <React.Fragment>
                     <div id="main">
@@ -55,6 +50,16 @@ export default class App extends React.Component {
                     </div>
                   </React.Fragment>
                 )}
+                <React.Fragment>
+                  <Switch>
+                    <Route path="/sign-in" component={SignIn} />
+                    <Route path="/sign-up" component={SignUp} />
+                    <Route path="/profile/:username/:id" component={Profile} />
+                    <Route path="/advert/:advertSlug/:id" component={AdvertDetail} />
+                    <Route exact path="/" component={PublicHome} />
+                    <Route exact path='*' component={NotFoundPage} />
+                  </Switch>
+                </React.Fragment>
               </div>
               <Footer />
             </Router>
