@@ -5,7 +5,7 @@ export const initialState = {
   user: {},
   adverts: [],
   tags: [],
-  paginationFilters: PaginationFilters // page, adsPerPage, disableNextPage
+  paginationFilters: PaginationFilters // page, adsPerPage
 };
 
 export const adverts = (state = initialState.adverts, action) => {

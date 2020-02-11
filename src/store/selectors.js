@@ -3,6 +3,7 @@ export const isUserLogged = user => {
   return user && user.token;
 };
 
+// Returns if the  pagination next button has to be disabled or not
 export const hasToDisableNextPageButton = (
   { page, adsPerPage },
   totalAdverts

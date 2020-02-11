@@ -22,6 +22,7 @@ const listAdverts = async (
   if (sort && sort.length)
     queryParams += `${getQueryParamToken(queryParams)}sort=${sort}`;
 
+  queryParams += `${getQueryParamToken(queryParams)}page=${page}`;
   queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
   queryParams +=
     page > 1

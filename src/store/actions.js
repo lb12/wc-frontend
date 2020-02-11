@@ -1,5 +1,6 @@
 import * as Types from "./types";
 import * as API from "../services/APIService";
+import { PaginationFilters } from "../utils/variables";
 
 // Advert actions
 export const fetchAdverts = filters => {
@@ -7,6 +8,7 @@ export const fetchAdverts = filters => {
     dispatch(fetchAdvertsRequest());
     try {
       const { paginationFilters } = getState();
+      console.log(paginationFilters);
       const response = await API.listAdverts(filters, paginationFilters);
 
       if (!response.success || response.errors) {
@@ -152,10 +154,16 @@ export const signInFailure = error => ({
 });
 
 // Pagination actions
-export const setDisableNextPage = disableNextPage => {
+export const setChangePage = page => {
   return function(dispatch, getState) {
     const { paginationFilters } = getState();
-    dispatch(setPaginationFilters({ ...paginationFilters, disableNextPage }));
+    dispatch(setPaginationFilters({ ...paginationFilters, page }));
+  };
+};
+
+export const resetPaginationFilters = () => {
+  return function(dispatch) {
+    dispatch(setPaginationFilters(PaginationFilters));
   };
 };
 

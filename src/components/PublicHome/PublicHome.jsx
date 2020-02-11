@@ -3,7 +3,6 @@ import { withTranslation } from "react-i18next";
 
 import AdvertList from "../AdvertList";
 import Filters from "../Filters";
-import { PaginationFilters } from "../../utils/variables.js";
 import Pagination from "../Pagination";
 
 class PublicHome extends React.Component {
@@ -16,14 +15,11 @@ class PublicHome extends React.Component {
   }
 
   componentDidMount() {
-    this.searchAdverts()
-    .then( () => {
-      const { hasToDisableNextPageButton } = this.props;
-      hasToDisableNextPageButton && this.props.disableNextPage(true);
-    });
+    this.searchAdverts();
   }
 
   onFiltered = filters => {
+    this.props.resetPaginationFilters(); // Reset page of pagination
     this.setState({ ...this.state, filters }, () => this.searchAdverts());
   };
 
@@ -32,14 +28,18 @@ class PublicHome extends React.Component {
     await this.props.loadAdverts(filters);
   };
 
+  onPageChanged = () => {
+    this.searchAdverts();
+  };
+
   render() {
     const { t } = this.props;
     return (
       <div>
         <span>{t("PUBLIC_ZONE")}</span>
         <Filters onSubmit={this.onFiltered} />
-          <AdvertList />
-          <Pagination onPageChanged={this.onPageChanged} />
+        <AdvertList />
+        <Pagination onPageChanged={this.onPageChanged} />
       </div>
     );
   }

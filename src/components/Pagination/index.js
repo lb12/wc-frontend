@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 
-import { setDisableNextPage } from "../../store/actions";
+import { setChangePage, setDisableNextPage } from "../../store/actions";
 import { hasToDisableNextPageButton } from "../../store/selectors";
 import Pagination from "./Pagination";
 
 const mapStateToProps = state => ({
+  adverts: state.adverts.adverts,
   totalAdverts: state.adverts.total,
   paginationFilters: state.paginationFilters,
   hasToDisableNextPageButton: hasToDisableNextPageButton(
@@ -14,8 +15,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  disableNextPage: disableNextPage =>
-    dispatch(setDisableNextPage(disableNextPage))
+  changePage: page => dispatch(setChangePage(page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
