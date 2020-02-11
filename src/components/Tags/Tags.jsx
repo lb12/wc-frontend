@@ -7,6 +7,7 @@ class Tags extends React.Component {
   }
 
   renderTags = tags => {
+    if (!tags) return [];
     return tags.map(tag => (
       <option key={tag} value={tag}>
         {tag}
@@ -33,28 +34,32 @@ class Tags extends React.Component {
     const required_ = this.props.required;
     return (
       <div>
-        {tags && tags.length && !this.props.multiple ? (
-          <select
-            defaultValue=""
-            required={required_}
-            className="form-control"
-            id="tags-select"
-            onChange={this.onChange}
-          >
-            <option value="">{t("ALL_TAGS")}</option>
-            {this.renderTags(tags)}
-          </select>
-        ) : (
-          <select
-            multiple
-            value={this.props.selectedTags}
-            required={required_}
-            className="form-control"
-            id="tags-select"
-            onChange={this.onMultipleChange}
-          >
-            {this.renderTags(tags)}
-          </select>
+        {tags && tags.length && !tags.errors &&(
+          <React.Fragment>
+            {!this.props.multiple ? (
+              <select
+                defaultValue=""
+                required={required_}
+                className="form-control"
+                id="tags-select"
+                onChange={this.onChange}
+              >
+                <option value="">{t("ALL_TAGS")}</option>
+                {this.renderTags(tags)}
+              </select>
+            ) : (
+              <select
+                multiple
+                value={this.props.selectedTags}
+                required={required_}
+                className="form-control"
+                id="tags-select"
+                onChange={this.onMultipleChange}
+              >
+                {this.renderTags(tags)}
+              </select>
+            )}
+          </React.Fragment>
         )}
       </div>
     );
