@@ -1,7 +1,9 @@
 import React from "react";
+import { withTranslation } from "react-i18next";
+
 import "./Pagination.css";
 
-export default class Pagination extends React.Component {
+class Pagination extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,7 +21,8 @@ export default class Pagination extends React.Component {
     const {
       hasToDisableNextPageButton,
       paginationFilters,
-      adverts
+      adverts,
+      t
     } = this.props;
     const { page } = paginationFilters;
     return (
@@ -32,7 +35,7 @@ export default class Pagination extends React.Component {
                 id="prev-page"
                 onClick={this.onPageChanged}
               >
-                Previous
+                {t("PREVIOUS")}
               </span>
             </li>
             <li className="page-item">
@@ -48,7 +51,7 @@ export default class Pagination extends React.Component {
                 id="next-page"
                 onClick={this.onPageChanged}
               >
-                Next
+                {t("NEXT")}
               </span>
             </li>
           </ul>
@@ -57,3 +60,4 @@ export default class Pagination extends React.Component {
     );
   }
 }
+export default withTranslation()(Pagination);
