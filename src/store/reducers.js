@@ -1,9 +1,11 @@
 import * as Types from "./types";
+import { PaginationFilters } from "../utils/variables.js";
 
 export const initialState = {
   user: {},
   adverts: [],
-  tags: []
+  tags: [],
+  paginationFilters: PaginationFilters // page, adsPerPage, disableNextPage
 };
 
 export const adverts = (state = initialState.adverts, action) => {
@@ -37,6 +39,18 @@ export const user = (state = initialState.user, action) => {
     case Types.SIGN_UP_FAILURE:
     case Types.SIGN_IN_FAILURE:
       return action.error;
+    default:
+      return state;
+  }
+};
+
+export const paginationFilters = (
+  state = initialState.paginationFilters,
+  action
+) => {
+  switch (action.type) {
+    case Types.SET_PAGINATION_FILTERS:
+      return action.paginationFilters;
     default:
       return state;
   }

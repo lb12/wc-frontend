@@ -4,28 +4,32 @@ import { withTranslation } from "react-i18next";
 import AdvertList from "../AdvertList";
 import Filters from "../Filters";
 import { PaginationFilters } from "../../utils/variables.js";
+import Pagination from "../Pagination";
 
 class PublicHome extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      filters: {},
-      paginationFilters: PaginationFilters
+      filters: {}
     };
   }
 
   componentDidMount() {
-    this.searchAdverts();
+    this.searchAdverts()
+    .then( () => {
+      const { hasToDisableNextPageButton } = this.props;
+      hasToDisableNextPageButton && this.props.disableNextPage(true);
+    });
   }
 
   onFiltered = filters => {
     this.setState({ ...this.state, filters }, () => this.searchAdverts());
   };
 
-  searchAdverts = () => {
-    const { filters, paginationFilters } = this.state;
-    this.props.loadAdverts(filters, paginationFilters);
+  searchAdverts = async () => {
+    const { filters } = this.state;
+    await this.props.loadAdverts(filters);
   };
 
   render() {
@@ -34,7 +38,8 @@ class PublicHome extends React.Component {
       <div>
         <span>{t("PUBLIC_ZONE")}</span>
         <Filters onSubmit={this.onFiltered} />
-        <AdvertList />
+          <AdvertList />
+          <Pagination onPageChanged={this.onPageChanged} />
       </div>
     );
   }

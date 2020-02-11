@@ -2,10 +2,11 @@ import * as Types from "./types";
 import * as API from "../services/APIService";
 
 // Advert actions
-export const fetchAdverts = (filters, paginationFilters) => {
-  return async dispatch => {
+export const fetchAdverts = filters => {
+  return async (dispatch, getState) => {
     dispatch(fetchAdvertsRequest());
     try {
+      const { paginationFilters } = getState();
       const response = await API.listAdverts(filters, paginationFilters);
 
       if (!response.success || response.errors) {
@@ -13,7 +14,12 @@ export const fetchAdverts = (filters, paginationFilters) => {
         return;
       }
 
-      dispatch(fetchAdvertsSuccess(response.results));
+      dispatch(
+        fetchAdvertsSuccess({
+          adverts: response.results,
+          total: response.totalAdverts
+        })
+      );
     } catch (error) {
       dispatch(fetchAdvertsFailure(error));
     }
@@ -143,4 +149,17 @@ export const signInSuccess = user => ({
 export const signInFailure = error => ({
   type: Types.SIGN_IN_FAILURE,
   error
+});
+
+// Pagination actions
+export const setDisableNextPage = disableNextPage => {
+  return function(dispatch, getState) {
+    const { paginationFilters } = getState();
+    dispatch(setPaginationFilters({ ...paginationFilters, disableNextPage }));
+  };
+};
+
+export const setPaginationFilters = paginationFilters => ({
+  type: Types.SET_PAGINATION_FILTERS,
+  paginationFilters
 });

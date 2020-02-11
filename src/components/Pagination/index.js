@@ -1,11 +1,10 @@
 import { connect } from "react-redux";
 
-import { fetchAdverts, setDisableNextPage } from "../../store/actions";
+import { setDisableNextPage } from "../../store/actions";
 import { hasToDisableNextPageButton } from "../../store/selectors";
-import PublicHome from "./PublicHome";
+import Pagination from "./Pagination";
 
 const mapStateToProps = state => ({
-  adverts: state.adverts.adverts,
   totalAdverts: state.adverts.total,
   paginationFilters: state.paginationFilters,
   hasToDisableNextPageButton: hasToDisableNextPageButton(
@@ -15,9 +14,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadAdverts: filters => dispatch(fetchAdverts(filters)),
   disableNextPage: disableNextPage =>
     dispatch(setDisableNextPage(disableNextPage))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PublicHome);
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
