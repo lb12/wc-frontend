@@ -4,6 +4,7 @@ import { PaginationFilters } from "../utils/variables.js";
 export const initialState = {
   user: {},
   adverts: [],
+  advert: {},
   tags: [],
   paginationFilters: PaginationFilters // page, adsPerPage
 };
@@ -15,6 +16,17 @@ export const adverts = (state = initialState.adverts, action) => {
       return action.adverts;
     case Types.FETCH_ADVERTS_FAILURE:
     case Types.FETCH_MEMBER_ADVERTS_FAILURE:
+      return action.error;
+    default:
+      return state;
+  }
+};
+
+export const advert = (state = initialState.advert, action) => {
+  switch (action.type) {
+    case Types.FETCH_ADVERT_SUCCESS:
+      return action.advert;
+    case Types.FETCH_ADVERT_FAILURE:
       return action.error;
     default:
       return state;

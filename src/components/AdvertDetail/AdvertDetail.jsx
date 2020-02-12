@@ -1,28 +1,27 @@
-import React from 'react';
-import './AdvertDetail.css';
+import React from "react";
+import Advert from "../Advert";
+import "./AdvertDetail.css";
 
 export default class AdvertDetail extends React.Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      advert: null,
-      advertError: false
-    }
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.getAdvert(id);
   }
 
   render() {
-    const { advert, advertError } = this.state;
+    const { advert } = this.props;
+    
     return (
       <React.Fragment>
-        {
-          !advertError && advert ?
+        {advert && (
           <div className="detail">
-            <button className="btn btn-primary edit-ad-submit-btn">Edit advert</button>
+            <Advert advert={advert} />
           </div>
-          :
-          <div>ADVERT DETAIL PAGE</div>
-        }
+        )}
       </React.Fragment>
     );
   }

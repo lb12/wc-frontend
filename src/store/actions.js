@@ -27,6 +27,24 @@ export const fetchAdverts = filters => {
   };
 };
 
+export const fetchAdvert = id => {
+  return async (dispatch, getState) => {
+    dispatch(fetchAdvertRequest());
+    try {
+      const response = await API.getAdvertById(id);
+
+      if (!response.success || response.errors) {
+        dispatch(fetchAdvertFailure(response));
+        return;
+      }
+
+      dispatch(fetchAdvertSuccess({ advert: response.result }));
+    } catch (error) {
+      dispatch(fetchAdvertFailure(error));
+    }
+  };
+};
+
 export const fetchMemberAdverts = memberId => {
   return async (dispatch, getState) => {
     dispatch(fetchMemberAdvertsRequest());
@@ -62,6 +80,20 @@ export const fetchAdvertsSuccess = adverts => ({
 
 export const fetchAdvertsFailure = error => ({
   type: Types.FETCH_ADVERTS_FAILURE,
+  error
+});
+
+export const fetchAdvertRequest = () => ({
+  type: Types.FETCH_ADVERT_REQUEST
+});
+
+export const fetchAdvertSuccess = advert => ({
+  type: Types.FETCH_ADVERT_SUCCESS,
+  advert
+});
+
+export const fetchAdvertFailure = error => ({
+  type: Types.FETCH_ADVERT_FAILURE,
   error
 });
 

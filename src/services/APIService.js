@@ -66,6 +66,13 @@ const listMemberAdverts = async (memberId, { adsPerPage, page }) => {
 const getQueryParamToken = queryParams =>
   queryParams.length === 0 ? "?" : "&";
 
+const getAdvertById = async id => {
+  const res = await getRequest(`${API_URL}/adverts/${id}`);
+  console.log("getAdvertById desde APIService.js", res);
+
+  return res;
+};
+
 // API Tags methods
 
 /**
@@ -159,5 +166,6 @@ export {
   getUserLogged,
   listAdverts,
   getTags,
-  listMemberAdverts
+  listMemberAdverts,
+  getAdvertById
 };
