@@ -63,7 +63,7 @@ class Filters extends React.Component {
     this.setState({ filters });
   };
 
-  onChangeTag = optionSelected => {    
+  onChangeTag = optionSelected => {
     let filters = this.state.filters;
     filters.tag = optionSelected;
 
@@ -75,21 +75,19 @@ class Filters extends React.Component {
     let filters = this.state.filters;
     filters.sort = value;
     this.setState({ filters });
-  }
+  };
 
   render() {
     const { name, lowerPrice, greaterPrice, selling } = this.state.filters;
     const { t } = this.props;
     return (
       <div className="card mt-4 mb-2">
-        <div className="card-header pointer">
-          <h3
-            className=""
-            data-toggle="collapse"
-            data-target="#collapseFilters"
-          >
-            {t("TO_FILTER")}
-          </h3>
+        <div
+          className="card-header pointer"
+          data-toggle="collapse"
+          data-target="#collapseFilters"
+        >
+          <h3>{t("TO_FILTER")}</h3>
         </div>
         <div className="collapse f-container" id="collapseFilters">
           <form onSubmit={this.onSubmit}>
