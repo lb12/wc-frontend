@@ -1,4 +1,4 @@
-nav.main-navbar {
+/* nav.main-navbar {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -10,3 +10,17 @@ nav.main-navbar {
 .main-navbar div {
     margin: 0 2rem;
 }
+ */
+
+ .navbar {
+     justify-content: space-between;
+ }
+ 
+ .navbar .nav-item a {
+     color: #fff;
+ }
+
+ .navbar .nav-item a:hover {
+    color: #fff;
+    text-decoration: none;
+ }

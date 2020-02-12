@@ -15,31 +15,29 @@ class Navbar extends React.Component {
 
   logout = () => {
     this.props.logout();
-  }
+  };
 
   render() {
     const { t } = this.props;
     return (
-      <nav className="main-navbar">
-        <div className="logo-container">
-          <Link className="nav-link" to="/">
-            <span>Wallaclone</span>
-          </Link>
-        </div>
-        {!this.isUserLogged() && (
-          <div className="sign-in-container">
-            <Link className="nav-link" to="/sign-in">
-              {t('SIGN_IN')}
-            </Link>
-          </div>
-        )}
-        {this.isUserLogged() && (
-          <div className="sign-in-container">
-            <Link className="nav-link" onClick={this.logout} to="/">
-            {t('EXIT')}
-            </Link>
-          </div>
-        )}
+      <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+        <Link className="navbar-brand" to="/">
+          <span>Wallaclone</span>
+        </Link>
+
+        <ul className="navbar-nav">
+          {!this.isUserLogged() ? (
+            <li className="nav-item">
+              <Link to="/sign-in">{t("SIGN_IN")}</Link>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <Link onClick={this.logout} to="/">
+                {t("EXIT")}
+              </Link>
+            </li>
+          )}
+        </ul>
       </nav>
     );
   }
