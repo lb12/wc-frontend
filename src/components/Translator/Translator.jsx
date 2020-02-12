@@ -13,9 +13,19 @@ export default function Translator() {
   };
 
   return (
-    <div>
-      <button onClick={() => changeLanguage("es")}>es</button>
-      <button onClick={() => changeLanguage("en")}>en</button>
-    </div>
+    <aside>
+      <div className="translation-container">
+        <img
+          src="/img/flag_es.png"
+          alt="es"
+          onClick={() => changeLanguage("es")}
+        />
+        <img
+          src="/img/flag_en.png"
+          alt="en"
+          onClick={() => changeLanguage("en")}
+        />
+      </div>
+    </aside>
   );
 }

@@ -1,0 +1,9 @@
+.translation-container {
+    display: flex;
+    width: 10rem;
+    justify-content: space-around;
+}
+
+.translation-container img {
+    cursor: pointer;
+}

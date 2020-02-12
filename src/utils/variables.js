@@ -4,5 +4,5 @@
  */
 export const PaginationFilters = {
   page: 1,
-  adsPerPage: 5
+  adsPerPage: 1
 };

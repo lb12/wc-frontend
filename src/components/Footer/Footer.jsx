@@ -11,11 +11,11 @@ class Footer extends React.Component {
       <footer className="main-footer">
         <aside>
           <span>{t('WEBPAGE_MADE_BY')}</span>
-          <a href="https://github.com/lb12" target="_blank">
+          <a href="https://github.com/lb12" target="_blank" className="author">
             <span>David Escribano Rodríguez</span>
           </a>
-          <Translator />
         </aside>
+        <Translator />
       </footer>
     );
   }
