@@ -22,7 +22,7 @@ class Navbar extends React.Component {
     return (
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
         <Link className="navbar-brand" to="/">
-          <span>Wallaclone</span>
+          <span className="nav-logo">Wallaclone</span>
         </Link>
 
         <ul className="navbar-nav">
