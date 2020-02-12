@@ -1,6 +1,7 @@
 import React from "react";
 import Advert from "../Advert";
 import "./AdvertDetail.css";
+import ShareMediaToolbar from "../ShareMediaToolbar";
 
 export default class AdvertDetail extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class AdvertDetail extends React.Component {
         {advert && (
           <div className="detail">
             <Advert advert={advert} />
+            <ShareMediaToolbar />
           </div>
         )}
       </React.Fragment>
