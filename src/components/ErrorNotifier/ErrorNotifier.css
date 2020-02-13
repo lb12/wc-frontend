@@ -1,9 +1,7 @@
-.error-container {
-  background-color: red;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.error-notification {
+  padding: 0;
 }
 
-.error-container li {
-  color: white;
+.error-notification li{
+  list-style-type: none;
 }
