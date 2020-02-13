@@ -8,10 +8,6 @@ import { LinkedinShareButton, LinkedinIcon } from "react-share";
 import { EmailShareButton, EmailIcon } from "react-share";
 
 export default class ShareMediaToolbar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const shareUrl = window.location.href;
     return (

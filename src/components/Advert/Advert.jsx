@@ -5,8 +5,9 @@ import { withTranslation } from "react-i18next";
 
 class Advert extends React.Component {
   render() {
-    const { t } = this.props;
-    const advert = this.props.advert;
+    const { t, advert } = this.props;
+    console.log('Advert', advert)
+
     const type = advert.forSale ? "sell" : "wanted";
     return (
       <div className="card mt-2">

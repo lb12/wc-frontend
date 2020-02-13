@@ -24,16 +24,12 @@ class Profile extends React.Component {
     const { username } = match.params;
 
     return (
-      <div>
-        <div>
-          <div className="mt-4">
-            <h1 className="font-size-2 text-center mt-5 profile-header-text">{`${t(
-              "ADVERTS_PUBLISHED_BY"
-            )} ${username}`}</h1>
-            <AdvertList />
-            <Pagination onPageChanged={this.onPageChanged} />
-          </div>
-        </div>
+      <div className="p-3 mt-4">
+        <h1 className="font-size-2 text-center mt-5 profile-header-text">{`${t(
+          "ADVERTS_PUBLISHED_BY"
+        )} ${username}`}</h1>
+        <AdvertList />
+        <Pagination onPageChanged={this.onPageChanged} />
       </div>
     );
   }
