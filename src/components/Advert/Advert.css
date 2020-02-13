@@ -31,9 +31,18 @@
   border-radius: 6px;
 }
 
+.card-member:hover {
+  text-decoration: none;
+  color: inherit;
+
+}
+
 .seller-name {
   color: #fd772c;
-  text-decoration: underline;
+}
+
+.seller-name:hover {
+  color: #ffa572;
 }
 
 .card-name {

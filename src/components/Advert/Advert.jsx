@@ -30,14 +30,15 @@ class Advert extends React.Component {
           <div className="card-subtitle card-name">
             <span>{advert.name}</span>
           </div>
-          <Link
-            className="card-subtitle"
-            to={`/profile/${advert.member.username}/${advert.member._id}`}
-          >
+          <div className="card-subtitle">
             <span>{advert.forSale ? t("SELLER") : t("BUYER")} </span>{" "}
-            <strong className="seller-name">{advert.member.username}</strong>
-          </Link>
-
+            <Link
+              className="card-member"
+              to={`/profile/${advert.member.username}/${advert.member._id}`}
+            >
+              <strong className="seller-name">{advert.member.username}</strong>
+            </Link>
+          </div>
           <p className="card-text card-description">{advert.description}</p>
         </div>
         <div className="card-footer card-tags">
