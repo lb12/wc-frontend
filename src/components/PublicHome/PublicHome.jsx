@@ -37,7 +37,7 @@ class PublicHome extends React.Component {
     const { t } = this.props;
     return (
       <div className="d-flex flex-column justify-content-center">
-        <h1 className="home-text text-center mt-5 mb-3">{t("WHAT_ARE_YOU_LOOKING_FOR_TODAY")}</h1>
+        <h1 className="font-size-2 text-center mt-5 mb-3">{t("WHAT_ARE_YOU_LOOKING_FOR_TODAY")}</h1>
         <div className="p-2">
           <Filters onSubmit={this.onFiltered} />        
           <div>

@@ -27,3 +27,7 @@ a {
 .empty-field-error {
   color: red;
 }
+
+.font-size-2 {
+  font-size: 2rem;
+}
