@@ -1,12 +1,12 @@
 import React from "react";
-import { Link /* withRouter */ } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Advert.css";
 import { withTranslation } from "react-i18next";
+import ShareMediaToolbar from "../ShareMediaToolbar";
 
 class Advert extends React.Component {
   render() {
     const { t, advert } = this.props;
-    console.log('Advert', advert)
 
     const type = advert.forSale ? "sell" : "wanted";
     return (
@@ -23,7 +23,10 @@ class Advert extends React.Component {
         </div>
         <span className="advert-type badge badge-info">{type}</span>
         <div className="card-body">
-          <h5 className="card-title card-price">{advert.price} €</h5>
+          <div className="card-title advert-title">
+            <h5 className=" card-price">{advert.price} €</h5>
+            <ShareMediaToolbar />
+          </div>
           <div className="card-subtitle card-name">
             <span>{advert.name}</span>
           </div>

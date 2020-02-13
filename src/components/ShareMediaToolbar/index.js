@@ -1,2 +1,2 @@
-import ShareMediaToolbar from './ShareMediaToolbar';
+import ShareMediaToolbar from "./ShareMediaToolbar";
 export default ShareMediaToolbar;

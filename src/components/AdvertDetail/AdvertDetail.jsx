@@ -12,14 +12,11 @@ export default class AdvertDetail extends React.Component {
   render() {
     const { advert } = this.props;
 
-    console.log(advert)
-    
     return (
       <React.Fragment>
         {advert && (
           <div className="advert-detail p-3">
             <Advert advert={advert} />
-            <ShareMediaToolbar />
           </div>
         )}
       </React.Fragment>
