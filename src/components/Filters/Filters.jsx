@@ -83,7 +83,7 @@ class Filters extends React.Component {
     return (
       <div className="card mt-4">
         <div
-          className="filter-form card-header d-flex justify-content-between align-items-center"
+          className="filters-form-header card-header d-flex justify-content-between align-items-center"
           data-toggle="collapse"
           data-target="#collapseFilters"
         >
@@ -93,120 +93,127 @@ class Filters extends React.Component {
           </div>
         </div>
         <div className="collapse f-container" id="collapseFilters">
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label className="input-label" htmlFor="name">
-                {t("NAME")}
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="form-control"
-                value={name}
-                placeholder={t("NAME")}
-                onChange={this.onInputChange}
-              />
-            </div>
-            <div className="form-group">
+          <form className="filters-form" onSubmit={this.onSubmit}>
+            <div className="filters-form-col">
               <div className="form-group">
-                <label className="input-label" htmlFor="lowerPrice">
-                  {t("LOWEST_PRICE")}
+                <label className="input-label" htmlFor="name">
+                  {t("NAME")}
                 </label>
                 <input
-                  type="number"
-                  name="lowerPrice"
-                  id="lowerPrice"
+                  type="text"
+                  name="name"
+                  id="name"
                   className="form-control"
-                  value={lowerPrice}
-                  placeholder={t("LOWEST_PRICE")}
+                  value={name}
+                  placeholder={t("NAME")}
                   onChange={this.onInputChange}
                 />
               </div>
-              <div>
-                <label className="input-label" htmlFor="greaterPrice">
-                  {t("GREATEST_PRICE")}
+              <div className="form-group">
+                <div className="form-group">
+                  <label className="input-label" htmlFor="lowerPrice">
+                    {t("LOWEST_PRICE")}
+                  </label>
+                  <input
+                    type="number"
+                    name="lowerPrice"
+                    id="lowerPrice"
+                    className="form-control"
+                    value={lowerPrice}
+                    placeholder={t("LOWEST_PRICE")}
+                    onChange={this.onInputChange}
+                  />
+                </div>
+                <div>
+                  <label className="input-label" htmlFor="greaterPrice">
+                    {t("GREATEST_PRICE")}
+                  </label>
+                  <input
+                    type="number"
+                    name="greaterPrice"
+                    id="greaterPrice"
+                    className="form-control"
+                    value={greaterPrice}
+                    placeholder={t("GREATEST_PRICE")}
+                    onChange={this.onInputChange}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="filters-form-col">
+              <div className="form-group">
+                <label className="input-label" htmlFor="tags-select">
+                  Tag
                 </label>
-                <input
-                  type="number"
-                  name="greaterPrice"
-                  id="greaterPrice"
+                <Tags onTagSelected={this.onChangeTag} />
+              </div>
+
+              <div className="form-group">
+                <label className="input-label" htmlFor="sortby-select">
+                  {t("SORT_BY")}
+                </label>
+                <select
+                  defaultValue=""
                   className="form-control"
-                  value={greaterPrice}
-                  placeholder={t("GREATEST_PRICE")}
-                  onChange={this.onInputChange}
-                />
+                  id="tags-select"
+                  onChange={this.onChangeSortingMethod}
+                >
+                  <option value="">{t("BY_DEFAULT")}</option>
+                  <option value="-1">{t("NEWER_TO_OLDER")}</option>
+                  <option value="1">{t("OLDER_TO_NEWER")}</option>
+                </select>
               </div>
-            </div>
-            <div className="form-group">
-              <label className="input-label" htmlFor="tags-select">
-                Tag
-              </label>
-              <Tags onTagSelected={this.onChangeTag} />
-            </div>
 
-            <div className="form-group">
-              <label className="input-label" htmlFor="sortby-select">
-                {t("SORT_BY")}
-              </label>
-              <select
-                defaultValue=""
-                className="form-control"
-                id="tags-select"
-                onChange={this.onChangeSortingMethod}
-              >
-                <option value="">{t("BY_DEFAULT")}</option>
-                <option value="-1">{t("NEWER_TO_OLDER")}</option>
-                <option value="1">{t("OLDER_TO_NEWER")}</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <div>
-                <span className="input-label">{t("STATUS")}</span>
-              </div>
-              <div className="form-check form-check-inline">
-                <input
-                  type="radio"
-                  name="selling"
-                  value={selling}
-                  id="buy-filter"
-                  className="form-check-input"
-                  onChange={this.onRadioChange}
-                />
-                <label className="form-check-label" htmlFor="buy-filter">
-                  {t("ON_PURCHASE")}
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <input
-                  type="radio"
-                  name="selling"
-                  value={selling}
-                  id="sell-filter"
-                  className="form-check-input"
-                  onChange={this.onRadioChange}
-                />
-                <label className="form-check-label" htmlFor="sell-filter">
-                  {t("ON_SALE")}
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <input
-                  type="radio"
-                  name="selling"
-                  value={selling}
-                  id="all-filter"
-                  className="form-check-input"
-                  onChange={this.onRadioChange}
-                />
-                <label className="form-check-label" htmlFor="all-filter">
-                  {t("ALL")}
-                </label>
+              <div className="form-group status-filter-container">
+                <div>
+                  <span className="input-label">{t("STATUS")}</span>
+                </div>
+                <div className="filters-form-status">
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      name="selling"
+                      value={selling}
+                      id="buy-filter"
+                      className="form-check-input"
+                      onChange={this.onRadioChange}
+                    />
+                    <label className="form-check-label" htmlFor="buy-filter">
+                      {t("ON_PURCHASE")}
+                    </label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      name="selling"
+                      value={selling}
+                      id="sell-filter"
+                      className="form-check-input"
+                      onChange={this.onRadioChange}
+                    />
+                    <label className="form-check-label" htmlFor="sell-filter">
+                      {t("ON_SALE")}
+                    </label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      name="selling"
+                      value={selling}
+                      id="all-filter"
+                      className="form-check-input"
+                      onChange={this.onRadioChange}
+                    />
+                    <label className="form-check-label" htmlFor="all-filter">
+                      {t("ALL")}
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary submit-btn">
+            <button type="submit" className="btn btn-primary submit-btn filters-form-submit-btn">
               {t("TO_FILTER")}
             </button>
           </form>

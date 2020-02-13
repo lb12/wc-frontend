@@ -10,10 +10,43 @@
     font-weight: bold;
 }
 
-.filter-form {
+.filters-form-header {
     background-color: #F0F1F7;
+    cursor: pointer;
 }
 
-.filter-form h3 {
+.filters-form-header h3 {
     font-size: 1.3rem;
+}
+
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .filters-form {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .filters-form-col {
+        flex-basis: 49%;
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
+
+    .status-filter-container {
+        margin: 0;
+    }
+
+    .filters-form-status {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: .8rem;
+    }
+
+    .filters-form-submit-btn {
+        flex-basis: 40%;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
 }
