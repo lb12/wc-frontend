@@ -40,7 +40,7 @@ export default class App extends React.Component {
           <Provider store={store}>
             <Router>
               <Navbar />
-              <div>
+              <div className="global-container">
                 {this.isUserLogged() && (
                   <React.Fragment>
                     <div id="main">
