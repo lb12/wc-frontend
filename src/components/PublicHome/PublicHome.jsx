@@ -42,6 +42,7 @@ class PublicHome extends React.Component {
           <Filters onSubmit={this.onFiltered} />        
           <div>
             <AdvertList />
+            <span>haha</span>
             <Pagination onPageChanged={this.onPageChanged} />
           </div>
         </div>

@@ -1,31 +1,39 @@
+.total-ads-count {
+  text-align: center;
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
 .adverts-container {
-    justify-content: space-between;
-    flex-flow: row wrap;
+  justify-content: space-between;
+  flex-flow: row wrap;
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-    .card {
-        flex-basis: 49%;
-    }
+  .card {
+    flex-basis: 49%;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-    .card {
-        flex-basis: calc(100% / 3.21);/* 31%; */
-        margin-right: .5rem;
-        margin-left: .5rem;
-    }
+  .card {
+    flex-basis: calc(100% / 3.21); /* 31%; */
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+  }
 
-    .adverts-container {
-        justify-content: flex-start;
-    }
+  .adverts-container {
+    justify-content: flex-start;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .card {
-        flex-basis: calc(100% / 4.23);
-    }
+  .card {
+    flex-basis: calc(100% / 4.23);
+  }
 }

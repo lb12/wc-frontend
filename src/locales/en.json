@@ -21,7 +21,7 @@
     "ON_PURCHASE": "On purchase",
     "ON_SALE": "On sale",
     "ALL": "All",
-    "NO_RESULTS_FOUND": "No results found",
+    "ADVERTS_FOUND": "{{count}} adverts found",
     "SORT_BY": "Sort by",
     "BY_DEFAULT": "By default",
     "NEWER_TO_OLDER": "Newer to older",

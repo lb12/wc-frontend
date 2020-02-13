@@ -17,16 +17,22 @@ class AdvertList extends React.Component {
   };
 
   render() {
-    const adverts = this.props.adverts;
+    const { adverts, advertsCount } = this.props;
+    console.log(adverts)
+    console.log(advertsCount)
     const { t } = this.props;
 
     return (
-      <div className="adverts-container d-flex">
-        {adverts && adverts.length && adverts.count !== 0
-          ? this.buildAdvertList(adverts)
-          : t("NO_RESULTS_FOUND")}
-      </div>
+      <React.Fragment>
+        <span className="total-ads-count">{ t("ADVERTS_FOUND", { count: advertsCount }) }</span>
+
+        {adverts && adverts.length && advertsCount !== 0 && (
+          <div className="adverts-container d-flex">
+            {this.buildAdvertList(adverts)}
+          </div>
+        )}
+      </React.Fragment>
     );
   }
 }
-export default withTranslation()(AdvertList)
+export default withTranslation()(AdvertList);

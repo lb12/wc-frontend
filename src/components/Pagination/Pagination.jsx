@@ -26,37 +26,39 @@ class Pagination extends React.Component {
     } = this.props;
     const { page } = paginationFilters;
     return (
-      <nav>
+      <React.Fragment>
         {adverts && adverts.length !== 0 && (
-          <ul className="pagination pagination-container justify-content-center">
-            <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-              <span
-                className="page-link pointer"
-                id="prev-page"
-                onClick={this.onPageChanged}
+          <nav>
+            <ul className="pagination pagination-container justify-content-center">
+              <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
+                <span
+                  className="page-link pointer"
+                  id="prev-page"
+                  onClick={this.onPageChanged}
+                >
+                  {t("PREVIOUS")}
+                </span>
+              </li>
+              <li className="page-item">
+                <span className="page-link">{page}</span>
+              </li>
+              <li
+                className={`page-item ${
+                  hasToDisableNextPageButton ? "disabled" : ""
+                }`}
               >
-                {t("PREVIOUS")}
-              </span>
-            </li>
-            <li className="page-item">
-              <span className="page-link">{page}</span>
-            </li>
-            <li
-              className={`page-item ${
-                hasToDisableNextPageButton ? "disabled" : ""
-              }`}
-            >
-              <span
-                className="page-link pointer"
-                id="next-page"
-                onClick={this.onPageChanged}
-              >
-                {t("NEXT")}
-              </span>
-            </li>
-          </ul>
+                <span
+                  className="page-link pointer"
+                  id="next-page"
+                  onClick={this.onPageChanged}
+                >
+                  {t("NEXT")}
+                </span>
+              </li>
+            </ul>
+          </nav>
         )}
-      </nav>
+      </React.Fragment>
     );
   }
 }

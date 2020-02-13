@@ -81,7 +81,7 @@ class Filters extends React.Component {
     const { name, lowerPrice, greaterPrice, selling } = this.state.filters;
     const { t } = this.props;
     return (
-      <div className="card mt-4">
+      <div className="filters-form-container card mt-4">
         <div
           className="filters-form-header card-header d-flex justify-content-between align-items-center"
           data-toggle="collapse"
