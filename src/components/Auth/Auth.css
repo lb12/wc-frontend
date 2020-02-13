@@ -1,0 +1,11 @@
+.sign-in-up-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  padding: 1rem;
+}
+
+.sign-in-up-header-text {
+  margin-bottom: 4rem;
+}

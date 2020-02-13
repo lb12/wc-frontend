@@ -1,0 +1,11 @@
+.sign-in-container-redirect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.sign-in-redirect-link a:hover {
+  text-decoration: none;
+  color: #fd772c;
+}

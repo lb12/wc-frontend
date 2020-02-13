@@ -10,8 +10,8 @@ import ErrorBoundary from "../ErrorBoundary";
 
 // Public zone components imports
 import PublicHome from "../PublicHome";
-import SignIn from "../SignIn";
-import SignUp from "../SignUp";
+import SignIn from "../Auth/SignIn";
+import SignUp from "../Auth/SignUp";
 import Profile from "../Profile";
 import AdvertDetail from "../AdvertDetail";
 
