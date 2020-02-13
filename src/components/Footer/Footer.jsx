@@ -10,8 +10,13 @@ class Footer extends React.Component {
     return (
       <footer className="main-footer">
         <aside>
-          <span>{t('WEBPAGE_MADE_BY')}</span>
-          <a href="https://github.com/lb12" target="_blank" className="author">
+          <span>{t("WEBPAGE_MADE_BY")}</span>
+          <a
+            href="https://github.com/lb12"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="author"
+          >
             <span>David Escribano Rodríguez</span>
           </a>
         </aside>
