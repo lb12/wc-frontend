@@ -1,13 +1,4 @@
-.pag-container {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 3rem;
-}
-
-.pag-buttons {
-    display: flex;
-    justify-content: space-around;
-    width: 20%;
+.pagination-container { 
+    margin-top: 1rem;
+    margin-bottom: .75rem;
 }

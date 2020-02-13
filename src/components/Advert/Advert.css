@@ -1,62 +1,60 @@
-.type-badge {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;    
-    border-radius: .3rem;
-    color: wheat;
-    font-weight: bold;
-    padding: .3rem;
+.advert-type {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  width: 2.5rem;
 }
 
-.price {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: .4rem 1rem;
-    border-radius: 1rem;
-    background-color: rgba(255, 230, 0, 0.7);
-    font-weight: bold;
-}
-.pointer .card-img-top {
-    height: 300px;
+.card-price {
+  font-size: 1.5rem;
 }
 
-.type-badge-buy {
-    background-color: red;
+.LA_IMAGEN {
+    height: 253px;
+    padding: 4px 4px 0;
+    background-color: #fff;
+    overflow: hidden;
+    position: relative
 }
 
-.type-badge-sell {
-    color: black;
-    background-color: greenyellow;
+.LA_IMAGEN img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
+.seller-name {
+    color: #fd772c;
+    text-decoration: underline;
+}
 
-.tag-badge-container {
+.card-name {
+  color: #253238;
+  font-size: 1.2rem;
+  line-height: 22px;
+  margin-bottom: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  position: relative;
+  overflow: hidden;
+  color: #607d8b;
+  font-size: 0.875rem;
+  height: 65px;
+  word-wrap: break-word;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.card-tags {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-}
-
-.tag-badge {
-    border-radius: .25rem;
-    padding: .1rem .5rem;
-    white-space: nowrap;
-    color: white;
-    margin: .3rem;
-}
-
-.tag-lifestyle {
-    background-color: #007BFF;
-}
-
-.tag-work {
-    background-color: #6C757D;
-}
-
-.tag-mobile {
-    background-color: #28A745;
-}
-
-.tag-motor {
-    background-color: #DC3545;
+    justify-content: space-evenly;
 }

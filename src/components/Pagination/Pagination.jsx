@@ -28,7 +28,7 @@ class Pagination extends React.Component {
     return (
       <nav>
         {adverts && adverts.length !== 0 && (
-          <ul className="pagination justify-content-center">
+          <ul className="pagination pagination-container justify-content-center">
             <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
               <span
                 className="page-link pointer"

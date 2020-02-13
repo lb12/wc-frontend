@@ -8,11 +8,11 @@ import { withTranslation } from "react-i18next";
 class AdvertList extends React.Component {
   buildAdvertList = adverts => {
     return (
-      <div className="adverts-container">
+      <React.Fragment>
         {adverts.map(advert => (
           <Advert key={advert.id} advert={advert} />
         ))}
-      </div>
+      </React.Fragment>
     );
   };
 
@@ -21,7 +21,7 @@ class AdvertList extends React.Component {
     const { t } = this.props;
 
     return (
-      <div>
+      <div className="adverts-container d-flex">
         {adverts && adverts.length && adverts.count !== 0
           ? this.buildAdvertList(adverts)
           : t("NO_RESULTS_FOUND")}

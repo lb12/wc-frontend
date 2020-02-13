@@ -1,33 +1,30 @@
 .adverts-container {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    flex-flow: row wrap;
 }
 
-.adverts-container .card {
-    margin-bottom: 3rem;;
-}
-
-
-@media(min-width: 576px) {
-    .adverts-container {
-        flex-flow: row wrap;
-    }
-    
-    .adverts-container .card {
-        flex-basis: 40%;
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .card {
+        flex-basis: 49%;
     }
 }
 
-@media(min-width: 768px) {
-    .adverts-container .card {
-        flex-basis: 30%;
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .card {
+        flex-basis: 32%;
     }
 }
 
-@media(min-width: 992px) {
-    .adverts-container .card {
-        flex-basis: 25%;
-        margin-right: 1rem;
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .card {
+        flex-basis: 24%;
     }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }

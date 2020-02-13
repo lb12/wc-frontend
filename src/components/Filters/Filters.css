@@ -9,3 +9,11 @@
 .f-container .input-label {
     font-weight: bold;
 }
+
+.filter-form {
+    background-color: #F0F1F7;
+}
+
+.filter-form h3 {
+    font-size: 1.3rem;
+}

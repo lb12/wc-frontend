@@ -81,13 +81,16 @@ class Filters extends React.Component {
     const { name, lowerPrice, greaterPrice, selling } = this.state.filters;
     const { t } = this.props;
     return (
-      <div className="card mt-4 mb-2">
+      <div className="card mt-4">
         <div
-          className="card-header pointer"
+          className="filter-form card-header d-flex justify-content-between align-items-center"
           data-toggle="collapse"
           data-target="#collapseFilters"
         >
-          <h3>{t("TO_FILTER")}</h3>
+          <h3 className="mb-0">{t("TO_FILTER")}</h3>
+          <div>
+            <img src="/img/menu.png" alt="burger-menu" />
+          </div>
         </div>
         <div className="collapse f-container" id="collapseFilters">
           <form onSubmit={this.onSubmit}>

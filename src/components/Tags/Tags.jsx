@@ -1,5 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
+import './Tag.css';
 
 class Tags extends React.Component {
   componentDidMount() {

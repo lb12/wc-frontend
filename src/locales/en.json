@@ -28,6 +28,9 @@
     "OLDER_TO_NEWER": "Older to newer",
     "PREVIOUS": "Previous",
     "NEXT": "Next",
-    "ADVERTS_PUBLISHED_BY": "Adverts published by"
+    "ADVERTS_PUBLISHED_BY": "Adverts published by",
+    "WHAT_ARE_YOU_LOOKING_FOR_TODAY": "What are you looking for today?",
+    "SELLER": "Seller",
+    "BUYER": "Buyer"
   }
 }
