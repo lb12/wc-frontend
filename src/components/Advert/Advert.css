@@ -9,7 +9,7 @@
   font-size: 1.5rem;
 }
 
-.LA_IMAGEN {
+.advert-img-container {
     height: 253px;
     padding: 4px 4px 0;
     background-color: #fff;
@@ -17,7 +17,7 @@
     position: relative
 }
 
-.LA_IMAGEN img {
+.advert-img-container img {
     object-fit: cover;
     height: 100%;
     width: 100%;

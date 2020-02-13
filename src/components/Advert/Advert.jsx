@@ -14,7 +14,7 @@ class Advert extends React.Component {
     const type = advert.forSale ? "sell" : "wanted";
     return (
       <div className="card mt-2">
-        <div className="LA_IMAGEN">
+        <div className="advert-img-container">
           <Link to={`/advert/${advert.name}/${advert.id}`}>
             <img src={`https://localhost:3000/images/adverts/${advert.photo ? advert.photo : 'empty_advert_pic.png'}`}
               alt={`${advert.name}_advert_img`}/>
