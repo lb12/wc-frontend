@@ -1,7 +1,6 @@
 import React from "react";
 import Advert from "../Advert";
 import "./AdvertDetail.css";
-import ShareMediaToolbar from "../ShareMediaToolbar";
 
 export default class AdvertDetail extends React.Component {
   componentDidMount() {

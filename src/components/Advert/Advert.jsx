@@ -8,7 +8,7 @@ class Advert extends React.Component {
   render() {
     const { t, advert } = this.props;
 
-    const type = advert.forSale ? "sell" : "wanted";
+    const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
     return (
       <div className="card mt-2">
         <div className="advert-img-container">
@@ -21,7 +21,7 @@ class Advert extends React.Component {
             />
           </Link>
         </div>
-        <span className="advert-type badge badge-info">{type}</span>
+        <span className="advert-type badge badge-warning">{type}</span>
         <div className="card-body">
           <div className="card-title advert-title">
             <h5 className=" card-price">{advert.price} €</h5>
