@@ -13,18 +13,19 @@
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     .card {
-        flex-basis: 32%;
+        flex-basis: calc(100% / 3.21);/* 31%; */
+        margin-right: .5rem;
+        margin-left: .5rem;
+    }
+
+    .adverts-container {
+        justify-content: flex-start;
     }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     .card {
-        flex-basis: 24%;
+        flex-basis: calc(100% / 4.23);
     }
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
 }
