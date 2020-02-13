@@ -68,6 +68,11 @@ const getQueryParamToken = queryParams =>
 
 const getAdvertById = async id => {
   const res = await getRequest(`${API_URL}/adverts/${id}`);
+
+  if (res.success) {
+    res.result = new Advert(res.result);
+  }
+
   console.log("getAdvertById desde APIService.js", res);
 
   return res;
