@@ -5,10 +5,6 @@ import { withTranslation } from "react-i18next";
 import "./Navbar.css";
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   isUserLogged = () => {
     return this.props.isLogged;
   };

@@ -17,10 +17,7 @@ class AdvertList extends React.Component {
   };
 
   render() {
-    const { adverts, advertsCount } = this.props;
-    console.log(adverts);
-    console.log(advertsCount);
-    const { t } = this.props;
+    const { adverts, advertsCount, t } = this.props;
 
     return (
       <React.Fragment>

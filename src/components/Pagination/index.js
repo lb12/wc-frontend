@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { setChangePage, setDisableNextPage } from "../../store/actions";
+import { setChangePage } from "../../store/actions";
 import { hasToDisableNextPageButton } from "../../store/selectors";
 import Pagination from "./Pagination";
 

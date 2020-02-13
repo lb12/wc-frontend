@@ -156,7 +156,6 @@ class Filters extends React.Component {
                 <select
                   defaultValue=""
                   className="form-control"
-                  id="tags-select"
                   onChange={this.onChangeSortingMethod}
                 >
                   <option value="">{t("BY_DEFAULT")}</option>
@@ -213,7 +212,10 @@ class Filters extends React.Component {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary submit-btn filters-form-submit-btn">
+            <button
+              type="submit"
+              className="btn btn-primary submit-btn filters-form-submit-btn"
+            >
               {t("TO_FILTER")}
             </button>
           </form>

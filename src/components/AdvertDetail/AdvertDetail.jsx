@@ -4,10 +4,6 @@ import "./AdvertDetail.css";
 import ShareMediaToolbar from "../ShareMediaToolbar";
 
 export default class AdvertDetail extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getAdvert(id);

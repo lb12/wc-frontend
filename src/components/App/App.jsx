@@ -23,10 +23,6 @@ import "./App.css";
 import NotFoundPage from "../NotFoundPage";
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   isUserLogged = () => {
     return this.props.isLogged;
   };

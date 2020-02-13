@@ -4,10 +4,6 @@ import { withTranslation } from "react-i18next";
 import "./Pagination.css";
 
 class Pagination extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   onPageChanged = evt => {
     const pageSum = evt.target.id === "prev-page" ? -1 : 1;
     const { paginationFilters, changePage, onPageChanged } = this.props;

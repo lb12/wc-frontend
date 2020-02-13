@@ -6,10 +6,6 @@ import Pagination from "../Pagination";
 import { withTranslation } from "react-i18next";
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.getMemberAdverts();
   }
@@ -31,7 +27,9 @@ class Profile extends React.Component {
       <div>
         <div>
           <div className="mt-4">
-            <h1 className="font-size-2 text-center mt-5 profile-header-text">{`${t("ADVERTS_PUBLISHED_BY")} ${username}`}</h1>
+            <h1 className="font-size-2 text-center mt-5 profile-header-text">{`${t(
+              "ADVERTS_PUBLISHED_BY"
+            )} ${username}`}</h1>
             <AdvertList />
             <Pagination onPageChanged={this.onPageChanged} />
           </div>
@@ -40,4 +38,4 @@ class Profile extends React.Component {
     );
   }
 }
-export default withTranslation()(Profile)
+export default withTranslation()(Profile);
