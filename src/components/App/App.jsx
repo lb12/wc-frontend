@@ -37,17 +37,11 @@ export default class App extends React.Component {
             <Router>
               <Navbar />
               <div className="global-container">
-                {this.isUserLogged() && (
-                  <React.Fragment>
-                    <div id="main">
-                      <Switch>
-                        <Route exact path="/my-zone" component={PrivateHome} />
-                      </Switch>
-                    </div>
-                  </React.Fragment>
-                )}
                 <React.Fragment>
                   <Switch>
+                    {this.isUserLogged() && (
+                      <Route path="/my-zone" component={PrivateHome}></Route>
+                    )}
                     <Route path="/sign-in" component={SignIn} />
                     <Route path="/sign-up" component={SignUp} />
                     <Route path="/profile/:username/:id" component={Profile} />
