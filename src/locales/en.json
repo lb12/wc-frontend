@@ -3,6 +3,7 @@
     "SIGN_IN": "Sign in",
     "SIGN_UP": "Sign up",
     "EXIT": "Exit",
+    "MY_ZONE": "My zone",
     "WEBPAGE_MADE_BY": "Web page made by",
     "ERROR_FILL_REQUIRED_FIELDS": "Fill in the required fields",
     "ERROR_USER_4_CHARS": "Username field requires at least 4 chars",

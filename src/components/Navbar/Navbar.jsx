@@ -21,17 +21,22 @@ class Navbar extends React.Component {
           <span className="nav-logo">Wallaclone</span>
         </Link>
 
-        <ul className="navbar-nav">
+        <ul className="navbar-nav flex-row justify-content-end flex-wrap">
           {!this.isUserLogged() ? (
             <li className="nav-item">
               <Link to="/sign-in">{t("SIGN_IN")}</Link>
             </li>
           ) : (
-            <li className="nav-item">
-              <Link onClick={this.logout} to="/">
-                {t("EXIT")}
-              </Link>
-            </li>
+            <React.Fragment>
+              <li className="nav-item">
+                <Link to="/my-zone">{t("MY_ZONE")}</Link>
+              </li>
+              <li className="nav-item pl-3">
+                <Link onClick={this.logout} to="/">
+                  {t("EXIT")}
+                </Link>
+              </li>
+            </React.Fragment>
           )}
         </ul>
       </nav>
