@@ -31,6 +31,14 @@
     "ADVERTS_PUBLISHED_BY": "Anuncios publicados por",
     "WHAT_ARE_YOU_LOOKING_FOR_TODAY": "¿Qué estás buscando hoy?",
     "SELLER": "Vendedor",
-    "BUYER": "Comprador"
+    "BUYER": "Comprador",
+    "PRIVATE_ZONE_OF": "Área personal de {{username}}",
+    "MY_ACCOUNT": "Mi cuenta",
+    "UPDATE_MY_DATA": "Actualizar mis datos",
+    "UNSUBSCRIBE": "Darme de baja",
+    "MY_ADS": "Mis anuncios",
+    "SEE_MY_ADS": "Ver mis anuncios",
+    "CREATE_NEW_ADVERT": "Crear anuncio",
+    "SEE_MY_FAV_ADS": "Ver mis anuncios favoritos"
   }
 }

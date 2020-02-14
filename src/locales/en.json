@@ -31,6 +31,14 @@
     "ADVERTS_PUBLISHED_BY": "Adverts published by",
     "WHAT_ARE_YOU_LOOKING_FOR_TODAY": "What are you looking for today?",
     "SELLER": "Seller",
-    "BUYER": "Buyer"
+    "BUYER": "Buyer",
+    "PRIVATE_ZONE_OF": "{{username}} personal area",
+    "MY_ACCOUNT": "My account",
+    "UPDATE_MY_DATA": "Update mi data account",
+    "UNSUBSCRIBE": "Unsubscribe",
+    "MY_ADS": "My adverts",
+    "SEE_MY_ADS": "See my adverts",
+    "CREATE_NEW_ADVERT": "Create a new advert",
+    "SEE_MY_FAV_ADS": "See my favourite adverts"
   }
 }

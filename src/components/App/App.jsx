@@ -16,7 +16,7 @@ import Profile from "../Profile";
 import AdvertDetail from "../AdvertDetail";
 
 // Private zone components imports
-import PrivateHome from "../PrivateHome";
+import PrivateHome from "../PrivateZone/PrivateHome";
 
 // Component imports
 import "./App.css";
