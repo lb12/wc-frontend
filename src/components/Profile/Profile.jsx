@@ -6,9 +6,6 @@ import Pagination from "../Pagination";
 import { withTranslation } from "react-i18next";
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     this.getMemberAdverts();
   }

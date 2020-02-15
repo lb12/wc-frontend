@@ -7,9 +7,6 @@ import Modal from "../../Modal";
 import "./MyAdverts.css";
 
 class MyAdverts extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     this.getMemberAdverts();
   }
