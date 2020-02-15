@@ -17,7 +17,7 @@ import AdvertDetail from "../AdvertDetail";
 
 // Private zone components imports
 import PrivateHome from "../PrivateZone/PrivateHome";
-import UserdataUpdate from "../PrivateZone/UserdataUpdate";
+import UserUpdate from "../PrivateZone/UserUpdate";
 import Unsubscribe from "../PrivateZone/Unsubscribe";
 import EditAdvert from "../PrivateZone/EditAdvert";
 // Component imports
@@ -45,7 +45,7 @@ export default class App extends React.Component {
                       { this.isUserLogged() ? <Unsubscribe /> : <Redirect to="/sign-in"/> }
                     </Route>
                     <Route path="/my-zone/update-my-data">
-                      { this.isUserLogged() ? <UserdataUpdate /> : <Redirect to="/sign-in"/> }
+                      { this.isUserLogged() ? <UserUpdate /> : <Redirect to="/sign-in"/> }
                     </Route>
                     <Route path="/my-zone/create-advert">
                       { this.isUserLogged() ? <EditAdvert /> : <Redirect to="/sign-in"/> }

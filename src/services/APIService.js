@@ -170,6 +170,48 @@ const getUserLogged = async storedUser => {
   return user;
 };
 
+const updateUserData = async (userId, { username, email }, token) => {
+  let result = {};
+  try {
+    result = { result } = await putRequest(`${API_URL}/user/${userId}`, {
+      username,
+      email,
+      token
+    });
+  } catch (error) {
+    const res = error.response.data;
+    const message = res.error ? res.error : res.message;
+
+    result = {
+      success: false,
+      errors: [message]
+    };
+  }
+  return result;
+};
+
+const changeUserPassword = async (userId, password, token) => {
+  let result = {};
+
+  try {
+    result = {
+      result
+    } = await putRequest(`${API_URL}/user/change-password/${userId}`, {
+      password,
+      token
+    });
+  } catch (error) {
+    const res = error.response.data;
+    const message = res.error ? res.error : res.message;
+
+    result = {
+      success: false,
+      errors: [message]
+    };
+  }
+  return result;
+};
+
 const unsubscribeUser = async (userId, token) => {
   let result = {};
 
@@ -197,5 +239,7 @@ export {
   getTags,
   listMemberAdverts,
   getAdvertById,
-  unsubscribeUser
+  unsubscribeUser,
+  updateUserData,
+  changeUserPassword
 };

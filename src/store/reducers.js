@@ -51,6 +51,7 @@ export const user = (state = initialState.user, action) => {
     case Types.SIGN_IN_SUCCESS:
     case Types.UNSUBSCRIBE_SUCCESS:
     case Types.SET_USER:
+    case Types.UPDATE_USER_DATA_SUCCESS:
       return action.user;
     case Types.SIGN_UP_FAILURE:
     case Types.SIGN_IN_FAILURE:
@@ -78,6 +79,8 @@ export const errorMessage = (
 ) => {
   switch (action.type) {
     case Types.UNSUBSCRIBE_FAILURE:
+    case Types.UPDATE_USER_DATA_FAILURE:
+    case Types.UPDATE_USER_PASSWORD_FAILURE:
       return action.error;
     default:
       return state;

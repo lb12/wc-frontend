@@ -42,6 +42,8 @@
     "CREATE_NEW_ADVERT": "Crear anuncio",
     "SEE_MY_FAV_ADS": "Ver mis anuncios favoritos",
     "DELETE_MY_PROFILE": "Borrar mi perfil",
-    "UNSUBSCRIBE_LABEL": "Escribe \"{{code}}\" para confirmar la baja de tu perfil"
+    "UNSUBSCRIBE_LABEL": "Escribe \"{{code}}\" para confirmar la baja de tu perfil",
+    "CHANGE_USERNAME_EMAIL": "Cambiar usuario y email",
+    "CHANGE_PASSWORD": "Cambiar contraseña"
   }
 }

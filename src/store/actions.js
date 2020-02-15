@@ -206,6 +206,46 @@ export const unsubscribeUser = () => {
   };
 };
 
+export const updateUserData = userObj => {
+  return async function(dispatch, getState) {
+    const { user, token } = getState().user;
+    const { _id } = user;
+    dispatch(updateUserDataRequest());
+    try {
+      const response = await API.updateUserData(_id, userObj, token);
+      if (!response.success || response.errors || response.error) {
+        dispatch(updateUserDataFailure(response));
+        return;
+      }
+      
+      dispatch(updateUserDataSuccess(response.result));
+    } catch (error) {
+      console.log(error);
+      dispatch(updateUserDataFailure(error));
+    }
+  };
+};
+
+export const updateUserPassword = password => {
+  return async function(dispatch, getState) {
+    const { user, token } = getState().user;
+    const { _id } = user;
+    dispatch(updateUserPasswordRequest());
+    try {
+      const response = await API.changeUserPassword(_id, password, token);
+      if (!response.success || response.errors || response.error) {
+        dispatch(updateUserPasswordFailure(response));
+        return;
+      }
+
+      dispatch(updateUserPasswordSuccess(response.result));
+    } catch (error) {
+      console.log(error);
+      dispatch(updateUserPasswordFailure(error));
+    }
+  };
+};
+
 export const setUser = user => ({
   type: Types.SET_USER,
   user
@@ -255,6 +295,37 @@ export const unsubscribeFailure = error => ({
   type: Types.UNSUBSCRIBE_FAILURE,
   error
 });
+
+// UPDATE_USER_DATA
+export const updateUserDataRequest = () => ({
+  type: Types.UPDATE_USER_DATA_REQUEST
+});
+
+export const updateUserDataSuccess = user => ({
+  type: Types.UPDATE_USER_DATA_SUCCESS,
+  user
+});
+
+export const updateUserDataFailure = error => ({
+  type: Types.UPDATE_USER_DATA_FAILURE,
+  error
+});
+
+// UPDATE_USER_PASSWORD
+export const updateUserPasswordRequest = () => ({
+  type: Types.UPDATE_USER_PASSWORD_REQUEST
+});
+
+export const updateUserPasswordSuccess = user => ({
+  type: Types.UPDATE_USER_PASSWORD_SUCCESS,
+  user
+});
+
+export const updateUserPasswordFailure = error => ({
+  type: Types.UPDATE_USER_PASSWORD_FAILURE,
+  error
+});
+
 
 // Pagination actions
 export const setChangePage = page => {
