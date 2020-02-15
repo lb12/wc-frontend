@@ -5,3 +5,10 @@
 .unsubscribe-header-text {
   margin-bottom: 4rem;
 }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .unsubscribe-container > div {
+    max-width: 576px;
+  }
+}
