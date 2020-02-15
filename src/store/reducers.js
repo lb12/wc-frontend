@@ -7,7 +7,8 @@ export const initialState = {
   advert: {},
   tags: [],
   paginationFilters: PaginationFilters, // page, adsPerPage,
-  errorMessage: ''
+  errorMessage: '',
+  advertToDelete: '' // advert id
 };
 
 export const adverts = (state = initialState.adverts, action) => {
@@ -29,6 +30,16 @@ export const advert = (state = initialState.advert, action) => {
       return action.advert;
     case Types.FETCH_ADVERT_FAILURE:
       return action.error;
+    default:
+      return state;
+  }
+};
+
+export const advertToDelete = (state = initialState.advertToDelete, action) => {
+  switch (action.type) {
+    case Types.SET_ADVERT_TO_DELETE:
+    case Types.DELETE_ADVERT_SUCCESS:
+      return action.advertToDelete;
     default:
       return state;
   }
@@ -81,6 +92,7 @@ export const errorMessage = (
     case Types.UNSUBSCRIBE_FAILURE:
     case Types.UPDATE_USER_DATA_FAILURE:
     case Types.UPDATE_USER_PASSWORD_FAILURE:
+    case Types.DELETE_ADVERT_FAILURE:
       return action.error;
     default:
       return state;

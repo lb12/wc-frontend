@@ -46,6 +46,11 @@
     "DELETE_MY_PROFILE": "Delete my profile",
     "UNSUBSCRIBE_LABEL": "Type \"{{code}}\" to confirm your unsubscription",
     "CHANGE_USERNAME_EMAIL": "Change username and email",
-    "CHANGE_PASSWORD": "Change password"
+    "CHANGE_PASSWORD": "Change password",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "CONFIRM": "Confirm",
+    "DELETE_ADVERT_MESSAGE": "Are you sure you want to delete the advert?",
+    "DELETE_ADVERT": "Delete advert"
   }
 }

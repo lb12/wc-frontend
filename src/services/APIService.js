@@ -83,6 +83,21 @@ const getAdvertById = async id => {
   return res;
 };
 
+const deleteAdvert = async (advert, token) => {
+  const res = await deleteRequest(
+    `${API_URL}/adverts/${advert.id}/${advert.member._id}`,
+    { token }
+  );
+
+  if (res.success) {
+    res.result = {};
+  }
+
+  console.log("deleteAdvert desde APIService.js", res);
+
+  return res;
+};
+
 // API Tags methods
 
 /**
@@ -194,12 +209,13 @@ const changeUserPassword = async (userId, password, token) => {
   let result = {};
 
   try {
-    result = {
-      result
-    } = await putRequest(`${API_URL}/user/change-password/${userId}`, {
-      password,
-      token
-    });
+    result = { result } = await putRequest(
+      `${API_URL}/user/change-password/${userId}`,
+      {
+        password,
+        token
+      }
+    );
   } catch (error) {
     const res = error.response.data;
     const message = res.error ? res.error : res.message;
@@ -241,5 +257,6 @@ export {
   getAdvertById,
   unsubscribeUser,
   updateUserData,
-  changeUserPassword
+  changeUserPassword,
+  deleteAdvert
 };

@@ -111,6 +111,44 @@ export const fetchMemberAdvertsFailure = error => ({
   error
 });
 
+export const setAdvertToDelete = advert => ({
+  type: Types.SET_ADVERT_TO_DELETE,
+  advertToDelete: advert
+});
+
+export const deleteAdvert = advert => {
+  return async function(dispatch, getState) {
+    dispatch(deleteAdvertRequest());
+    try {
+      const { token } = getState().user;
+      const response = await API.deleteAdvert(advert, token);
+
+      if (!response.success || response.errors) {
+        dispatch(deleteAdvertFailure(response));
+        return;
+      }
+
+      dispatch(deleteAdvertSuccess(response.result));
+    } catch (error) {
+      dispatch(deleteAdvertFailure(error));
+    }
+  };
+};
+
+export const deleteAdvertRequest = () => ({
+  type: Types.DELETE_ADVERT_REQUEST
+});
+
+export const deleteAdvertSuccess = advert => ({
+  type: Types.DELETE_ADVERT_SUCCESS,
+  advertToDelete: advert
+});
+
+export const deleteAdvertFailure = error => ({
+  type: Types.DELETE_ADVERT_FAILURE,
+  error
+});
+
 // Tags actions
 export const fetchTags = () => {
   return async (dispatch, getState) => {
@@ -217,7 +255,7 @@ export const updateUserData = userObj => {
         dispatch(updateUserDataFailure(response));
         return;
       }
-      
+
       dispatch(updateUserDataSuccess(response.result));
     } catch (error) {
       console.log(error);
@@ -325,7 +363,6 @@ export const updateUserPasswordFailure = error => ({
   type: Types.UPDATE_USER_PASSWORD_FAILURE,
   error
 });
-
 
 // Pagination actions
 export const setChangePage = page => {

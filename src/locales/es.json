@@ -46,6 +46,11 @@
     "DELETE_MY_PROFILE": "Borrar mi perfil",
     "UNSUBSCRIBE_LABEL": "Escribe \"{{code}}\" para confirmar la baja de tu perfil",
     "CHANGE_USERNAME_EMAIL": "Cambiar usuario y email",
-    "CHANGE_PASSWORD": "Cambiar contraseña"
+    "CHANGE_PASSWORD": "Cambiar contraseña",
+    "DELETE": "Eliminar",
+    "EDIT": "Editar",
+    "CONFIRM": "Confirmar",
+    "DELETE_ADVERT_MESSAGE": "¿Seguro que quieres eliminar el anuncio?",
+    "DELETE_ADVERT": "Eliminar anuncio"
   }
 }

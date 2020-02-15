@@ -2,12 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Advert.css";
 import { withTranslation } from "react-i18next";
+import { withRouter } from "react-router-dom";
 import ShareMediaToolbar from "../ShareMediaToolbar";
 
 class Advert extends React.Component {
+  isOwnerOnMyZonePage = () => {
+    const { user, advert, location } = this.props;
+    const { pathname } = location;
+
+    return (
+      pathname.startsWith("/my-zone/") && user && user._id === advert.member._id
+    );
+  };
+
+  // Manda al store del redux el anuncio que pretendemos eliminar (no lo elimina)
+  setAdvertToDelete = () => {
+    const advert = this.props.advert;
+    this.props.setAdvertToDelete(advert);
+  }
+
   render() {
     const { t, advert } = this.props;
-
     const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
     return (
       <div className="card mt-2">
@@ -51,9 +66,17 @@ class Advert extends React.Component {
             </span>
           ))}
         </div>
+        <React.Fragment>
+          {this.isOwnerOnMyZonePage() && (
+            <div className="card-footer edit-remove-container d-flex justify-content-between">
+              <button className="btn btn-info">{t("EDIT")}</button>
+              <button className="btn btn-danger" onClick={this.setAdvertToDelete} data-toggle="modal" data-target={`#modal-deleteAdvert`}>{t("DELETE")}</button>
+            </div>
+          )}
+        </React.Fragment>
       </div>
     );
   }
 }
 
-export default withTranslation()(Advert);
+export default withRouter(withTranslation()(Advert));

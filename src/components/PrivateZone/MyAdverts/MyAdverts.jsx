@@ -3,6 +3,7 @@ import { withTranslation } from "react-i18next";
 
 import AdvertList from "../../AdvertList";
 import Pagination from "../../Pagination";
+import Modal from "../../Modal";
 import "./MyAdverts.css";
 
 class MyAdverts extends React.Component {
@@ -22,6 +23,15 @@ class MyAdverts extends React.Component {
     this.getMemberAdverts();
   };
 
+  // Elimina definitivamente el anucio que pretendiamos eliminar en el store
+  confirmDelete = async () => {
+    const { advertToDelete } = this.props;
+
+    await this.props.deleteAdvert(advertToDelete);
+    this.props.resetPaginationFilters();
+    this.getMemberAdverts();
+  };
+
   render() {
     const { t, user } = this.props;
 
@@ -32,6 +42,14 @@ class MyAdverts extends React.Component {
         )} ${user.username}`}</h1>
         <AdvertList />
         <Pagination onPageChanged={this.onPageChanged} />
+        <Modal
+          modalId="deleteAdvert"
+          type="danger"
+          title={t("CONFIRM")}
+          body={t("DELETE_ADVERT_MESSAGE")}
+          confirmButtonText={t("DELETE_ADVERT")}
+          onConfirm={this.confirmDelete}
+        />
       </div>
     );
   }
