@@ -31,12 +31,6 @@
   border-radius: 6px;
 }
 
-.card-member:hover {
-  text-decoration: none;
-  color: inherit;
-
-}
-
 .seller-name {
   color: #fd772c;
 }

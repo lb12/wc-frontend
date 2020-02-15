@@ -24,6 +24,11 @@ a {
   color: inherit;
 }
 
+a:hover {
+  text-decoration: none;
+  color: #fd772c;
+}
+
 .empty-field-error {
   color: red;
 }
