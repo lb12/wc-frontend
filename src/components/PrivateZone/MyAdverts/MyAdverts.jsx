@@ -1,11 +1,11 @@
 import React from "react";
-
-import "./Profile.css";
-import AdvertList from "../AdvertList";
-import Pagination from "../Pagination";
 import { withTranslation } from "react-i18next";
 
-class Profile extends React.Component {
+import AdvertList from "../../AdvertList";
+import Pagination from "../../Pagination";
+import "./MyAdverts.css";
+
+class MyAdverts extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,8 +14,8 @@ class Profile extends React.Component {
   }
 
   getMemberAdverts = () => {
-    const { id } = this.props.match.params;
-    this.props.loadAdverts(id);
+    const { _id } = this.props.user;
+    this.props.loadAdverts(_id);
   };
 
   onPageChanged = () => {
@@ -23,18 +23,17 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { t, match } = this.props;
-    const { username } = match.params;
+    const { t, user } = this.props;
 
     return (
       <div className="p-3 mt-4">
-        <h1 className="font-size-2 text-center mt-5 profile-header-text">{`${t(
+        <h1 className="font-size-2 text-center mt-5 mb-5">{`${t(
           "ADVERTS_PUBLISHED_BY"
-        )} ${username}`}</h1>
+        )} ${user.username}`}</h1>
         <AdvertList />
         <Pagination onPageChanged={this.onPageChanged} />
       </div>
     );
   }
 }
-export default withTranslation()(Profile);
+export default withTranslation()(MyAdverts);
