@@ -7,7 +7,7 @@ class PrivateHome extends React.Component {
     const { t, user } = this.props;
     const { username } = user;
     return (
-      <div>
+      <div className="p-3">
         <h1 className="font-size-2 text-center mt-5 mb-3">
           {t("PERSONAL_AREA_OF", { username })}
         </h1>

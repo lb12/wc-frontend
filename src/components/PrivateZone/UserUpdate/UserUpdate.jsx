@@ -2,7 +2,9 @@ import React from "react";
 
 import ErrorNotifier from "../../ErrorNotifier";
 import { withTranslation } from "react-i18next";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
+
+import './UserUpdate.css';
 
 class UserUpdate extends React.Component {
   constructor(props) {
@@ -14,7 +16,8 @@ class UserUpdate extends React.Component {
       user: {
         username,
         email,
-        password: ""
+        password: "",
+        confirmPassword: ""
       },
       usernameEmailErrorManager: {
         showError: false,
@@ -85,11 +88,11 @@ class UserUpdate extends React.Component {
 
   onPasswordSubmit = async evt => {
     evt && evt.preventDefault();
-    const { password } = this.state.user;
+    const { password, confirmPassword } = this.state.user;
     const { t } = this.props;
     let errorMessage = [];
 
-    if (!password) {
+    if (!password || !confirmPassword) {
       errorMessage.push(t("ERROR_FILL_REQUIRED_FIELDS"));
       this.setState({
         passwordErrorManager: { showError: true, errorMessage }
@@ -97,8 +100,16 @@ class UserUpdate extends React.Component {
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 6 || confirmPassword.length < 6) {
       errorMessage.push(t("ERROR_PASSWORD_6_CHARS"));
+      this.setState({
+        passwordErrorManager: { showError: true, errorMessage }
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      errorMessage.push(t("ERROR_PASSWORD_NOT_EQUALS"));
       this.setState({
         passwordErrorManager: { showError: true, errorMessage }
       });
@@ -132,71 +143,110 @@ class UserUpdate extends React.Component {
       usernameEmailErrorManager,
       passwordErrorManager
     } = this.state;
-    const { username, email, password } = user;
+    const { username, email, password, confirmPassword } = user;
 
     return (
-      <div className="user-update-container">
-        <h1>{t("UPDATE_MY_DATA")}</h1>
+      <div className="user-update-container p-3">
+        <h1 className="font-size-2 text-center mt-5 mb-5">
+          {t("UPDATE_MY_DATA")}
+        </h1>
 
-        <div className="">
-          <h2>{t("CHANGE_USERNAME_EMAIL")}</h2>
-          {usernameEmailErrorManager.showError &&
-            usernameEmailErrorManager.errorMessage &&
-            usernameEmailErrorManager.errorMessage.length > 0 && (
-              <ErrorNotifier errors={usernameEmailErrorManager.errorMessage} />
-            )}
-          <form onSubmit={this.onLoginSubmit}>
-            <div className="form-group">
-              <input
-                required
-                type="text"
-                name="username"
-                value={username}
-                onChange={this.onInputChange}
-                className="form-control"
-                placeholder={t("USERNAME")}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                required
-                type="email"
-                name="email"
-                value={email}
-                onChange={this.onInputChange}
-                className="form-control"
-                placeholder={t("EMAIL")}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary submit-btn">
-              {t("CHANGE_USERNAME_EMAIL")}
-            </button>
-          </form>
+        <div className="card mb-5">
+          <div className="card-header">
+            <h2 className="font-size-1-5 m-0">{t("CHANGE_USERNAME_EMAIL")}</h2>
+          </div>
+          <div className="p-4">
+            {usernameEmailErrorManager.showError &&
+              usernameEmailErrorManager.errorMessage &&
+              usernameEmailErrorManager.errorMessage.length > 0 && (
+                <ErrorNotifier
+                  errors={usernameEmailErrorManager.errorMessage}
+                />
+              )}
+            <form className="d-flex  flex-column" onSubmit={this.onLoginSubmit}>
+              <div className="form-group">
+                <label htmlFor="username" className="font-weight-bold">
+                  {t("USERNAME")}
+                </label>
+                <input
+                  required
+                  type="text"
+                  name="username"
+                  id="username"
+                  value={username}
+                  onChange={this.onInputChange}
+                  className="form-control"
+                  placeholder={t("USERNAME")}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email" className="font-weight-bold">
+                  {t("EMAIL")}
+                </label>
+                <input
+                  required
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={email}
+                  onChange={this.onInputChange}
+                  className="form-control"
+                  placeholder={t("EMAIL")}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary submit-btn">
+                {t("CHANGE_USERNAME_EMAIL")}
+              </button>
+            </form>
+          </div>
         </div>
 
-        <div className="">
-          <h2>{t("CHANGE_PASSWORD")}</h2>
-          {passwordErrorManager.showError &&
-            passwordErrorManager.errorMessage &&
-            passwordErrorManager.errorMessage.length > 0 && (
-              <ErrorNotifier errors={passwordErrorManager.errorMessage} />
-            )}
-          <form onSubmit={this.onPasswordSubmit}>
-            <div className="form-group">
-              <input
-                required
-                type="password"
-                name="password"
-                value={password}
-                onChange={this.onInputChange}
-                className="form-control"
-                placeholder={t("PASSWORD")}
-              />
+        <div className="card">
+          <div className="card-header">
+            <h2 className="font-size-1-5 m-0">{t("CHANGE_PASSWORD")}</h2>
+          </div>
+          <div className="p-4">
+            {passwordErrorManager.showError &&
+              passwordErrorManager.errorMessage &&
+              passwordErrorManager.errorMessage.length > 0 && (
+                <ErrorNotifier errors={passwordErrorManager.errorMessage} />
+              )}
+            <form className="d-flex  flex-column" onSubmit={this.onPasswordSubmit}>
+              <div className="form-group">
+                <label htmlFor="password" className="font-weight-bold">
+                  {t("PASSWORD")}
+                </label>
+                <input
+                  required
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={password}
+                  onChange={this.onInputChange}
+                  className="form-control"
+                  placeholder={t("PASSWORD")}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword" className="font-weight-bold">
+                  {t("CONFIRM_PASSWORD")}
+                </label>
+                <input
+                  required
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={this.onInputChange}
+                  className="form-control"
+                  placeholder={t("CONFIRM_PASSWORD")}
+                />
+              </div>
               <button type="submit" className="btn btn-primary submit-btn">
                 {t("CHANGE_PASSWORD")}
               </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     );
