@@ -41,4 +41,16 @@ const putRequest = async (url, data) => {
   }
 };
 
-export { getRequest, postRequest, putRequest };
+const deleteRequest = async (url, data) => {
+  try {
+    const res = await axios.delete(url, { data: data });
+    return res.data;
+  } catch (error) {
+    if (!error.response) {
+      return networkError;
+    }
+    throw error;
+  }
+};
+
+export { getRequest, postRequest, putRequest, deleteRequest };

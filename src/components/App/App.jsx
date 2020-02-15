@@ -1,7 +1,7 @@
 // React imports
 import React from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 // Global components imports
 import Navbar from "../Navbar";
@@ -17,7 +17,9 @@ import AdvertDetail from "../AdvertDetail";
 
 // Private zone components imports
 import PrivateHome from "../PrivateZone/PrivateHome";
-
+import UserdataUpdate from "../PrivateZone/UserdataUpdate";
+import Unsubscribe from "../PrivateZone/Unsubscribe";
+import EditAdvert from "../PrivateZone/EditAdvert";
 // Component imports
 import "./App.css";
 import NotFoundPage from "../NotFoundPage";
@@ -39,9 +41,24 @@ export default class App extends React.Component {
               <div className="global-container">
                 <React.Fragment>
                   <Switch>
-                    {this.isUserLogged() && (
-                      <Route path="/my-zone" component={PrivateHome}></Route>
-                    )}
+                    <Route path="/my-zone/unsubscribe">
+                      { this.isUserLogged() ? <Unsubscribe /> : <Redirect to="/sign-in"/> }
+                    </Route>
+                    <Route path="/my-zone/update-my-data">
+                      { this.isUserLogged() ? <UserdataUpdate /> : <Redirect to="/sign-in"/> }
+                    </Route>
+                    <Route path="/my-zone/create-advert">
+                      { this.isUserLogged() ? <EditAdvert /> : <Redirect to="/sign-in"/> }
+                    </Route>
+                    {/* <Route path="/my-zone/my-adverts">
+                      { this.isUserLogged() ? <Unsubscribe /> : <Redirect to="/sign-in"/> }
+                    </Route> */}
+                    {/* <Route path="/my-zone/favourite-adverts">
+                      { this.isUserLogged() ? <Unsubscribe /> : <Redirect to="/sign-in"/> }
+                    </Route> */}
+                    <Route exact path="/my-zone">
+                      { this.isUserLogged() ? <PrivateHome /> : <Redirect to="/sign-in"/> }
+                    </Route>
                     <Route path="/sign-in" component={SignIn} />
                     <Route path="/sign-up" component={SignUp} />
                     <Route path="/profile/:username/:id" component={Profile} />

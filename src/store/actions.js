@@ -187,6 +187,25 @@ export const signInUser = user => {
   };
 };
 
+export const unsubscribeUser = () => {
+  return async function(dispatch, getState) {
+    const { user } = getState();
+    dispatch(unsubscribeRequest());
+    try {
+      const response = await API.unsubscribeUser(user.user._id, user.token);
+      if (!response.success || response.errors || response.error) {
+        dispatch(unsubscribeFailure(response));
+        return;
+      }
+
+      dispatch(unsubscribeSuccess({}));
+    } catch (error) {
+      console.log(error);
+      dispatch(unsubscribeFailure(error));
+    }
+  };
+};
+
 export const setUser = user => ({
   type: Types.SET_USER,
   user
@@ -219,6 +238,21 @@ export const signInSuccess = user => ({
 
 export const signInFailure = error => ({
   type: Types.SIGN_IN_FAILURE,
+  error
+});
+
+// UNSUBSCRIBE_USER
+export const unsubscribeRequest = () => ({
+  type: Types.UNSUBSCRIBE_REQUEST
+});
+
+export const unsubscribeSuccess = user => ({
+  type: Types.UNSUBSCRIBE_SUCCESS,
+  user
+});
+
+export const unsubscribeFailure = error => ({
+  type: Types.UNSUBSCRIBE_FAILURE,
   error
 });
 

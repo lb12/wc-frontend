@@ -6,7 +6,8 @@ export const initialState = {
   adverts: [],
   advert: {},
   tags: [],
-  paginationFilters: PaginationFilters // page, adsPerPage
+  paginationFilters: PaginationFilters, // page, adsPerPage,
+  errorMessage: ''
 };
 
 export const adverts = (state = initialState.adverts, action) => {
@@ -48,6 +49,7 @@ export const user = (state = initialState.user, action) => {
   switch (action.type) {
     case Types.SIGN_UP_SUCCESS:
     case Types.SIGN_IN_SUCCESS:
+    case Types.UNSUBSCRIBE_SUCCESS:
     case Types.SET_USER:
       return action.user;
     case Types.SIGN_UP_FAILURE:
@@ -65,6 +67,18 @@ export const paginationFilters = (
   switch (action.type) {
     case Types.SET_PAGINATION_FILTERS:
       return action.paginationFilters;
+    default:
+      return state;
+  }
+};
+
+export const errorMessage = (
+  state = initialState.errorMessage,
+  action
+) => {
+  switch (action.type) {
+    case Types.UNSUBSCRIBE_FAILURE:
+      return action.error;
     default:
       return state;
   }

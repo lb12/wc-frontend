@@ -1,4 +1,9 @@
-import { getRequest, postRequest, putRequest } from "../utils/axios";
+import {
+  getRequest,
+  postRequest,
+  putRequest,
+  deleteRequest
+} from "../utils/axios";
 import Advert from "../models/Advert";
 
 const API_URL = "https://localhost:3000/api-v1";
@@ -165,6 +170,25 @@ const getUserLogged = async storedUser => {
   return user;
 };
 
+const unsubscribeUser = async (userId, token) => {
+  let result = {};
+
+  try {
+    result = await deleteRequest(`${API_URL}/user/unsubscribe/${userId}`, {
+      token
+    });
+  } catch (error) {
+    const res = error.response.data;
+    const message = res.error ? res.error : res.message;
+
+    result = {
+      success: false,
+      errors: [message]
+    };
+  }
+  return result;
+};
+
 export {
   signUp,
   signIn,
@@ -172,5 +196,6 @@ export {
   listAdverts,
   getTags,
   listMemberAdverts,
-  getAdvertById
+  getAdvertById,
+  unsubscribeUser
 };
