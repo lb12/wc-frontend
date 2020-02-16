@@ -149,6 +149,42 @@ export const deleteAdvertFailure = error => ({
   error
 });
 
+export const createAdvert = formData => {
+  return async function(dispatch, getState) {
+    dispatch(createAdvertRequest());
+    try {
+      const { token } = getState().user;
+
+      formData.append('token', token);
+
+      const response = await API.createAdvert(formData);
+
+      if (!response.success || response.errors) {
+        dispatch(createAdvertFailure(response));
+        return;
+      }
+
+      dispatch(createAdvertSuccess(response.result));
+    } catch (error) {
+      dispatch(createAdvertFailure(error));
+    }
+  };
+};
+
+export const createAdvertRequest = () => ({
+  type: Types.CREATE_ADVERT_REQUEST
+});
+
+export const createAdvertSuccess = advert => ({
+  type: Types.CREATE_ADVERT_SUCCESS,
+  createdAdvert: advert
+});
+
+export const createAdvertFailure = error => ({
+  type: Types.CREATE_ADVERT_FAILURE,
+  error
+});
+
 // Tags actions
 export const fetchTags = () => {
   return async (dispatch, getState) => {

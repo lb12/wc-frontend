@@ -19,19 +19,21 @@ class Advert extends React.Component {
   setAdvertToDelete = () => {
     const advert = this.props.advert;
     this.props.setAdvertToDelete(advert);
-  }
+  };
 
   render() {
-    const { t, advert } = this.props;
+    const { t, advert, editingAdvert } = this.props;
+    console.log(advert);
+    let photoSrc = editingAdvert ? advert.photoPreview : (advert.photo ? `https://localhost:3000/images/adverts/${advert.photo}` : '/img/empty_advert_pic.png');
+    
+
     const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
     return (
       <div className="card mt-2">
         <div className="advert-img-container">
           <Link to={`/advert/${advert.name}/${advert.id}`}>
             <img
-              src={`https://localhost:3000/images/adverts/${
-                advert.photo ? advert.photo : "empty_advert_pic.png"
-              }`}
+              src={photoSrc}
               alt={`${advert.name}_advert_img`}
             />
           </Link>
@@ -70,7 +72,14 @@ class Advert extends React.Component {
           {this.isOwnerOnMyZonePage() && (
             <div className="card-footer edit-remove-container d-flex justify-content-between">
               <button className="btn btn-info">{t("EDIT")}</button>
-              <button className="btn btn-danger" onClick={this.setAdvertToDelete} data-toggle="modal" data-target={`#modal-deleteAdvert`}>{t("DELETE")}</button>
+              <button
+                className="btn btn-danger"
+                onClick={this.setAdvertToDelete}
+                data-toggle="modal"
+                data-target={`#modal-deleteAdvert`}
+              >
+                {t("DELETE")}
+              </button>
             </div>
           )}
         </React.Fragment>

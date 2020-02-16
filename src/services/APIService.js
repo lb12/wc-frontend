@@ -98,6 +98,26 @@ const deleteAdvert = async (advert, token) => {
   return res;
 };
 
+const createAdvert = async formData => {
+  let res = {};
+  
+  try {
+    res = await postRequest(`${API_URL}/adverts/`, formData);
+  } catch (error) {
+    console.log(error)
+    console.log(error.response.data)
+    //result = resolveSignErrors(error);
+  }
+
+  if (res.success) {
+    res.result = {};
+  }
+
+  console.log("createAdvert desde APIService.js", res);
+
+  return res;
+};
+
 // API Tags methods
 
 /**
@@ -258,5 +278,6 @@ export {
   unsubscribeUser,
   updateUserData,
   changeUserPassword,
-  deleteAdvert
+  deleteAdvert,
+  createAdvert
 };
