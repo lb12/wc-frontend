@@ -12,8 +12,11 @@ class MyAdverts extends React.Component {
   }
 
   getMemberAdverts = () => {
-    const { _id } = this.props.user;
-    this.props.loadAdverts(_id);
+    const { user, loadFavs, loadAdverts, loadFavouriteAdverts } = this.props;
+    const { _id } = user;
+
+    loadFavs && loadFavouriteAdverts(_id);
+    !loadFavs && loadAdverts(_id);
   };
 
   onPageChanged = () => {
@@ -30,13 +33,12 @@ class MyAdverts extends React.Component {
   };
 
   render() {
-    const { t, user } = this.props;
-
+    const { t, loadFavs } = this.props;
     return (
       <div className="p-3 mt-4">
-        <h1 className="font-size-2 text-center mt-5 mb-5">{`${t(
-          "ADVERTS_PUBLISHED_BY"
-        )} ${user.username}`}</h1>
+        <h1 className="font-size-2 text-center mt-5 mb-5">
+          {loadFavs ? t("MY_FAV_ADVERTS") : t("MY_ADS")}
+        </h1>
         <AdvertList />
         <Pagination onPageChanged={this.onPageChanged} />
         <Modal

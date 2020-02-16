@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 
 import {
   fetchMemberAdverts,
+  fetchMemberFavouriteAdverts,
   resetPaginationFilters,
   deleteAdvert
 } from "../../../store/actions";
@@ -14,6 +15,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadAdverts: memberId => dispatch(fetchMemberAdverts(memberId)),
+  loadFavouriteAdverts: memberId => dispatch(fetchMemberFavouriteAdverts(memberId)),
   resetPaginationFilters: () => dispatch(resetPaginationFilters()),
   deleteAdvert: advert => dispatch(deleteAdvert(advert))
 });

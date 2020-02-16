@@ -50,7 +50,7 @@ export const fetchMemberAdverts = memberId => {
     dispatch(fetchMemberAdvertsRequest());
     try {
       const { paginationFilters } = getState();
-      const response = await API.listMemberAdverts(memberId, paginationFilters);
+      const response = await API.listMemberAdverts(memberId, paginationFilters, false);
 
       if (!response.success || response.errors) {
         dispatch(fetchMemberAdvertsFailure(response));
@@ -65,6 +65,30 @@ export const fetchMemberAdverts = memberId => {
       );
     } catch (error) {
       dispatch(fetchMemberAdvertsFailure(error));
+    }
+  };
+};
+
+export const fetchMemberFavouriteAdverts = memberId => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMemberFavouriteAdvertsRequest());
+    try {
+      const { paginationFilters } = getState();
+      const response = await API.listMemberAdverts(memberId, paginationFilters, true);
+
+      if (!response.success || response.errors) {
+        dispatch(fetchMemberFavouriteAdvertsFailure(response));
+        return;
+      }
+
+      dispatch(
+        fetchMemberFavouriteAdvertsSuccess({
+          adverts: response.results,
+          total: response.totalAdverts
+        })
+      );
+    } catch (error) {
+      dispatch(fetchMemberFavouriteAdvertsFailure(error));
     }
   };
 };
@@ -108,6 +132,20 @@ export const fetchMemberAdvertsSuccess = adverts => ({
 
 export const fetchMemberAdvertsFailure = error => ({
   type: Types.FETCH_MEMBER_ADVERTS_FAILURE,
+  error
+});
+
+export const fetchMemberFavouriteAdvertsRequest = () => ({
+  type: Types.FETCH_MEMBER_FAVOURITE_ADVERTS_REQUEST
+});
+
+export const fetchMemberFavouriteAdvertsSuccess = adverts => ({
+  type: Types.FETCH_MEMBER_FAVOURITE_ADVERTS_SUCCESS,
+  adverts
+});
+
+export const fetchMemberFavouriteAdvertsFailure = error => ({
+  type: Types.FETCH_MEMBER_FAVOURITE_ADVERTS_FAILURE,
   error
 });
 

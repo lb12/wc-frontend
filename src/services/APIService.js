@@ -45,15 +45,17 @@ const listAdverts = async (
   return res;
 };
 
-const listMemberAdverts = async (memberId, { adsPerPage, page }) => {
+const listMemberAdverts = async (memberId, { adsPerPage, page }, favouriteAdverts) => {
   let queryParams = "";
 
   queryParams += `${getQueryParamToken(queryParams)}page=${page}`;
   queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
+  queryParams += `${getQueryParamToken(queryParams)}favs=${favouriteAdverts}`;
   queryParams +=
     page > 1
       ? `${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`
       : "";
+    
 
   const res = await getRequest(
     `${API_URL}/adverts/member/${memberId}${queryParams}`

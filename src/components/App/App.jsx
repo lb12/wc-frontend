@@ -57,9 +57,9 @@ export default class App extends React.Component {
                     <Route path="/my-zone/my-adverts">
                       { this.isUserLogged() ? <MyAdverts /> : <Redirect to="/sign-in"/> }
                     </Route>
-                    {/* <Route path="/my-zone/favourite-adverts">
-                      { this.isUserLogged() ? <Unsubscribe /> : <Redirect to="/sign-in"/> }
-                    </Route> */}
+                    <Route path="/my-zone/favourite-adverts">
+                      { this.isUserLogged() ? <MyAdverts loadFavs={true} /> : <Redirect to="/sign-in"/> }
+                    </Route>
                     <Route exact path="/my-zone">
                       { this.isUserLogged() ? <PrivateHome /> : <Redirect to="/sign-in"/> }
                     </Route>
