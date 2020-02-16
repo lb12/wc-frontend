@@ -171,19 +171,61 @@ export const createAdvert = formData => {
   };
 };
 
+export const editAdvert = formData => {
+  return async function(dispatch, getState) {
+    dispatch(editAdvertRequest());
+    try {
+      const { token } = getState().user;
+      const advertId = formData.get('id');
+      const memberId = formData.get('member');
+
+      formData.append('token', token);
+
+
+      const response = await API.editAdvert(advertId, memberId, formData);
+
+      if (!response.success || response.errors) {
+        dispatch(editAdvertFailure(response));
+        return;
+      }
+
+      dispatch(editAdvertSuccess(response.result));
+    } catch (error) {
+      dispatch(editAdvertFailure(error));
+    }
+  };
+};
+
+
 export const createAdvertRequest = () => ({
   type: Types.CREATE_ADVERT_REQUEST
 });
 
 export const createAdvertSuccess = advert => ({
   type: Types.CREATE_ADVERT_SUCCESS,
-  createdAdvert: advert
+  advert
 });
 
 export const createAdvertFailure = error => ({
   type: Types.CREATE_ADVERT_FAILURE,
   error
 });
+
+
+export const editAdvertRequest = () => ({
+  type: Types.EDIT_ADVERT_REQUEST
+});
+
+export const editAdvertSuccess = advert => ({
+  type: Types.EDIT_ADVERT_SUCCESS,
+  advert
+});
+
+export const editAdvertFailure = error => ({
+  type: Types.EDIT_ADVERT_FAILURE,
+  error
+});
+
 
 // Tags actions
 export const fetchTags = () => {

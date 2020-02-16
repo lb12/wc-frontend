@@ -51,6 +51,14 @@
     "EDIT": "Editar",
     "CONFIRM": "Confirmar",
     "DELETE_ADVERT_MESSAGE": "¿Seguro que quieres eliminar el anuncio?",
-    "DELETE_ADVERT": "Eliminar anuncio"
+    "DELETE_ADVERT": "Eliminar anuncio",
+    "CREATE": "Crear",
+    "EDIT": "Editar",
+    "ADVERT": "Anuncio",
+    "DESCRIPTION": "Descripción",
+    "DESCRIPTION_PLACEHOLDER": "Escribe una descripción del producto",
+    "PRICE": "Precio",
+    "UPLOAD_A_PHOTO": "Sube una imagen del producto",
+    "ADVERT_PREVIEW": "Vista previa del anuncio"
   }
 }

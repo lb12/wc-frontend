@@ -22,9 +22,9 @@ class Advert extends React.Component {
   };
 
   render() {
-    const { t, advert, editingAdvert } = this.props;
+    const { t, advert, editingPhoto } = this.props;
     console.log(advert);
-    let photoSrc = editingAdvert ? advert.photoPreview : (advert.photo ? `https://localhost:3000/images/adverts/${advert.photo}` : '/img/empty_advert_pic.png');
+    let photoSrc = editingPhoto ? advert.photoPreview : (advert.photo ? `https://localhost:3000/images/adverts/${advert.photo}` : '/img/empty_advert_pic.png');
     
 
     const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
@@ -71,7 +71,9 @@ class Advert extends React.Component {
         <React.Fragment>
           {this.isOwnerOnMyZonePage() && (
             <div className="card-footer edit-remove-container d-flex justify-content-between">
-              <button className="btn btn-info">{t("EDIT")}</button>
+              <Link to={`/my-zone/edit-advert/${advert.id}`}>
+                <button className="btn btn-info">{t("EDIT")}</button>
+              </Link>
               <button
                 className="btn btn-danger"
                 onClick={this.setAdvertToDelete}

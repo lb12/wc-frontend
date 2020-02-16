@@ -100,12 +100,12 @@ const deleteAdvert = async (advert, token) => {
 
 const createAdvert = async formData => {
   let res = {};
-  
+
   try {
     res = await postRequest(`${API_URL}/adverts/`, formData);
   } catch (error) {
-    console.log(error)
-    console.log(error.response.data)
+    console.log(error);
+    console.log(error.response.data);
     //result = resolveSignErrors(error);
   }
 
@@ -114,6 +114,29 @@ const createAdvert = async formData => {
   }
 
   console.log("createAdvert desde APIService.js", res);
+
+  return res;
+};
+
+const editAdvert = async (advertId, memberId, formData) => {
+  let res = {};
+  console.log(advertId, memberId);
+  try {
+    res = await putRequest(
+      `${API_URL}/adverts/${advertId}/${memberId}`,
+      formData
+    );
+  } catch (error) {
+    console.log(error);
+    console.log(error.response.data);
+    //result = resolveSignErrors(error);
+  }
+
+  if (res.success) {
+    res.result = {};
+  }
+
+  console.log("editAdvert desde APIService.js", res);
 
   return res;
 };
@@ -279,5 +302,6 @@ export {
   updateUserData,
   changeUserPassword,
   deleteAdvert,
-  createAdvert
+  createAdvert,
+  editAdvert
 };

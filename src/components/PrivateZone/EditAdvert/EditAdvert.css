@@ -1,0 +1,4 @@
+/* No me interesa que se vea la seccion de Editar/Eliminar anuncio aquí, por eso utilizo el important*/
+form.create-edit-container .edit-remove-container {
+    display: none!important;
+}

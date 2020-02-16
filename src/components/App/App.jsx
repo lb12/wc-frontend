@@ -51,6 +51,9 @@ export default class App extends React.Component {
                     <Route path="/my-zone/create-advert">
                       { this.isUserLogged() ? <EditAdvert /> : <Redirect to="/sign-in"/> }
                     </Route>
+                    <Route path="/my-zone/edit-advert/:id">
+                      { this.isUserLogged() ? <EditAdvert /> : <Redirect to="/sign-in"/> }
+                    </Route>
                     <Route path="/my-zone/my-adverts">
                       { this.isUserLogged() ? <MyAdverts /> : <Redirect to="/sign-in"/> }
                     </Route>

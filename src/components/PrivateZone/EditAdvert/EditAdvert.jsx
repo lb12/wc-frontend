@@ -6,8 +6,10 @@ import ErrorNotifier from "../../ErrorNotifier";
 
 import "./EditAdvert.css";
 import NotFoundPage from "../../NotFoundPage";
+import { withTranslation } from "react-i18next";
+import { withRouter } from "react-router-dom";
 
-export default class EditAdvert extends React.Component {
+class EditAdvert extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,9 +26,39 @@ export default class EditAdvert extends React.Component {
       },
       showError: false,
       errorMessage: "",
-      editingAdvert: false
+      editingPhoto: false,
+      editingAdvert:
+        this.props.location.pathname.split("/")[2] === "edit-advert"
     };
   }
+
+  componentDidMount() {
+    const { editingAdvert } = this.state;
+
+    if (!editingAdvert) {
+      return;
+    }
+
+    const { id } = this.props.match.params;
+    this.loadAdvert(id);
+  }
+
+  loadAdvert = async advertId => {
+    await this.props.getAdvert(advertId);
+    const loadedAdvert = this.props.advert;
+
+    // Solo el autor puede editar sus anuncios
+    if (this.props.loggedUser._id !== loadedAdvert.member._id) {
+      return this.props.history.push("/my-zone");
+    }
+
+    this.setState(({ advert }) => ({
+      advert: {
+        ...advert,
+        ...loadedAdvert
+      }
+    }));
+  };
 
   onInputChange = evt => {
     const { name, value } = evt.target;
@@ -43,7 +75,7 @@ export default class EditAdvert extends React.Component {
 
     if (!files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
       this.setState(({ advert }) => ({
-        editingAdvert: false,
+        editingPhoto: false,
         showError: true,
         errorMessage: "El archivo no es una imagen",
         advert: {
@@ -56,7 +88,7 @@ export default class EditAdvert extends React.Component {
     }
 
     this.setState(({ advert }) => ({
-      editingAdvert: true,
+      editingPhoto: true,
       showError: false,
       errorMessage: "",
       advert: {
@@ -83,17 +115,14 @@ export default class EditAdvert extends React.Component {
   onSubmit = evt => {
     evt && evt.preventDefault();
 
-    const {
-      name,
-      forSale,
-      tags,
-      price,
-      description,
-      photo
-    } = this.state.advert;
+    const { editingPhoto, editingAdvert, advert } = this.state;
+
+    const { id, name, forSale, tags, price, description, photo } = advert;
 
     const formData = new FormData();
-    formData.append("photo", photo);
+
+    editingPhoto && formData.append("photo", photo);
+    editingAdvert && formData.append("id", id);
     formData.append("name", name);
     formData.append("for_sale", forSale);
     formData.append("tags", tags);
@@ -101,24 +130,36 @@ export default class EditAdvert extends React.Component {
     formData.append("description", description);
     formData.append("member", this.props.loggedUser._id);
 
-    this.props.createAdvert(formData);
+    !editingAdvert && this.props.createAdvert(formData);
+    editingAdvert && this.props.editAdvert(formData);
   };
 
   render() {
-    const { advert, showError, errorMessage, editingAdvert } = this.state;
+    const {
+      advert,
+      showError,
+      errorMessage,
+      editingAdvert,
+      editingPhoto
+    } = this.state;
     const { name, price, description, tags, forSale } = advert;
+    const { t } = this.props;
 
-    const updateOrCreateAdvert = this.state.editingAdvert ? "Edit" : "Create";
+    const updateOrCreateAdvert = this.state.editingAdvert
+      ? t("EDIT")
+      : t("CREATE");
     return (
       <div>
-        <h1 className="text-center mt-4">{updateOrCreateAdvert} advert</h1>
+        <h1 className="text-center mt-4">
+          {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}{" "}
+        </h1>
 
         <form className="create-edit-container mt-4" onSubmit={this.onSubmit}>
           <div className="main-info-container">
             <div className="info-container mb-5rem">
               <div className="form-group">
                 <label className="input-label" htmlFor="name">
-                  Name
+                  {t("NAME")}
                 </label>
                 <input
                   type="text"
@@ -127,13 +168,13 @@ export default class EditAdvert extends React.Component {
                   id="name"
                   className="form-control"
                   value={name}
-                  placeholder="Name"
+                  placeholder={t("NAME")}
                   onChange={this.onInputChange}
                 />
               </div>
               <div className="form-group">
                 <label className="input-label" htmlFor="description">
-                  Description
+                  {t("DESCRIPTION")}
                 </label>
                 <textarea
                   required
@@ -141,13 +182,13 @@ export default class EditAdvert extends React.Component {
                   id="description"
                   className="form-control"
                   value={description}
-                  placeholder="Write a description of the product"
+                  placeholder={t("DESCRIPTION_PLACEHOLDER")}
                   onChange={this.onInputChange}
                 />
               </div>
               <div className="form-group">
                 <label className="input-label" htmlFor="price">
-                  Price
+                  {t("PRICE")}
                 </label>
                 <input
                   type="number"
@@ -156,7 +197,7 @@ export default class EditAdvert extends React.Component {
                   id="price"
                   className="form-control"
                   value={price}
-                  placeholder="Price"
+                  placeholder={t("PRICE")}
                   onChange={this.onInputChange}
                 />
               </div>
@@ -173,7 +214,7 @@ export default class EditAdvert extends React.Component {
               </div>
               <div className="form-group">
                 <div>
-                  <span className="input-label">Type</span>
+                  <span className="input-label">{t("STATUS")}</span>
                 </div>
                 <div className="form-check form-check-inline">
                   <input
@@ -187,7 +228,7 @@ export default class EditAdvert extends React.Component {
                     onChange={this.onRadioChange}
                   />
                   <label className="form-check-label" htmlFor="buy">
-                    Buy
+                    {t("ON_PURCHASE")}
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
@@ -202,13 +243,13 @@ export default class EditAdvert extends React.Component {
                     onChange={this.onRadioChange}
                   />
                   <label className="form-check-label" htmlFor="sell">
-                    Sell
+                    {t("ON_SALE")}
                   </label>
                 </div>
               </div>
               <div className="form-group">
                 <label className="input-label" htmlFor="photo">
-                  Upload a photo
+                  {t("UPLOAD_A_PHOTO")}
                 </label>
                 {showError && errorMessage.length > 0 && (
                   <div>
@@ -218,7 +259,7 @@ export default class EditAdvert extends React.Component {
 
                 <input
                   type="file"
-                  required
+                  required={!editingAdvert}
                   name="photo"
                   id="photo"
                   className="form-control"
@@ -227,17 +268,18 @@ export default class EditAdvert extends React.Component {
               </div>
             </div>
             <div className="preview-container mb-5rem">
-              <h2 className="text-center mt-5">Preview</h2>
+              <h2 className="text-center mt-5">{t("ADVERT_PREVIEW")}</h2>
               <div id="advert-preview" className="mb-5rem">
-                <Advert advert={advert} editingAdvert={editingAdvert} />
+                <Advert advert={advert} editingPhoto={editingPhoto} />
               </div>
             </div>
           </div>
           <button type="submit" className="btn btn-primary edit-ad-submit-btn">
-            {updateOrCreateAdvert}
+            {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}
           </button>
         </form>
       </div>
     );
   }
 }
+export default withRouter(withTranslation()(EditAdvert));
