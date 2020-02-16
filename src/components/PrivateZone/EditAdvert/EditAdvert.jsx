@@ -5,13 +5,15 @@ import Advert from "../../Advert";
 import ErrorNotifier from "../../ErrorNotifier";
 
 import "./EditAdvert.css";
-import NotFoundPage from "../../NotFoundPage";
 import { withTranslation } from "react-i18next";
 import { withRouter } from "react-router-dom";
 
 class EditAdvert extends React.Component {
   constructor(props) {
     super(props);
+
+    const { _id, username } = this.props.loggedUser;
+
     this.state = {
       advert: {
         id: "",
@@ -22,7 +24,7 @@ class EditAdvert extends React.Component {
         photoPreview: "",
         tags: [],
         forSale: "",
-        member: ""
+        member: { _id, username }
       },
       showError: false,
       errorMessage: "",
@@ -35,6 +37,7 @@ class EditAdvert extends React.Component {
   componentDidMount() {
     const { editingAdvert } = this.state;
 
+    // Cargo el anuncio por su id sólo si estamos editando
     if (!editingAdvert) {
       return;
     }
@@ -72,12 +75,13 @@ class EditAdvert extends React.Component {
 
   onUploadFile = evt => {
     const { files } = evt.target;
+    const { t } = this.props;
 
     if (!files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
       this.setState(({ advert }) => ({
         editingPhoto: false,
         showError: true,
-        errorMessage: "El archivo no es una imagen",
+        errorMessage: t("ERROR_IMAGE_UPLOAD_EXTENSION"),
         advert: {
           ...advert,
           photo: "",

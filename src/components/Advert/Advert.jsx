@@ -23,19 +23,18 @@ class Advert extends React.Component {
 
   render() {
     const { t, advert, editingPhoto } = this.props;
-    console.log(advert);
-    let photoSrc = editingPhoto ? advert.photoPreview : (advert.photo ? `https://localhost:3000/images/adverts/${advert.photo}` : '/img/empty_advert_pic.png');
-    
-
+    let photoSrc = editingPhoto
+      ? advert.photoPreview
+      : advert.photo
+      ? `https://localhost:3000/images/adverts/${advert.photo}`
+      : "/img/empty_advert_pic.png";
     const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
+
     return (
       <div className="card mt-2">
         <div className="advert-img-container">
           <Link to={`/advert/${advert.name}/${advert.id}`}>
-            <img
-              src={photoSrc}
-              alt={`${advert.name}_advert_img`}
-            />
+            <img src={photoSrc} alt={`${advert.name}_advert_img`} />
           </Link>
         </div>
         <span className="advert-type badge badge-warning">{type}</span>
