@@ -6,6 +6,8 @@ export default class Advert {
   price;
   forSale;
   tags;
+  reserved;
+  sold;
   member;
 
   constructor(advert) {
@@ -18,6 +20,8 @@ export default class Advert {
     this.price = advert.price;
     this.forSale = advert.for_sale;
     this.tags = advert.tags;
+    this.reserved = advert.reserved;
+    this.sold = advert.sold;
     this.member = advert.member;
   }
 }
