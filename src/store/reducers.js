@@ -67,11 +67,11 @@ export const user = (state = initialState.user, action) => {
     case Types.UNSUBSCRIBE_SUCCESS:
     case Types.SET_USER:
     case Types.UPDATE_USER_DATA_SUCCESS:
-    //case Types.SET_USER_FAVS_SUCCESS:
+    case Types.SET_USER_FAVS_SUCCESS:
       return action.user;
     case Types.SIGN_UP_FAILURE:
     case Types.SIGN_IN_FAILURE:
-    //case Types.SET_USER_FAVS_FAILURE:
+    case Types.SET_USER_FAVS_FAILURE:
       return action.error;
     default:
       return state;

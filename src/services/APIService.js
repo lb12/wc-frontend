@@ -144,21 +144,14 @@ const editAdvert = async (advertId, memberId, formData) => {
 const setUserFavs = async (favs, userId, token) => {
   let res = {};
   try {
-    console.log(favs, userId, token);
-    
-
-    res = await postRequest(
-      `${API_URL}/adverts/set-favs/${userId}`,
-      { favs, token }
-    );
+    res = await postRequest(`${API_URL}/adverts/set-favs/${userId}`, {
+      favs,
+      token
+    });
   } catch (error) {
     console.log(error);
     console.log(error.response.data);
     //result = resolveSignErrors(error);
-  }
-
-  if (res.success) {
-    res.result = {};
   }
 
   console.log("setUserFavs desde APIService.js", res);

@@ -240,6 +240,7 @@ export const setUserFavs = favs => {
         return;
       }
 
+      console.log(response.result)
       dispatch(setUserFavsSuccess(response.result));
     } catch (error) {
       dispatch(setUserFavsFailure(error));
