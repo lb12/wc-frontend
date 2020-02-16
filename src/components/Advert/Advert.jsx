@@ -4,6 +4,7 @@ import "./Advert.css";
 import { withTranslation } from "react-i18next";
 import { withRouter } from "react-router-dom";
 import ShareMediaToolbar from "../ShareMediaToolbar";
+import Fav from "../Fav";
 
 class Advert extends React.Component {
   isOwnerOnMyZonePage = () => {
@@ -22,7 +23,7 @@ class Advert extends React.Component {
   };
 
   render() {
-    const { t, advert, editingPhoto } = this.props;
+    const { t, advert, editingPhoto, isLogged } = this.props;
     let photoSrc = editingPhoto
       ? advert.photoPreview
       : advert.photo
@@ -36,6 +37,7 @@ class Advert extends React.Component {
           <Link to={`/advert/${advert.name}/${advert.id}`}>
             <img src={photoSrc} alt={`${advert.name}_advert_img`} />
           </Link>
+          {isLogged && <Fav advertId={advert.id}/>}
         </div>
         <span className="advert-type badge badge-warning">{type}</span>
         <div className="card-body">

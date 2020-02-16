@@ -227,6 +227,42 @@ export const editAdvertFailure = error => ({
 });
 
 
+export const setUserFavs = favs => {
+  return async function(dispatch, getState) {
+    dispatch(setUserFavsRequest());
+    try {
+      const { user } = getState();
+
+      const response = await API.setUserFavs(favs, user.user._id, user.token);
+
+      if (!response.success || response.errors) {
+        dispatch(setUserFavsFailure(response));
+        return;
+      }
+
+      dispatch(setUserFavsSuccess(response.result));
+    } catch (error) {
+      dispatch(setUserFavsFailure(error));
+    }
+  };
+};
+
+
+export const setUserFavsRequest = () => ({
+  type: Types.SET_USER_FAVS_REQUEST
+});
+
+export const setUserFavsSuccess = user => ({
+  type: Types.SET_USER_FAVS_SUCCESS,
+  user
+});
+
+export const setUserFavsFailure = error => ({
+  type: Types.SET_USER_FAVS_FAILURE,
+  error
+});
+
+
 // Tags actions
 export const fetchTags = () => {
   return async (dispatch, getState) => {

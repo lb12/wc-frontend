@@ -1,10 +1,11 @@
 import  { connect } from 'react-redux';
 import Advert from './Advert';
-
 import { setAdvertToDelete } from '../../store/actions';
+import { isUserLogged } from '../../store/selectors';
 
 const mapStateToProps = state => ({
-    user: state.user.user
+    user: state.user.user,
+    isLogged: isUserLogged(state.user)
 });
 
 const mapDispatchToProps = dispatch => ({
