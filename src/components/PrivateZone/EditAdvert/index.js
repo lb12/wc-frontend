@@ -3,7 +3,9 @@ import EditAdvert from "./EditAdvert";
 
 import { createAdvert } from "../../../store/actions";
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    loggedUser: state.user.user
+});
 
 const mapDispatchToProps = dispatch => ({
   createAdvert: formData => dispatch(createAdvert(formData))

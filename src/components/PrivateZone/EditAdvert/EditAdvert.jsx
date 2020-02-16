@@ -99,6 +99,7 @@ export default class EditAdvert extends React.Component {
     formData.append("tags", tags);
     formData.append("price", price);
     formData.append("description", description);
+    formData.append("member", this.props.loggedUser._id);
 
     this.props.createAdvert(formData);
   };
