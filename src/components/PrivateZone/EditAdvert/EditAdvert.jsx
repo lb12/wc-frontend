@@ -18,7 +18,7 @@ class EditAdvert extends React.Component {
       advert: {
         id: "",
         name: "",
-        price: "",
+        price: "0",
         description: "",
         photo: "",
         photoPreview: "",
@@ -146,142 +146,154 @@ class EditAdvert extends React.Component {
       editingAdvert,
       editingPhoto
     } = this.state;
-    const { name, price, description, tags, forSale } = advert;
+    const { name, price, description, tags, photo, forSale } = advert;
     const { t } = this.props;
 
     const updateOrCreateAdvert = this.state.editingAdvert
       ? t("EDIT")
       : t("CREATE");
     return (
-      <div>
-        <h1 className="text-center mt-4">
-          {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}{" "}
-        </h1>
+      <div className="create-edit-container p-3">
+        <div className="form-container">
+          <h1 className="font-size-2 text-center mt-5 mb-5">
+            {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}{" "}
+          </h1>
 
-        <form className="create-edit-container mt-4" onSubmit={this.onSubmit}>
-          <div className="main-info-container">
-            <div className="info-container mb-5rem">
-              <div className="form-group">
-                <label className="input-label" htmlFor="name">
-                  {t("NAME")}
-                </label>
-                <input
-                  type="text"
-                  required
-                  name="name"
-                  id="name"
-                  className="form-control"
-                  value={name}
-                  placeholder={t("NAME")}
-                  onChange={this.onInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label className="input-label" htmlFor="description">
-                  {t("DESCRIPTION")}
-                </label>
-                <textarea
-                  required
-                  name="description"
-                  id="description"
-                  className="form-control"
-                  value={description}
-                  placeholder={t("DESCRIPTION_PLACEHOLDER")}
-                  onChange={this.onInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label className="input-label" htmlFor="price">
-                  {t("PRICE")}
-                </label>
-                <input
-                  type="number"
-                  required
-                  name="price"
-                  id="price"
-                  className="form-control"
-                  value={price}
-                  placeholder={t("PRICE")}
-                  onChange={this.onInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label className="input-label" htmlFor="tags-select">
-                  Tags
-                </label>
-                <Tags
-                  multiple={true}
-                  required={true}
-                  selectedTags={tags}
-                  onTagSelected={this.onSelectChange}
-                />
-              </div>
-              <div className="form-group">
-                <div>
-                  <span className="input-label">{t("STATUS")}</span>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    type="radio"
-                    required
-                    name="type"
-                    id="buy"
-                    className="form-check-input"
-                    value={forSale}
-                    checked={forSale === false}
-                    onChange={this.onRadioChange}
-                  />
-                  <label className="form-check-label" htmlFor="buy">
-                    {t("ON_PURCHASE")}
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    type="radio"
-                    required
-                    name="type"
-                    id="sell"
-                    className="form-check-input"
-                    value={forSale}
-                    checked={forSale === true}
-                    onChange={this.onRadioChange}
-                  />
-                  <label className="form-check-label" htmlFor="sell">
-                    {t("ON_SALE")}
-                  </label>
-                </div>
-              </div>
-              <div className="form-group">
-                <label className="input-label" htmlFor="photo">
-                  {t("UPLOAD_A_PHOTO")}
-                </label>
-                {showError && errorMessage.length > 0 && (
+          <div className="card mb-5">
+            <div className="p-4">
+              <form
+                className="d-flex flex-column"
+                onSubmit={this.onSubmit}
+              >
+                <div className="info-container mb-5rem">
                   <div>
-                    <ErrorNotifier errors={[errorMessage]} />
+                    <div className="form-group">
+                      <label className="font-weight-bold" htmlFor="name">
+                        {t("NAME")}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        name="name"
+                        id="name"
+                        className="form-control"
+                        value={name}
+                        placeholder={t("NAME")}
+                        onChange={this.onInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="font-weight-bold" htmlFor="description">
+                        {t("DESCRIPTION")}
+                      </label>
+                      <textarea
+                        required
+                        name="description"
+                        id="description"
+                        className="form-control"
+                        value={description}
+                        placeholder={t("DESCRIPTION_PLACEHOLDER")}
+                        onChange={this.onInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="font-weight-bold" htmlFor="price">
+                        {t("PRICE")}
+                      </label>
+                      <input
+                        type="number"
+                        required
+                        name="price"
+                        id="price"
+                        className="form-control"
+                        value={price}
+                        placeholder={t("PRICE")}
+                        onChange={this.onInputChange}
+                      />
+                    </div>
                   </div>
-                )}
+                  <div>
+                    <div className="form-group">
+                      <label className="font-weight-bold" htmlFor="tags-select">
+                        Tags
+                      </label>
+                      <Tags
+                        multiple={true}
+                        required={true}
+                        selectedTags={tags}
+                        onTagSelected={this.onSelectChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <div>
+                        <span className="font-weight-bold">{t("STATUS")}</span>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          type="radio"
+                          required
+                          name="type"
+                          id="buy"
+                          className="form-check-input"
+                          value={forSale}
+                          checked={forSale === false}
+                          onChange={this.onRadioChange}
+                        />
+                        <label className="form-check-label" htmlFor="buy">
+                          {t("ON_PURCHASE")}
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          type="radio"
+                          required
+                          name="type"
+                          id="sell"
+                          className="form-check-input"
+                          value={forSale}
+                          checked={forSale === true}
+                          onChange={this.onRadioChange}
+                        />
+                        <label className="form-check-label" htmlFor="sell">
+                          {t("ON_SALE")}
+                        </label>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="font-weight-bold" htmlFor="photo">
+                        {t("PRODUCT_IMAGE")}
+                      </label>
+                      {showError && errorMessage.length > 0 && (
+                        <div>
+                          <ErrorNotifier errors={[errorMessage]} />
+                        </div>
+                      )}
+                      <div className="custom-file">
+                        <input type="file" className="custom-file-input" id="photo" onChange={this.onUploadFile}/>
+                        <label className="custom-file-label" htmlFor="photo">{t("UPLOAD_A_PHOTO")}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                <input
-                  type="file"
-                  required={!editingAdvert}
-                  name="photo"
-                  id="photo"
-                  className="form-control"
-                  onChange={this.onUploadFile}
-                />
-              </div>
-            </div>
-            <div className="preview-container mb-5rem">
-              <h2 className="text-center mt-5">{t("ADVERT_PREVIEW")}</h2>
-              <div id="advert-preview" className="mb-5rem">
-                <Advert advert={advert} editingPhoto={editingPhoto} />
-              </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary edit-ad-submit-btn"
+                >
+                  {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}
+                </button>
+              </form>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary edit-ad-submit-btn">
-            {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}
-          </button>
-        </form>
+
+        </div>
+
+        <div className="preview-container mb-5rem">
+          <h2 className="font-size-1-5 text-center mt-5 mb-5">{t("ADVERT_PREVIEW")}</h2>
+          <div id="advert-preview" className="mb-5rem">
+            <Advert advert={advert} editingPhoto={editingPhoto} />
+          </div>
+        </div>
       </div>
     );
   }

@@ -58,8 +58,9 @@
     "DESCRIPTION": "Descripción",
     "DESCRIPTION_PLACEHOLDER": "Escribe una descripción del producto",
     "PRICE": "Precio",
-    "UPLOAD_A_PHOTO": "Sube una imagen del producto",
+    "UPLOAD_A_PHOTO": "Sube una foto del producto",
     "ADVERT_PREVIEW": "Vista previa del anuncio",
-    "ERROR_IMAGE_UPLOAD_EXTENSION": "El archivo no es una imagen"
+    "ERROR_IMAGE_UPLOAD_EXTENSION": "El archivo no es una imagen",
+    "PRODUCT_IMAGE": "Foto del producto"
   }
 }
