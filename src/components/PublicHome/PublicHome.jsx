@@ -16,6 +16,7 @@ class PublicHome extends React.Component {
   }
 
   componentDidMount() {
+    this.props.resetPaginationFilters();
     this.searchAdverts();
   }
 

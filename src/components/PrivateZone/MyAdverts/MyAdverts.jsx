@@ -8,6 +8,7 @@ import "./MyAdverts.css";
 
 class MyAdverts extends React.Component {
   componentDidMount() {
+    this.props.resetPaginationFilters();
     this.getMemberAdverts();
   }
 
