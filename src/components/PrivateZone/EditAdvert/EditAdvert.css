@@ -1,35 +1,35 @@
 /* No me interesa que se vea la seccion de Editar/Eliminar anuncio aquí, por eso utilizo el important*/
-div.create-edit-container .edit-remove-container {
-    display: none!important;
+div.create-edit-container .edit-remove-container,
+div.create-edit-container .fav-container {
+  display: none !important;
 }
-
-
+ 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-    .create-edit-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-    }
+  .create-edit-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
 
-    .create-edit-container .form-container {
-        flex-grow: 1;
-    }
+  .create-edit-container .form-container {
+    flex-grow: 1;
+  }
 
-    .create-edit-container .preview-container {
-        flex-basis: 40%;
-    }
+  .create-edit-container .preview-container {
+    flex-basis: 40%;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .create-edit-container .preview-container {
-        flex-basis: 30%;
-    }
+  .create-edit-container .preview-container {
+    flex-basis: 30%;
+  }
 
-    .create-edit-container .edit-ad-submit-btn {
-        width: 50%;
-        margin: 0 auto;
-    }
+  .create-edit-container .edit-ad-submit-btn {
+    width: 50%;
+    margin: 0 auto;
+  }
 }
