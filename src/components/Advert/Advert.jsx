@@ -22,13 +22,9 @@ class Advert extends React.Component {
     this.props.setAdvertToDelete(advert);
   };
 
-  onReserveBtnClick = () => {
+  onReserveBtnClick = () => {};
 
-  }
-
-  onSellBtnClick = () => {
-    
-  }
+  onSellBtnClick = () => {};
 
   render() {
     const { t, advert, editingPhoto, isLogged } = this.props;
@@ -46,15 +42,23 @@ class Advert extends React.Component {
           <Link to={`/advert/${advert.name}/${advert.id}`}>
             <img src={photoSrc} alt={`${advert.name}_advert_img`} />
           </Link>
-          {isLogged && 
-          <React.Fragment>
-            <Fav advertId={advert.id} />
-            <div className="sold-reserved-info-container">
-              <div className="reserved-info-item"><span>{t("RESERVED").toUpperCase()}</span></div>
-              <div className="sold-info-item"><span>{t("SOLD_OUT").toUpperCase()}</span></div>
-            </div>
-          </React.Fragment>
-          }
+          {isLogged && (
+            <React.Fragment>
+              <Fav advertId={advert.id} />
+              <div className="sold-reserved-info-container">
+                {reserved && (
+                  <div className="reserved-info-item">
+                    <span>{t("RESERVED").toUpperCase()}</span>
+                  </div>
+                )}
+                {sold && (
+                  <div className="sold-info-item">
+                    <span>{t("SOLD_OUT").toUpperCase()}</span>
+                  </div>
+                )}
+              </div>
+            </React.Fragment>
+          )}
         </div>
         <span className="advert-type badge badge-warning">{type}</span>
         <div className="card-body">
@@ -91,13 +95,17 @@ class Advert extends React.Component {
             <React.Fragment>
               <div className="card-footer sell-reserve-container d-flex justify-content-between">
                 <button
-                  className={`btn ${reserved ? 'btn-primary' : 'btn-outline-primary'}`}
+                  className={`btn ${
+                    reserved ? "btn-primary" : "btn-outline-primary"
+                  }`}
                   onClick={() => console.log("RESERVAR")}
                 >
                   {reserved ? t("RESERVED") : t("RESERVE")}
                 </button>
                 <button
-                  className={`btn ${sold ? 'btn-success' : 'btn-outline-success'}`}
+                  className={`btn ${
+                    sold ? "btn-success" : "btn-outline-success"
+                  }`}
                   onClick={() => console.log("VENDER")}
                 >
                   {sold ? t("SOLD_OUT") : t("SELL")}
@@ -117,7 +125,7 @@ class Advert extends React.Component {
                 >
                   {t("DELETE")}
                 </button>
-              </div>              
+              </div>
             </React.Fragment>
           )}
         </React.Fragment>
