@@ -22,9 +22,17 @@ class Advert extends React.Component {
     this.props.setAdvertToDelete(advert);
   };
 
-  onReserveBtnClick = () => {};
+  onReserveBtnClick = evt => {
+    evt && evt.preventDefault();
+    const { advert } = this.props;
+    this.props.setReservedAdvert(advert, !advert.reserved);
+  };
 
-  onSellBtnClick = () => {};
+  onSellBtnClick = evt => {
+    evt && evt.preventDefault();
+    const { advert } = this.props;
+    this.props.setSoldAdvert(advert, !advert.sold);
+  };
 
   render() {
     const { t, advert, editingPhoto, isLogged } = this.props;
@@ -98,7 +106,7 @@ class Advert extends React.Component {
                   className={`btn ${
                     reserved ? "btn-primary" : "btn-outline-primary"
                   }`}
-                  onClick={() => console.log("RESERVAR")}
+                  onClick={this.onReserveBtnClick}
                 >
                   {reserved ? t("RESERVED") : t("RESERVE")}
                 </button>
@@ -106,7 +114,7 @@ class Advert extends React.Component {
                   className={`btn ${
                     sold ? "btn-success" : "btn-outline-success"
                   }`}
-                  onClick={() => console.log("VENDER")}
+                  onClick={this.onSellBtnClick}
                 >
                   {sold ? t("SOLD_OUT") : t("SELL")}
                 </button>

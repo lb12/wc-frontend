@@ -50,7 +50,11 @@ export const fetchMemberAdverts = memberId => {
     dispatch(fetchMemberAdvertsRequest());
     try {
       const { paginationFilters } = getState();
-      const response = await API.listMemberAdverts(memberId, paginationFilters, false);
+      const response = await API.listMemberAdverts(
+        memberId,
+        paginationFilters,
+        false
+      );
 
       if (!response.success || response.errors) {
         dispatch(fetchMemberAdvertsFailure(response));
@@ -74,7 +78,11 @@ export const fetchMemberFavouriteAdverts = memberId => {
     dispatch(fetchMemberFavouriteAdvertsRequest());
     try {
       const { paginationFilters } = getState();
-      const response = await API.listMemberAdverts(memberId, paginationFilters, true);
+      const response = await API.listMemberAdverts(
+        memberId,
+        paginationFilters,
+        true
+      );
 
       if (!response.success || response.errors) {
         dispatch(fetchMemberFavouriteAdvertsFailure(response));
@@ -89,6 +97,50 @@ export const fetchMemberFavouriteAdverts = memberId => {
       );
     } catch (error) {
       dispatch(fetchMemberFavouriteAdvertsFailure(error));
+    }
+  };
+};
+
+export const setReservedAdvert = (advert, reservedStatus) => {
+  return async (dispatch, getState) => {
+    dispatch(setReservedAdvertRequest());
+    try {
+      const { token } = getState().user;
+      const response = await API.setReservedOrSoldAdvert(advert, {
+        reserved: reservedStatus,
+        token
+      });
+
+      if (!response.success || response.errors) {
+        dispatch(setReservedAdvertFailure(response));
+        return;
+      }
+
+      dispatch(setReservedAdvertSuccess({ advert: response.result }));
+    } catch (error) {
+      dispatch(setReservedAdvertFailure(error));
+    }
+  };
+};
+
+export const setSoldAdvert = (advert, soldStatus) => {
+  return async (dispatch, getState) => {
+    dispatch(setSoldAdvertRequest());
+    try {
+      const { token } = getState().user;
+      const response = await API.setReservedOrSoldAdvert(advert, {
+        sold: soldStatus,
+        token
+      });
+
+      if (!response.success || response.errors) {
+        dispatch(setSoldAdvertFailure(response));
+        return;
+      }
+
+      dispatch(setSoldAdvertSuccess({ advert: response.result }));
+    } catch (error) {
+      dispatch(setSoldAdvertFailure(error));
     }
   };
 };
@@ -149,6 +201,34 @@ export const fetchMemberFavouriteAdvertsFailure = error => ({
   error
 });
 
+export const setReservedAdvertRequest = () => ({
+  type: Types.SET_RESERVED_ADVERT_REQUEST
+});
+
+export const setReservedAdvertSuccess = advert => ({
+  type: Types.SET_RESERVED_ADVERT_SUCCESS,
+  advert
+});
+
+export const setReservedAdvertFailure = error => ({
+  type: Types.SET_RESERVED_ADVERT_FAILURE,
+  error
+});
+
+export const setSoldAdvertRequest = () => ({
+  type: Types.SET_SOLD_ADVERT_REQUEST
+});
+
+export const setSoldAdvertSuccess = advert => ({
+  type: Types.SET_SOLD_ADVERT_SUCCESS,
+  advert
+});
+
+export const setSoldAdvertFailure = error => ({
+  type: Types.SET_SOLD_ADVERT_FAILURE,
+  error
+});
+
 export const setAdvertToDelete = advert => ({
   type: Types.SET_ADVERT_TO_DELETE,
   advertToDelete: advert
@@ -193,7 +273,7 @@ export const createAdvert = formData => {
     try {
       const { token } = getState().user;
 
-      formData.append('token', token);
+      formData.append("token", token);
 
       const response = await API.createAdvert(formData);
 
@@ -214,11 +294,10 @@ export const editAdvert = formData => {
     dispatch(editAdvertRequest());
     try {
       const { token } = getState().user;
-      const advertId = formData.get('id');
-      const memberId = formData.get('member');
+      const advertId = formData.get("id");
+      const memberId = formData.get("member");
 
-      formData.append('token', token);
-
+      formData.append("token", token);
 
       const response = await API.editAdvert(advertId, memberId, formData);
 
@@ -234,7 +313,6 @@ export const editAdvert = formData => {
   };
 };
 
-
 export const createAdvertRequest = () => ({
   type: Types.CREATE_ADVERT_REQUEST
 });
@@ -248,7 +326,6 @@ export const createAdvertFailure = error => ({
   type: Types.CREATE_ADVERT_FAILURE,
   error
 });
-
 
 export const editAdvertRequest = () => ({
   type: Types.EDIT_ADVERT_REQUEST
@@ -264,7 +341,6 @@ export const editAdvertFailure = error => ({
   error
 });
 
-
 export const setUserFavs = favs => {
   return async function(dispatch, getState) {
     dispatch(setUserFavsRequest());
@@ -278,14 +354,13 @@ export const setUserFavs = favs => {
         return;
       }
 
-      console.log(response.result)
+      console.log(response.result);
       dispatch(setUserFavsSuccess(response.result));
     } catch (error) {
       dispatch(setUserFavsFailure(error));
     }
   };
 };
-
 
 export const setUserFavsRequest = () => ({
   type: Types.SET_USER_FAVS_REQUEST
@@ -300,7 +375,6 @@ export const setUserFavsFailure = error => ({
   type: Types.SET_USER_FAVS_FAILURE,
   error
 });
-
 
 // Tags actions
 export const fetchTags = () => {

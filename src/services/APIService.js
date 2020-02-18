@@ -161,6 +161,22 @@ const setUserFavs = async (favs, userId, token) => {
   return res;
 };
 
+const setReservedOrSoldAdvert = async (advert, data) => {
+  let res = {};
+
+  try {
+    res = await putRequest(`${API_URL}/adverts/set-reserved-or-sold/${advert.id}/${advert.member._id}`, data);
+  } catch (error) {
+    console.log(error);
+    console.log(error.response.data);
+    //result = resolveSignErrors(error);
+  }
+
+  console.log("setReservedOrSoldAdvert desde APIService.js", res);
+
+  return res;
+};
+
 // API Tags methods
 
 /**
@@ -324,5 +340,6 @@ export {
   deleteAdvert,
   createAdvert,
   editAdvert,
-  setUserFavs
+  setUserFavs,
+  setReservedOrSoldAdvert
 };
