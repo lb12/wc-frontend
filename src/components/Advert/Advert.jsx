@@ -78,12 +78,18 @@ class Advert extends React.Component {
               <Fav advertId={advert.id} />
               <div className="sold-reserved-info-container">
                 {reserved && (
-                  <div className="reserved-info-item">
+                  <div
+                    className="reserved-info-item"
+                    style={!sold ? { borderBottomRightRadius: "5px" } : {}} /* Apaño para no descuadrar la imagen */
+                  >
                     <span>{t("RESERVED").toUpperCase()}</span>
                   </div>
                 )}
                 {sold && (
-                  <div className="sold-info-item">
+                  <div
+                    className="sold-info-item"
+                    style={!reserved ? { borderBottomLeftRadius: "5px" } : {}} /* Apaño para no descuadrar la imagen */
+                  >
                     <span>{t("SOLD_OUT").toUpperCase()}</span>
                   </div>
                 )}
@@ -127,7 +133,7 @@ class Advert extends React.Component {
               <div className="card-footer sell-reserve-container d-flex justify-content-between">
                 <button
                   className={`btn ${
-                    reserved ? "btn-primary" : "btn-outline-primary"
+                    reserved ? "btn-reserved" : "btn-outline-reserved"
                   }`}
                   onClick={this.onReserveBtnClick}
                 >

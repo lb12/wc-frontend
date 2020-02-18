@@ -94,7 +94,7 @@
 }
 
 .sold-info-item {
-  background: var(--success);  
+  background: var(--success);
   border-bottom-right-radius: 5px;
 }
 
@@ -104,11 +104,30 @@
 
 .edit-delete-advert-container .btn {
   flex-basis: 50%;
-  color: #fff;  
+  color: #fff;
   border: 0;
   border-radius: 0;
 }
 
+.btn.btn-reserved {
+  background-color: #fd772c;
+  color: #fff;
+}
+
+.btn.btn-reserved:hover {
+  background-color: #d55f1c;
+}
+
+.btn.btn-outline-reserved {
+  background-color: #fff;
+  border: 1px solid #fd772c;
+  color: #fd772c;
+}
+
+.btn.btn-outline-reserved:hover {
+  background-color: #fd772c;
+  color: #fff;
+}
 
 .edit-delete-advert-container .edit-advert-btn {
   background-color: var(--info);
