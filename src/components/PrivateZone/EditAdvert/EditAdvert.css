@@ -1,5 +1,6 @@
 /* No me interesa que se vea la seccion de Editar/Eliminar anuncio aquí, por eso utilizo el important*/
-div.create-edit-container .edit-remove-container,
+div.create-edit-container .edit-delete-advert-container,
+div.create-edit-container .sell-reserve-container,
 div.create-edit-container .fav-container {
   display: none !important;
 }

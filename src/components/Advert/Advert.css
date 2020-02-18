@@ -67,3 +67,65 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.sold-reserved-info-container {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 8px);
+  display: flex;
+  height: 2rem;
+  align-items: center;
+}
+
+.sold-reserved-info-container div {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 50%;
+  flex-grow: 1;
+  font-weight: 500;
+  color: #fff;
+}
+
+.reserved-info-item {
+  background: #fd772c;
+  border-bottom-left-radius: 5px;
+}
+
+.sold-info-item {
+  background: var(--success);  
+  border-bottom-right-radius: 5px;
+}
+
+.edit-delete-advert-container {
+  height: 3rem;
+}
+
+.edit-delete-advert-container .btn {
+  flex-basis: 50%;
+  color: #fff;  
+  border: 0;
+  border-radius: 0;
+}
+
+
+.edit-delete-advert-container .edit-advert-btn {
+  background-color: var(--info);
+}
+
+.edit-delete-advert-container .edit-advert-btn:hover {
+  background-color: #138496;
+}
+
+.edit-delete-advert-container .edit-advert-btn a:hover {
+  color: #fff;
+}
+
+.edit-delete-advert-container .delete-advert-btn {
+  background-color: var(--danger);
+}
+
+.edit-delete-advert-container .delete-advert-btn:hover {
+  background-color: #c82333;
+}

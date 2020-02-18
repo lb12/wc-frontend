@@ -22,6 +22,14 @@ class Advert extends React.Component {
     this.props.setAdvertToDelete(advert);
   };
 
+  onReserveBtnClick = () => {
+
+  }
+
+  onSellBtnClick = () => {
+    
+  }
+
   render() {
     const { t, advert, editingPhoto, isLogged } = this.props;
     let photoSrc = editingPhoto
@@ -30,6 +38,7 @@ class Advert extends React.Component {
       ? `https://localhost:3000/images/adverts/${advert.photo}`
       : "/img/empty_advert_pic.png";
     const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
+    const { sold, reserved } = advert;
 
     return (
       <div className="card mt-2">
@@ -37,7 +46,15 @@ class Advert extends React.Component {
           <Link to={`/advert/${advert.name}/${advert.id}`}>
             <img src={photoSrc} alt={`${advert.name}_advert_img`} />
           </Link>
-          {isLogged && <Fav advertId={advert.id}/>}
+          {isLogged && 
+          <React.Fragment>
+            <Fav advertId={advert.id} />
+            <div className="sold-reserved-info-container">
+              <div className="reserved-info-item"><span>{t("RESERVED").toUpperCase()}</span></div>
+              <div className="sold-info-item"><span>{t("SOLD_OUT").toUpperCase()}</span></div>
+            </div>
+          </React.Fragment>
+          }
         </div>
         <span className="advert-type badge badge-warning">{type}</span>
         <div className="card-body">
@@ -71,19 +88,37 @@ class Advert extends React.Component {
         </div>
         <React.Fragment>
           {this.isOwnerOnMyZonePage() && (
-            <div className="card-footer edit-remove-container d-flex justify-content-between">
-              <Link to={`/my-zone/edit-advert/${advert.id}`}>
-                <button className="btn btn-info">{t("EDIT")}</button>
-              </Link>
-              <button
-                className="btn btn-danger"
-                onClick={this.setAdvertToDelete}
-                data-toggle="modal"
-                data-target={`#modal-deleteAdvert`}
-              >
-                {t("DELETE")}
-              </button>
-            </div>
+            <React.Fragment>
+              <div className="card-footer sell-reserve-container d-flex justify-content-between">
+                <button
+                  className={`btn ${reserved ? 'btn-primary' : 'btn-outline-primary'}`}
+                  onClick={() => console.log("RESERVAR")}
+                >
+                  {reserved ? t("RESERVED") : t("RESERVE")}
+                </button>
+                <button
+                  className={`btn ${sold ? 'btn-success' : 'btn-outline-success'}`}
+                  onClick={() => console.log("VENDER")}
+                >
+                  {sold ? t("SOLD_OUT") : t("SELL")}
+                </button>
+              </div>
+              <div className="edit-delete-advert-container d-flex justify-content-between p-0">
+                <button className="btn edit-advert-btn">
+                  <Link to={`/my-zone/edit-advert/${advert.id}`}>
+                    {t("EDIT")}
+                  </Link>
+                </button>
+                <button
+                  className="btn delete-advert-btn"
+                  onClick={this.setAdvertToDelete}
+                  data-toggle="modal"
+                  data-target={`#modal-deleteAdvert`}
+                >
+                  {t("DELETE")}
+                </button>
+              </div>              
+            </React.Fragment>
           )}
         </React.Fragment>
       </div>

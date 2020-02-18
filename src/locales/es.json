@@ -62,6 +62,10 @@
     "UPLOAD_A_PHOTO": "Sube una foto del producto",
     "ADVERT_PREVIEW": "Vista previa del anuncio",
     "ERROR_IMAGE_UPLOAD_EXTENSION": "El archivo no es una imagen",
-    "PRODUCT_IMAGE": "Foto del producto"
+    "PRODUCT_IMAGE": "Foto del producto",
+    "SELL": "Vender",
+    "SOLD_OUT": "Vendido",
+    "RESERVE": "Reservar",
+    "RESERVED": "Reservado"
   }
 }
