@@ -116,7 +116,7 @@ export const setReservedAdvert = (advert, reservedStatus) => {
         return;
       }
 
-      dispatch(setReservedAdvertSuccess({ advert: response.result }));
+      dispatch(setReservedAdvertSuccess(response.result));
     } catch (error) {
       dispatch(setReservedAdvertFailure(error));
     }
@@ -138,7 +138,7 @@ export const setSoldAdvert = (advert, soldStatus) => {
         return;
       }
 
-      dispatch(setSoldAdvertSuccess({ advert: response.result }));
+      dispatch(setSoldAdvertSuccess(response.result));
     } catch (error) {
       dispatch(setSoldAdvertFailure(error));
     }

@@ -7,6 +7,18 @@ import ShareMediaToolbar from "../ShareMediaToolbar";
 import Fav from "../Fav";
 
 class Advert extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { reserved, sold } = this.props.advert;
+
+    // Tengo que gestionarlo con el state ya que sino, no me renderiza el cambio
+    this.state = {
+      reserved,
+      sold
+    };
+  }
+
   isOwnerOnMyZonePage = () => {
     const { user, advert, location } = this.props;
     const { pathname } = location;
@@ -22,16 +34,27 @@ class Advert extends React.Component {
     this.props.setAdvertToDelete(advert);
   };
 
-  onReserveBtnClick = evt => {
+  onReserveBtnClick = async evt => {
     evt && evt.preventDefault();
     const { advert } = this.props;
-    this.props.setReservedAdvert(advert, !advert.reserved);
+    const { reserved } = this.state;
+
+    this.setState(
+      { reserved: !reserved },
+      await this.props.setReservedAdvert(advert, !reserved)
+    );
   };
 
-  onSellBtnClick = evt => {
+  onSellBtnClick = async evt => {
     evt && evt.preventDefault();
+
     const { advert } = this.props;
-    this.props.setSoldAdvert(advert, !advert.sold);
+    const { sold } = this.state;
+
+    this.setState(
+      { sold: !sold },
+      await this.props.setSoldAdvert(advert, !sold)
+    );
   };
 
   render() {
@@ -42,7 +65,7 @@ class Advert extends React.Component {
       ? `https://localhost:3000/images/adverts/${advert.photo}`
       : "/img/empty_advert_pic.png";
     const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
-    const { sold, reserved } = advert;
+    const { sold, reserved } = this.state;
 
     return (
       <div className="card mt-2">

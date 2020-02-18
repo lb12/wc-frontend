@@ -31,10 +31,14 @@ export const advert = (state = initialState.advert, action) => {
     case Types.FETCH_ADVERT_SUCCESS:
     case Types.CREATE_ADVERT_SUCCESS:
     case Types.EDIT_ADVERT_SUCCESS:
+    case Types.SET_RESERVED_ADVERT_SUCCESS:
+    case Types.SET_SOLD_ADVERT_SUCCESS:
       return action.advert;
     case Types.FETCH_ADVERT_FAILURE:
     case Types.CREATE_ADVERT_FAILURE:
     case Types.EDIT_ADVERT_FAILURE:
+    case Types.SET_RESERVED_ADVERT_FAILURE:
+    case Types.SET_SOLD_ADVERT_FAILURE:
       return action.error;
     default:
       return state;
