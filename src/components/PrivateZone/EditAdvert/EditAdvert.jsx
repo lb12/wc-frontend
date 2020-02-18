@@ -136,6 +136,8 @@ class EditAdvert extends React.Component {
 
     !editingAdvert && this.props.createAdvert(formData);
     editingAdvert && this.props.editAdvert(formData);
+
+    this.props.history.push("/my-zone/my-adverts");
   };
 
   render() {
@@ -143,10 +145,9 @@ class EditAdvert extends React.Component {
       advert,
       showError,
       errorMessage,
-      editingAdvert,
       editingPhoto
     } = this.state;
-    const { name, price, description, tags, photo, forSale } = advert;
+    const { name, price, description, tags, forSale } = advert;
     const { t } = this.props;
 
     const updateOrCreateAdvert = this.state.editingAdvert
