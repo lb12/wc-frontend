@@ -70,7 +70,7 @@ class Advert extends React.Component {
     return (
       <div className="card mt-2">
         <div className="advert-img-container">
-          <Link to={`/advert/${advert.name}/${advert.id}`}>
+          <Link to={`/advert/${advert.slug}/${advert.id}`}>
             <img src={photoSrc} alt={`${advert.name}_advert_img`} />
           </Link>
           {isLogged && (

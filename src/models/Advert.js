@@ -9,6 +9,7 @@ export default class Advert {
   reserved;
   sold;
   member;
+  slug;
 
   constructor(advert) {
     this.id = advert._id;
@@ -23,5 +24,6 @@ export default class Advert {
     this.reserved = advert.reserved;
     this.sold = advert.sold;
     this.member = advert.member;
+    this.slug = advert.slug;
   }
 }
