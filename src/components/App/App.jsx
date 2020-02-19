@@ -14,6 +14,8 @@ import SignIn from "../Auth/SignIn";
 import SignUp from "../Auth/SignUp";
 import Profile from "../Profile";
 import AdvertDetail from "../AdvertDetail";
+import ForgotPassword from "../Auth/ForgotPassword";
+import ResetPassword from "../Auth/ResetPassword";
 
 // Private zone components imports
 import PrivateHome from "../PrivateZone/PrivateHome";
@@ -67,6 +69,8 @@ export default class App extends React.Component {
                     <Route path="/sign-up" component={SignUp} />
                     <Route path="/profile/:username/:id" component={Profile} />
                     <Route path="/advert/:advertSlug/:id" component={AdvertDetail} />
+                    <Route path="/forgot-password" component={ForgotPassword} />
+                    <Route path="/reset-password/:token" component={ResetPassword} />
                     <Route exact path="/" component={PublicHome} />
                     <Route exact path='*' component={NotFoundPage} />
                   </Switch>

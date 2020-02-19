@@ -328,6 +328,41 @@ const unsubscribeUser = async (userId, token) => {
   return result;
 };
 
+// Forgot password methods
+const sendPasswordRecoverEmail = async email => {
+  let res = {};
+  try {
+    res = await postRequest(`${API_URL}/auth/forgot-password`, { email });
+  } catch (error) {
+    res = error.response;
+  }
+  return res;
+}
+
+const getEmailFromRecoveryToken = async token => {
+  let res = {};
+  try {
+    res = await getRequest(`${API_URL}/auth/reset-password?token=${token}`);
+  } catch (error) {
+    res = error.response;
+  }
+  return res;
+}
+
+const changePasswordFromRecoveryToken = async ({ email, password, token }) => {
+  let res = {};
+  try {
+    res = await putRequest(`${API_URL}/auth/update-password`, {
+      email,
+      password,
+      token
+    });
+  } catch (error) {
+    res = error.response;
+  }
+  return res;
+}
+
 export {
   signUp,
   signIn,
@@ -343,5 +378,8 @@ export {
   createAdvert,
   editAdvert,
   setUserFavs,
-  setReservedOrSoldAdvert
+  setReservedOrSoldAdvert,
+  sendPasswordRecoverEmail,
+  getEmailFromRecoveryToken,
+  changePasswordFromRecoveryToken
 };

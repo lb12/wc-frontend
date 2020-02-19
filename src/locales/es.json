@@ -66,6 +66,11 @@
     "SELL": "Vender",
     "SOLD_OUT": "Vendido",
     "RESERVE": "Reservar",
-    "RESERVED": "Reservado"
+    "RESERVED": "Reservado",
+    "FORGOT_PASSWORD": "Olvidé mi contraseña",
+    "EMAIL_REQUIRED_FIELD": "El email es obligatorio",
+    "RECOVER_PASSWORD": "Recuperar contraseña",
+    "PASSWORD_EMAIL_SENT": " El email para recuperar tu contraseña ha sido enviado correctamente",
+    "PASSWORD_CHANGED_MESSAGE": "Tu contraseña ha sido cambiada correctamente, intenta volver a conectarte por favor"
   }
 }
