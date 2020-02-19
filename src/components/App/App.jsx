@@ -67,7 +67,7 @@ export default class App extends React.Component {
                     </Route>
                     <Route path="/sign-in" component={SignIn} />
                     <Route path="/sign-up" component={SignUp} />
-                    <Route path="/profile/:username/:id" component={Profile} />
+                    <Route path="/profile/:slug/:username/:id" component={Profile} />
                     <Route path="/advert/:advertSlug/:id" component={AdvertDetail} />
                     <Route path="/forgot-password" component={ForgotPassword} />
                     <Route path="/reset-password/:token" component={ResetPassword} />

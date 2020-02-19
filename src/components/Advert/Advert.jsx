@@ -110,7 +110,7 @@ class Advert extends React.Component {
             <span>{advert.forSale ? t("SELLER") : t("BUYER")} </span>{" "}
             <Link
               className="card-member"
-              to={`/profile/${advert.member.username}/${advert.member._id}`}
+              to={`/profile/${advert.member.slug}/${advert.member.username}/${advert.member._id}`}
             >
               <strong className="seller-name">{advert.member.username}</strong>
             </Link>
