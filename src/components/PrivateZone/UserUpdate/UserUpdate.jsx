@@ -56,7 +56,7 @@ class UserUpdate extends React.Component {
     }
 
     if (username.length < 4) {
-      errorMessage.push(t("ERROR_USER_4_CHARS"));
+      errorMessage.push(t("USERNAME_4_CHARS_LONG"));
       this.setState({
         usernameEmailErrorManager: { showError: true, errorMessage }
       });
@@ -101,7 +101,7 @@ class UserUpdate extends React.Component {
     }
 
     if (password.length < 6 || confirmPassword.length < 6) {
-      errorMessage.push(t("ERROR_PASSWORD_6_CHARS"));
+      errorMessage.push(t("PASSWORD_6_CHARS_LONG"));
       this.setState({
         passwordErrorManager: { showError: true, errorMessage }
       });

@@ -36,11 +36,11 @@ class SignIn extends React.Component {
 
     if (username.length < 4 || password.length < 6) {
       if (username.length < 4) {
-        errorMessage.push(t("ERROR_USER_4_CHARS"));
+        errorMessage.push(t("USERNAME_4_CHARS_LONG"));
       }
 
       if (password.length < 6) {
-        errorMessage.push(t("ERROR_PASSWORD_6_CHARS"));
+        errorMessage.push(t("PASSWORD_6_CHARS_LONG"));
       }
 
       this.setState({ showError: true, errorMessage });
