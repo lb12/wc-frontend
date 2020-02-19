@@ -71,6 +71,8 @@
     "EMAIL_REQUIRED_FIELD": "El email es obligatorio",
     "RECOVER_PASSWORD": "Recuperar contraseña",
     "PASSWORD_EMAIL_SENT": " El email para recuperar tu contraseña ha sido enviado correctamente",
-    "PASSWORD_CHANGED_MESSAGE": "Tu contraseña ha sido cambiada correctamente, intenta volver a conectarte por favor"
+    "PASSWORD_CHANGED_MESSAGE": "Tu contraseña ha sido cambiada correctamente, intenta volver a conectarte por favor",
+    "I_HAVE_FORGOT_MY_PASSWORD": "He olvidado mi contraseña",
+    "FORGOT_PASSWORD_LABEL": "Introduce el email de tu cuenta"
   }
 }

@@ -71,6 +71,8 @@
     "EMAIL_REQUIRED_FIELD": "Email is required",
     "RECOVER_PASSWORD": "Recover password",
     "PASSWORD_EMAIL_SENT": "Password reset email has been successfully sent",
-    "PASSWORD_CHANGED_MESSAGE": "Your password has been successfully reset, please try logging in again."
+    "PASSWORD_CHANGED_MESSAGE": "Your password has been successfully reset, please try logging in again.",
+    "I_HAVE_FORGOT_MY_PASSWORD": "I have forgot my password",
+    "FORGOT_PASSWORD_LABEL": "Type your account email"
   }
 }

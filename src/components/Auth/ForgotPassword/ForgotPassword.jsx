@@ -76,10 +76,12 @@ class ForgotPassword extends React.Component {
 
           <Form onSubmit={this.sendEmail}>
             <div className="form-group">
+              <label htmlFor="email">{t("FORGOT_PASSWORD_LABEL")}</label>
               <Input
                 type="email"
-                required
                 name="email"
+                id="email"
+                required
                 className="form-control"
                 placeholder={t("EMAIL")}
               />

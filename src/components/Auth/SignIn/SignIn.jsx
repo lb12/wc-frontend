@@ -95,6 +95,9 @@ class SignIn extends React.Component {
                   placeholder={t("PASSWORD")}
                 />
               </div>
+              <Link to="/forgot-password" className="d-block text-center mb-2">
+                {t("I_HAVE_FORGOT_MY_PASSWORD")}
+              </Link>
               <button type="submit" className="btn btn-primary submit-btn">
                 {t("SIGN_IN")}
               </button>
