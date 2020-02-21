@@ -98,6 +98,7 @@
     "PAGE_DOES_NOT_EXIST": "Esta página no existe",
     "GO_BACK": "Volver",
     "THE_ERROR": "El error",
-    "WHERE_IT_OCCURED": "Dónde ocurrió"
+    "WHERE_IT_OCCURED": "Dónde ocurrió",
+    "LOADING": "Cargando"
   }
 }
