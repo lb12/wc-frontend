@@ -94,8 +94,10 @@
     "PASSWORD_WAS_UPDATED": "La contraseña ha sido actualizada",
     "REMOVED_USER_AND_ADVERTS": "El usuario y sus anuncios fueron eliminados correctamente",
     "ADVERT_SAVED_SUCCESFULLY": "Anuncio guardado correctamente",
-    "ERROR_404_PAGE_MESSAGE_1": "Oops, algo fue mal",
-    "ERROR_404_PAGE_MESSAGE_2": "Esta página no existe",
-    "GO_BACK": "Volver"
+    "SOMETHING_WENT_WRONG_ERROR": "Oops, algo fue mal",
+    "PAGE_DOES_NOT_EXIST": "Esta página no existe",
+    "GO_BACK": "Volver",
+    "THE_ERROR": "El error",
+    "WHERE_IT_OCCURED": "Dónde ocurrió"
   }
 }

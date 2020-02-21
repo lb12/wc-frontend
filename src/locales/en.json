@@ -94,8 +94,10 @@
     "PASSWORD_WAS_UPDATED": "The password was updated succesfully",
     "REMOVED_USER_AND_ADVERTS": "User and its adverts were removed succesfully",
     "ADVERT_SAVED_SUCCESFULLY": "Advert was saved succesfully",
-    "ERROR_404_PAGE_MESSAGE_1": "Oops, something went wrong",
-    "ERROR_404_PAGE_MESSAGE_2": "This page does not exist",
-    "GO_BACK": "Go back"
+    "SOMETHING_WENT_WRONG_ERROR": "Oops, something went wrong",
+    "PAGE_DOES_NOT_EXIST": "This page does not exist",
+    "GO_BACK": "Go back",
+    "THE_ERROR": "The error",
+    "WHERE_IT_OCCURED": "Where it occured"
   }
 }

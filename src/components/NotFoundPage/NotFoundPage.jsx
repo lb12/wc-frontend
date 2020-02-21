@@ -10,8 +10,8 @@ class NotFoundPage extends React.Component {
     return (
       <div className="not-found-page">
         <h1>404</h1>
-        <h2 className="text-center">{t("ERROR_404_PAGE_MESSAGE_1")}</h2>
-        <p className="text-center">{t("ERROR_404_PAGE_MESSAGE_2")}</p>
+        <h2 className="text-center">{t("SOMETHING_WENT_WRONG_ERROR")} :(</h2>
+        <p className="text-center">{t("PAGE_DOES_NOT_EXIST")}</p>
         <Link to="/" className="btn btn-primary">
           {t("GO_BACK")}
         </Link>
