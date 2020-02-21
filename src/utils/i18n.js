@@ -8,18 +8,11 @@ export default i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    // we init with resources
-    resources: {
-      en,
-      es
-    },
-    fallbackLng: "es", // if user computer language is not on the list of available languages, than we will be using the fallback language specified earlier
+    resources: { en, es },
+    fallbackLng: "es",
     debug: false,
-    // have a common namespace used around the full app
     ns: ["translations"],
     defaultNS: "translations",
-    keySeparator: false, // we use content as keys
-    interpolation: {
-      escapeValue: false
-    }
+    keySeparator: false,
+    interpolation: { escapeValue: false }
   });

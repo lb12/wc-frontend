@@ -1,9 +1,10 @@
+// React imports
 import React from "react";
-
-import Advert from "../Advert";
-
-import "./AdvertList.css";
 import { withTranslation } from "react-i18next";
+
+// Component imports
+import Advert from "../Advert";
+import "./AdvertList.css";
 
 class AdvertList extends React.Component {
   buildAdvertList = adverts => {

@@ -1,10 +1,13 @@
+// React imports
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Advert.css";
 import { withTranslation } from "react-i18next";
 import { withRouter } from "react-router-dom";
+
+// Component imports
 import ShareMediaToolbar from "../ShareMediaToolbar";
 import Fav from "../Fav";
+import "./Advert.css";
 
 class Advert extends React.Component {
   constructor(props) {

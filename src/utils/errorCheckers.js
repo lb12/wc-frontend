@@ -1,3 +1,7 @@
+/**
+ * Se encarga de controlar los posibles errores devueltos por el backend 
+ * y devolverlos en un array traducidos
+ */
 export default (responseError, t) => {
   const { success, error, message } = responseError.data;
   const errorMessage = [];

@@ -29,7 +29,7 @@ const buildApp = user => {
   const preloadedState = { ...initialState, user };
   const store = storeConfiguration(preloadedState);
 
-  // Save any user change into the LocalStorage
+  // Guardar cualquier cambio del usuario en el LS
   store.subscribe(() => {
     const { user } = store.getState();
     user && setUser(user);
