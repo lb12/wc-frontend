@@ -5,7 +5,7 @@ import { createAdvert, editAdvert, fetchAdvert } from "../../../store/actions";
 
 const mapStateToProps = state => ({
     loggedUser: state.user.user,
-    advert: state.advert.advert
+    advert: state.advert
 });
 
 const mapDispatchToProps = dispatch => ({

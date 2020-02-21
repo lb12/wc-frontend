@@ -7,6 +7,7 @@ import ErrorNotifier from "../../ErrorNotifier";
 import "./EditAdvert.css";
 import { withTranslation } from "react-i18next";
 import { withRouter } from "react-router-dom";
+import errorCheckers from "../../../utils/errorCheckers";
 
 class EditAdvert extends React.Component {
   constructor(props) {
@@ -27,7 +28,9 @@ class EditAdvert extends React.Component {
         member: { _id, username }
       },
       showError: false,
-      errorMessage: "",
+      errorMessage: [],
+      photoError: "",
+      successSave: false,
       editingPhoto: false,
       editingAdvert:
         this.props.location.pathname.split("/")[2] === "edit-advert"
@@ -48,7 +51,19 @@ class EditAdvert extends React.Component {
 
   loadAdvert = async advertId => {
     await this.props.getAdvert(advertId);
-    const loadedAdvert = this.props.advert;
+
+    const { advert, t } = this.props;
+
+    // Error al cargar el anuncio
+    if (advert && advert.data && advert.data.message) {
+      this.setState({
+        showError: true,
+        errorMessage: [t(advert.data.message)]
+      });
+      return;
+    }
+
+    const loadedAdvert = advert.advert;
 
     // Solo el autor puede editar sus anuncios
     if (this.props.loggedUser._id !== loadedAdvert.member._id) {
@@ -81,7 +96,7 @@ class EditAdvert extends React.Component {
       this.setState(({ advert }) => ({
         editingPhoto: false,
         showError: true,
-        errorMessage: t("ERROR_IMAGE_UPLOAD_EXTENSION"),
+        photoError: t("ERROR_IMAGE_UPLOAD_EXTENSION"),
         advert: {
           ...advert,
           photo: "",
@@ -94,7 +109,8 @@ class EditAdvert extends React.Component {
     this.setState(({ advert }) => ({
       editingPhoto: true,
       showError: false,
-      errorMessage: "",
+      errorMessage: [],
+      photoError: "",
       advert: {
         ...advert,
         photo: files[0],
@@ -116,7 +132,7 @@ class EditAdvert extends React.Component {
     }));
   };
 
-  onSubmit = evt => {
+  onSubmit = async evt => {
     evt && evt.preventDefault();
 
     const { editingPhoto, editingAdvert, advert } = this.state;
@@ -134,10 +150,19 @@ class EditAdvert extends React.Component {
     formData.append("description", description);
     formData.append("member", this.props.loggedUser._id);
 
-    !editingAdvert && this.props.createAdvert(formData);
-    editingAdvert && this.props.editAdvert(formData);
+    !editingAdvert && (await this.props.createAdvert(formData));
+    editingAdvert && (await this.props.editAdvert(formData));
 
-    this.props.history.push("/my-zone/my-adverts");
+    const { advert: newAdvert, t } = this.props;
+
+    // Ha ocurrido un error al guardar el anuncio en el backend, mostramos el error
+    if (newAdvert && newAdvert.data && !newAdvert.data.success) {
+      const errorMessage = errorCheckers(newAdvert, t);
+      this.setState({ showError: true, errorMessage });
+      return;
+    }
+
+    this.setState({ showError: false, successSave: true });
   };
 
   render() {
@@ -145,7 +170,9 @@ class EditAdvert extends React.Component {
       advert,
       showError,
       errorMessage,
-      editingPhoto
+      photoError,
+      editingPhoto,
+      successSave
     } = this.state;
     const { name, price, description, tags, forSale } = advert;
     const { t } = this.props;
@@ -160,12 +187,18 @@ class EditAdvert extends React.Component {
             {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}{" "}
           </h1>
 
+          {showError && errorMessage.length > 0 && (
+            <ErrorNotifier errors={errorMessage} />
+          )}
+          {successSave && (
+            <div class="alert alert-success" role="alert">
+              <strong>{t("ADVERT_SAVED_SUCCESFULLY")}</strong>
+            </div>
+          )}
+
           <div className="card mb-5">
             <div className="p-4">
-              <form
-                className="d-flex flex-column"
-                onSubmit={this.onSubmit}
-              >
+              <form className="d-flex flex-column" onSubmit={this.onSubmit}>
                 <div className="info-container mb-5rem">
                   <div>
                     <div className="form-group">
@@ -264,14 +297,21 @@ class EditAdvert extends React.Component {
                       <label className="font-weight-bold" htmlFor="photo">
                         {t("PRODUCT_IMAGE")}
                       </label>
-                      {showError && errorMessage.length > 0 && (
+                      {showError && photoError.length > 0 && (
                         <div>
-                          <ErrorNotifier errors={[errorMessage]} />
+                          <ErrorNotifier errors={[photoError]} />
                         </div>
                       )}
                       <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="photo" onChange={this.onUploadFile}/>
-                        <label className="custom-file-label" htmlFor="photo">{t("UPLOAD_A_PHOTO")}</label>
+                        <input
+                          type="file"
+                          className="custom-file-input"
+                          id="photo"
+                          onChange={this.onUploadFile}
+                        />
+                        <label className="custom-file-label" htmlFor="photo">
+                          {t("UPLOAD_A_PHOTO")}
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -286,11 +326,12 @@ class EditAdvert extends React.Component {
               </form>
             </div>
           </div>
-
         </div>
 
         <div className="preview-container mb-5rem">
-          <h2 className="font-size-1-5 text-center mt-5 mb-5">{t("ADVERT_PREVIEW")}</h2>
+          <h2 className="font-size-1-5 text-center mt-5 mb-5">
+            {t("ADVERT_PREVIEW")}
+          </h2>
           <div id="advert-preview" className="mb-5rem">
             <Advert advert={advert} editingPhoto={editingPhoto} />
           </div>

@@ -92,6 +92,7 @@
     "EMAIL_SENT": "Se ha enviado el email correctamente",
     "PASSWORD_NOT_UPDATED": "La contraseña no pudo ser actualizada",
     "PASSWORD_WAS_UPDATED": "La contraseña ha sido actualizada",
-    "REMOVED_USER_AND_ADVERTS": "El usuario y sus anuncios fueron eliminados correctamente"
+    "REMOVED_USER_AND_ADVERTS": "El usuario y sus anuncios fueron eliminados correctamente",
+    "ADVERT_SAVED_SUCCESFULLY": "Anuncio guardado correctamente"
   }
 }

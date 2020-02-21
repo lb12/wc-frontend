@@ -92,6 +92,7 @@
     "EMAIL_SENT": "Email sent succesfully",
     "PASSWORD_NOT_UPDATED": "The password could not be updated",
     "PASSWORD_WAS_UPDATED": "The password was updated succesfully",
-    "REMOVED_USER_AND_ADVERTS": "User and its adverts were removed succesfully"
+    "REMOVED_USER_AND_ADVERTS": "User and its adverts were removed succesfully",
+    "ADVERT_SAVED_SUCCESFULLY": "Advert was saved succesfully"
   }
 }

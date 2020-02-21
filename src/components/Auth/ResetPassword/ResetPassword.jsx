@@ -7,6 +7,7 @@ import { withTranslation } from "react-i18next";
 import Form from "../../Form";
 import Input from "../../Input";
 import ErrorNotifier from "../../ErrorNotifier";
+import errorCheckers from "../../../utils/errorCheckers";
 import {
   getEmailFromRecoveryToken,
   changePasswordFromRecoveryToken
@@ -28,7 +29,8 @@ class ResetPassword extends React.Component {
   // Obtiene el email si el token es valido
   async componentDidMount() {
     const { token } = this.props.match.params;
-    const errorMessage = [];
+    const { t } = this.props;
+    let errorMessage = [];
 
     // validamos el token
     const response = await getEmailFromRecoveryToken(token);
@@ -42,11 +44,7 @@ class ResetPassword extends React.Component {
     }
 
     // ha ocurrido un error, lo mostramos
-    const { success, message } = response.data;
-
-    if (!success && message && message.length > 0) {
-      errorMessage.push(message);
-    }
+    errorMessage = errorCheckers(response, t);
 
     this.setState({ showError: true, errorMessage });
   }
@@ -57,7 +55,7 @@ class ResetPassword extends React.Component {
     const { email } = this.state;
     const { t, match } = this.props;
     const { token } = match.params;
-    const errorMessage = [];
+    let errorMessage = [];
 
     if (!password) {
       errorMessage.push(t("PASSWORD_REQUIRED_FIELD"));
@@ -77,27 +75,12 @@ class ResetPassword extends React.Component {
 
     // No es success => tratamos los errores
 
-    const { success, error, message } = response.data;
-
-    if (!success) {
-      if (message && message.length > 0) {
-        // error devuelto por el API por nosotros
-        errorMessage.push(t(message));
-      } else if (error && error.errors) {
-        // error devuelto por el API por un campo malformado
-        const { errors } = error;
-
-        for (const errorProp in errors) {
-          errorMessage.push(errors[errorProp].msg);
-        }
-      }
-    }
-
+    errorMessage = errorCheckers(response, t);
     this.setState({
       passUpdated: false,
       showError: true,
       errorMessage
-    });
+    });    
   };
 
   render() {

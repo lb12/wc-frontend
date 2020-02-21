@@ -2,7 +2,7 @@ import React from "react";
 import "./ErrorNotifier.css";
 
 export default class NotFoundPage extends React.Component {
-  buildErrors = errors => {
+  buildErrors = errors => {    
     return (
       <ul className="error-notification">
         {errors.map((error, index) => (

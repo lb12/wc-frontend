@@ -10,7 +10,8 @@ import MyAdverts from "./MyAdverts";
 
 const mapStateToProps = state => ({
   user: state.user.user,
-  advertToDelete: state.advertToDelete
+  advertToDelete: state.advertToDelete,
+  errorMessage: state.errorMessage
 });
 
 const mapDispatchToProps = dispatch => ({

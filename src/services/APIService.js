@@ -8,13 +8,19 @@ import Advert from "../models/Advert";
 
 const API_URL = "https://localhost:3000/api-v1";
 
-// API Adverts methods
+// [START]: Métodos relacionados con los anuncios
 
+/**
+ * Obtiene una lista de anuncios.
+ * @param {*} filters filtros aplicados en la búsqueda de anuncios
+ * @param {*} paginationFilters filtros referidos a la paginación actual
+ */
 const listAdverts = async (
   { name, price, tag, selling, sort },
   { adsPerPage, page }
 ) => {
   let queryParams = "";
+  let res = {};
 
   if (name && name.length)
     queryParams += `${getQueryParamToken(queryParams)}name=${name}`;
@@ -34,19 +40,27 @@ const listAdverts = async (
       ? `${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`
       : "";
 
-  const res = await getRequest(`${API_URL}/adverts${queryParams}`);
-
+  try {
+    res = await getRequest(`${API_URL}/adverts${queryParams}`);
+    res.results = res.results.map(advert => new Advert(advert));
+  } catch (error) {
+    console.error(error);
+    res = [];
+  }
   console.log("listAdverts desde APIService.js", res);
-
-  if (!res) return [];
-
-  res.results = res.results.map(advert => new Advert(advert));
 
   return res;
 };
 
+/**
+ * Obtiene una lista de todos los anuncios de un usuario.
+ * @param {*} memberId id del usuario
+ * @param {*} paginationFilters filtros referidos a la paginación actual
+ * @param {*} getOnlyFavAds booleano que indica si sólo queremos obtener los ads favoritos del usuario
+ */
 const listMemberAdverts = async (memberId, { adsPerPage, page }, favouriteAdverts) => {
   let queryParams = "";
+  let res = {};
 
   queryParams += `${getQueryParamToken(queryParams)}page=${page}`;
   queryParams += `${getQueryParamToken(queryParams)}limit=${adsPerPage}`;
@@ -55,29 +69,40 @@ const listMemberAdverts = async (memberId, { adsPerPage, page }, favouriteAdvert
     page > 1
       ? `${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`
       : "";
-    
-
-  const res = await getRequest(
-    `${API_URL}/adverts/member/${memberId}${queryParams}`
-  );
+  
+  try {
+    res = await getRequest(
+      `${API_URL}/adverts/member/${memberId}${queryParams}`
+    );
+    res.results = res.results.map(advert => new Advert(advert));
+  } catch (error) {
+    console.error(error);
+    res = [];
+  }
 
   console.log("listMemberAdverts desde APIService.js", res);
-
-  if (!res) return [];
-
-  res.results = res.results.map(advert => new Advert(advert));
 
   return res;
 };
 
-const getQueryParamToken = queryParams =>
-  queryParams.length === 0 ? "?" : "&";
+/**
+ * Método auxiliar para saber si tenemos query params en la URL
+ */
+const getQueryParamToken = queryParams => queryParams.length === 0 ? "?" : "&";
 
+/**
+ * Obtiene un anuncio por su id.
+ * @param {*} id id del anuncio
+ */
 const getAdvertById = async id => {
-  const res = await getRequest(`${API_URL}/adverts/${id}`);
+  let res = {};
 
-  if (res.success) {
+  try {
+    res = await getRequest(`${API_URL}/adverts/${id}`);
     res.result = new Advert(res.result);
+  } catch (error) {
+    res = error.response;
+    console.error(res);
   }
 
   console.log("getAdvertById desde APIService.js", res);
@@ -85,64 +110,76 @@ const getAdvertById = async id => {
   return res;
 };
 
+/**
+ * Eliminar un anuncio de un usuario
+ * @param {*} advert objeto del anuncio a eliminar
+ * @param {*} token token del usuario actualmente logado
+ */
 const deleteAdvert = async (advert, token) => {
-  const res = await deleteRequest(
-    `${API_URL}/adverts/${advert.id}/${advert.member._id}`,
-    { token }
-  );
+  let res = {};
 
-  if (res.success) {
-    res.result = {};
+  try {
+    res = await deleteRequest(
+      `${API_URL}/adverts/${advert.id}/${advert.member._id}`,
+      { token }
+    );
+  } catch (error) {
+    res = error.response;
+    console.error(res);
   }
-
-  console.log("deleteAdvert desde APIService.js", res);
+  console.debug("deleteAdvert desde APIService.js", res);
 
   return res;
 };
 
+/**
+ * Crear un anuncio
+ * @param {*} formData formulario con todos los datos del anuncio
+ */
 const createAdvert = async formData => {
   let res = {};
 
   try {
     res = await postRequest(`${API_URL}/adverts/`, formData);
-  } catch (error) {
-    console.log(error);
-    console.log(error.response.data);
-    //result = resolveSignErrors(error);
-  }
-
-  if (res.success) {
     res.result = {};
+  } catch (error) {
+    res = error.response;
+    console.error(res);
   }
-
   console.log("createAdvert desde APIService.js", res);
 
   return res;
 };
 
+/**
+ * Editar un anuncio
+ * @param {*} advertId id del anuncio que queremos editar
+ * @param {*} memberId id del usuario actualmente conectado que quiere editar el anuncio
+ * @param {*} formData formulario con todos los datos del anuncio
+ */
 const editAdvert = async (advertId, memberId, formData) => {
   let res = {};
-  console.log(advertId, memberId);
+  
   try {
     res = await putRequest(
       `${API_URL}/adverts/${advertId}/${memberId}`,
       formData
     );
-  } catch (error) {
-    console.log(error);
-    console.log(error.response.data);
-    //result = resolveSignErrors(error);
-  }
-
-  if (res.success) {
     res.result = {};
+  } catch (error) {
+    res = error.response;
   }
-
   console.log("editAdvert desde APIService.js", res);
 
   return res;
 };
 
+/**
+ * Setear todos los favs de un usuario
+ * @param {*} favs favs del usuario a guardar
+ * @param {*} userId id del usuario
+ * @param {*} token token JWT del usuario
+ */
 const setUserFavs = async (favs, userId, token) => {
   let res = {};
   try {
@@ -151,47 +188,63 @@ const setUserFavs = async (favs, userId, token) => {
       token
     });
   } catch (error) {
-    console.log(error);
-    console.log(error.response.data);
-    //result = resolveSignErrors(error);
+    res = error.response;
+    console.error(res);
   }
-
   console.log("setUserFavs desde APIService.js", res);
 
   return res;
 };
 
+/**
+ * Marcar / Desmarcar un anuncio como reservado o como vendido
+ * @param {*} advert anuncio a cambiar
+ * @param {*} data objeto con la propiedad a cambiar
+ */
 const setReservedOrSoldAdvert = async (advert, data) => {
   let res = {};
 
   try {
-    res = await putRequest(`${API_URL}/adverts/set-reserved-or-sold/${advert.id}/${advert.member._id}`, data);
+    res = await putRequest(`${API_URL}/adverts/set-reserved-or-sold/${'jue'/* advert.id */}/${advert.member._id}`, data);
 
     res.result = new Advert(res.result);
   } catch (error) {
-    console.log(error);
-    console.log(error.response.data);
-    //result = resolveSignErrors(error);
+    res = error.response;
+    console.error(res);
   }
-
   console.log("setReservedOrSoldAdvert desde APIService.js", res);
 
   return res;
 };
 
-// API Tags methods
+// [END]: Métodos relacionados con los anuncios
+
+// [START]: Métodos relacionados con los tags
 
 /**
- * GET all possible tags
+ * Obtener todos los tags
  */
 const getTags = async () => {
-  const res = await getRequest(`${API_URL}/tags`);
+  let res = {};
 
-  return res ? res : [];
+  try {
+    res = await getRequest(`${API_URL}/tags`);
+  } catch (error) {
+    console.error(error);
+    res = [];
+  }
+
+  return res;
 };
 
-// API Users methods
+// [END]: Métodos relacionados con los tags
 
+// [START]: Métodos relacionados con el usuario
+
+/**
+ * Registrar un usuario
+ * @param {*} userObj objeto con los datos del usuario
+ */
 const signUp = async userObj => {
   let result = {};
 
@@ -203,6 +256,10 @@ const signUp = async userObj => {
   return result;
 };
 
+/**
+ * Loguear un usuario
+ * @param {*} userObj user y password en un objeto 
+ */
 const signIn = async userObj => {
   let result = {};
 
@@ -214,6 +271,10 @@ const signIn = async userObj => {
   return result;
 };
 
+/**
+ * Método aux para resolver los errores del usuario
+ * @param {*} error error devuelto por el API
+ */
 const resolveSignErrors = error => {
   let result = {
     success: false,
@@ -234,6 +295,10 @@ const resolveSignErrors = error => {
   return result;
 };
 
+/**
+ * Comprobar un token de usuario y si está todo ok, devolvemos token más datos de user
+ * @param {*} storedUser usuario guardado anteriormente en localStorage/redux que hay que comprobar
+ */
 const getUserLogged = async storedUser => {
   let user = {};
 
@@ -266,6 +331,12 @@ const getUserLogged = async storedUser => {
   return user;
 };
 
+/**
+ * Actualizar los datos de un usuario
+ * @param {*} userId id del usuario
+ * @param {*} param1 objeto con el usuario y el email a actualizar
+ * @param {*} token token del user logado actualmente
+ */
 const updateUserData = async (userId, { username, email }, token) => {
   let result = {};
   try {
@@ -286,6 +357,12 @@ const updateUserData = async (userId, { username, email }, token) => {
   return result;
 };
 
+/**
+ * Cambiar la contraseña desde 'Mi zona'
+ * @param {*} userId id del usuario
+ * @param {*} password  contraseña en plano a cambiar
+ * @param {*} token token del usuario logado actualmente
+ */
 const changeUserPassword = async (userId, password, token) => {
   let result = {};
 
@@ -309,6 +386,11 @@ const changeUserPassword = async (userId, password, token) => {
   return result;
 };
 
+/**
+ * Dar de baja a un usuario
+ * @param {*} userId id del usuario a dar de baja
+ * @param {*} token token del usuario actualmente logado
+ */
 const unsubscribeUser = async (userId, token) => {
   let result = {};
 
@@ -328,27 +410,44 @@ const unsubscribeUser = async (userId, token) => {
   return result;
 };
 
-// Forgot password methods
+// [END]: Métodos relacionados con el usuario
+
+// [START]: Métodos relacionados con la recuperación de contraseña
+
+/**
+ * Pide al servidor que envíe un email a la dirección de correo con el link de recuperación
+ * @param {*} email 
+ */
 const sendPasswordRecoverEmail = async email => {
   let res = {};
   try {
     res = await postRequest(`${API_URL}/auth/forgot-password`, { email });
   } catch (error) {
     res = error.response;
+    console.error(res);
   }
   return res;
 }
 
+/**
+ * Pide al servidor el email a partir del token y comprobar así el token
+ * @param {*} token Token para recupera el email
+ */
 const getEmailFromRecoveryToken = async token => {
   let res = {};
   try {
     res = await getRequest(`${API_URL}/auth/reset-password?token=${token}`);
   } catch (error) {
     res = error.response;
+    console.error(res);
   }
   return res;
 }
 
+/**
+ * Envía la nueva contraseña junto con el email asociado y el token
+ * @param {*} param0 objeto con el email, contraseña y token
+ */
 const changePasswordFromRecoveryToken = async ({ email, password, token }) => {
   let res = {};
   try {
@@ -359,9 +458,12 @@ const changePasswordFromRecoveryToken = async ({ email, password, token }) => {
     });
   } catch (error) {
     res = error.response;
+    console.error(res);
   }
   return res;
 }
+
+// [END]: Métodos relacionados con la recuperación de contraseña
 
 export {
   signUp,

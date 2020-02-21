@@ -4,7 +4,7 @@ import { fetchAdvert } from "../../store/actions";
 import AdvertDetail from "./AdvertDetail";
 
 const mapStateToProps = state => ({
-  advert: state.advert.advert
+  advert: state.advert
 });
 
 const mapDispatchToProps = dispatch => ({
