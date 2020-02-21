@@ -7,6 +7,7 @@ import Form from "../../Form";
 import Input from "../../Input";
 import ErrorNotifier from "../../ErrorNotifier";
 import { sendPasswordRecoverEmail } from "../../../services/APIService";
+import Spinner from "../../Spinner";
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class ForgotPassword extends React.Component {
     this.state = {
       showError: false,
       emailSent: false,
+      isLoading: false,
       errorMessage: []
     };
   }
@@ -31,12 +33,15 @@ class ForgotPassword extends React.Component {
       return this.setState({ showError: true, errorMessage });
     }
 
+    this.setState({ isLoading: true });
+
     const response = await sendPasswordRecoverEmail(email);
 
     if (response.success) {
       return this.setState({
         showError: false,
-        emailSent: true
+        emailSent: true,
+        isLoading: false
       });
     }
 
@@ -50,13 +55,14 @@ class ForgotPassword extends React.Component {
 
     this.setState({
       showError: true,
+      isLoading: false,
       errorMessage
     });
   };
 
   render() {
     const { t } = this.props;
-    const { showError, errorMessage, emailSent } = this.state;
+    const { showError, errorMessage, emailSent, isLoading } = this.state;
     return (
       <div className="sign-in-up-container">
         <React.Fragment>
@@ -67,6 +73,8 @@ class ForgotPassword extends React.Component {
           {showError && errorMessage && errorMessage.length > 0 && (
             <ErrorNotifier errors={errorMessage} />
           )}
+
+          <Spinner isLoading={isLoading}/>
 
           {emailSent && (
             <div className="alert alert-success" role="alert">
@@ -86,7 +94,7 @@ class ForgotPassword extends React.Component {
                 placeholder={t("EMAIL")}
               />
             </div>
-            <button type="submit" className="btn btn-primary submit-btn">
+            <button type="submit" className="btn btn-primary submit-btn" disabled={isLoading}>
               {t("RECOVER_PASSWORD")}
             </button>
           </Form>
