@@ -6,6 +6,7 @@ import { withTranslation } from "react-i18next";
 // Our imports
 import Form from "../../Form";
 import Input from "../../Input";
+import Spinner from "../../Spinner";
 import ErrorNotifier from "../../ErrorNotifier";
 import errorCheckers from "../../../utils/errorCheckers";
 import {
@@ -63,6 +64,8 @@ class ResetPassword extends React.Component {
       return this.setState({ showError: true, errorMessage });
     }
 
+    this.setState({ isLoading: true });
+
     const response = await changePasswordFromRecoveryToken({
       email,
       password,
@@ -70,7 +73,7 @@ class ResetPassword extends React.Component {
     });
 
     if (response.success) {
-      return this.setState({ passUpdated: true, showError: false });
+      return this.setState({ passUpdated: true, showError: false, isLoading: false });
     }
 
     // No es success => tratamos los errores
@@ -78,6 +81,7 @@ class ResetPassword extends React.Component {
     errorMessage = errorCheckers(response, t);
     this.setState({
       passUpdated: false,
+      isLoading: false,
       showError: true,
       errorMessage
     });    
@@ -97,9 +101,7 @@ class ResetPassword extends React.Component {
           )}
 
           {isLoading && (
-            <div>
-              <div>Loading User Data...</div>
-            </div>
+            <Spinner isLoading={isLoading}/>
           )}
 
           {passUpdated && (
