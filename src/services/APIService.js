@@ -42,7 +42,7 @@ const listAdverts = async (
 
   try {
     res = await getRequest(`${API_URL}/adverts${queryParams}`);
-    res.results = res.results.map(advert => new Advert(advert));
+    res.results = res.results ? res.results.map(advert => new Advert(advert)) : [];
   } catch (error) {
     console.error(error);
     res = [];
@@ -74,7 +74,7 @@ const listMemberAdverts = async (memberId, { adsPerPage, page }, favouriteAdvert
     res = await getRequest(
       `${API_URL}/adverts/member/${memberId}${queryParams}`
     );
-    res.results = res.results.map(advert => new Advert(advert));
+    res.results = res.results ? res.results.map(advert => new Advert(advert)) : [];
   } catch (error) {
     console.error(error);
     res = [];
