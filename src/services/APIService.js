@@ -229,6 +229,7 @@ const getTags = async () => {
 
   try {
     res = await getRequest(`${API_URL}/tags`);
+    res.results = res.results ? res.results.map( tag => tag.value) : [];
   } catch (error) {
     console.error(error);
     res = [];
