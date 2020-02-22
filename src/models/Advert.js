@@ -16,8 +16,8 @@ export default class Advert {
     this.name = advert.name;
     this.photo =
       process.env.NODE_ENV === "production"
-        ? `https://api.depatitos.com/${advert.photo}`
-        : `http://localhost:3000${advert.photo}`;
+        ? `https://api.depatitos.com/images/adverts/${advert.photo}`
+        : `http://localhost:3000/images/adverts/${advert.photo}`;
     this.description = advert.description;
     this.price = advert.price;
     this.forSale = advert.for_sale;
