@@ -16,9 +16,12 @@ class Navbar extends React.Component {
   render() {
     const { t } = this.props;
     return (
+      <header>
+
+      
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
         <Link className="navbar-brand" to="/">
-          <span className="nav-logo">Wallaclone</span>
+          <span className="nav-logo">depatitos</span>
         </Link>
 
         <ul className="navbar-nav flex-row justify-content-end flex-wrap">
@@ -40,6 +43,7 @@ class Navbar extends React.Component {
           )}
         </ul>
       </nav>
+      </header>
     );
   }
 }

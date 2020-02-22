@@ -12,4 +12,5 @@
 
 .navbar-brand .nav-logo {
   color: var(--main-brand-color);
+  font-size: 1.8rem;
 }

@@ -37,12 +37,12 @@ export default class App extends React.Component {
     const { store } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <ErrorBoundary>
           <Provider store={store}>
             <Router>
               <Navbar />
-              <div className="global-container">
+              <main className="global-container">
                 <React.Fragment>
                   <Switch>
                     <Route path="/my-zone/unsubscribe">
@@ -76,12 +76,12 @@ export default class App extends React.Component {
                     <Route exact path='*' component={NotFoundPage} />
                   </Switch>
                 </React.Fragment>
-              </div>
+              </main>
               <Footer />
             </Router>
           </Provider>
         </ErrorBoundary>
-      </div>
+      </React.Fragment>
     );
   }
 }

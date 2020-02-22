@@ -10,7 +10,7 @@ export default class ShareMediaToolbar extends React.Component {
   render() {
     const shareUrl = window.location.href;
     return (
-      <div className="social-share-container">
+      <aside className="social-share-container">
         <LinkedinShareButton url={shareUrl} className="button">
           <LinkedinIcon size={32} round={true} />
         </LinkedinShareButton>
@@ -20,7 +20,7 @@ export default class ShareMediaToolbar extends React.Component {
         <FacebookShareButton url={shareUrl} className="button">
           <FacebookIcon size={32} round={true} />
         </FacebookShareButton>
-      </div>
+      </aside>
     );
   }
 }

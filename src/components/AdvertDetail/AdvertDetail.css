@@ -8,7 +8,7 @@
   -webkit-line-clamp: initial;
 }
 
-.advert-detail div.social-share-container {
+.advert-detail aside.social-share-container {
   display: flex;
 }
 

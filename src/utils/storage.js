@@ -3,14 +3,14 @@
  * @param {*} user
  */
 export const setUser = user => {
-  localStorage.setItem("wallaclone_user", JSON.stringify(user));
+  localStorage.setItem("depatitos_user", JSON.stringify(user));
 };
 
 /**
  * Obtiene los datos de un usuario en LS
  */
 export const getUser = () => {
-  const user = localStorage.getItem("wallaclone_user");
+  const user = localStorage.getItem("depatitos_user");
   return JSON.parse(user);
 };
 
@@ -18,5 +18,5 @@ export const getUser = () => {
  * Elimina un usuario del LS
  */
 export const deleteUser = () => {
-  localStorage.removeItem("wallaclone_user");
+  localStorage.removeItem("depatitos_user");
 };
