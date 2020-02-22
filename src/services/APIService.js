@@ -9,7 +9,7 @@ import Advert from "../models/Advert";
 const API_URL =
   process.env.NODE_ENV === "production"
     ? "https://api.depatitos.com/api-v1"
-    : "https://localhost:3000/api-v1";
+    : "http://localhost:3005/api-v1";
 
 // [START]: Métodos relacionados con los anuncios
 

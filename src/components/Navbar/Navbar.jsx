@@ -21,7 +21,7 @@ class Navbar extends React.Component {
       
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
         <Link className="navbar-brand" to="/">
-          <span className="nav-logo">depatitos</span>
+          <img src="/img/logo.png" alt="depatitos-logo" />
         </Link>
 
         <ul className="navbar-nav flex-row justify-content-end flex-wrap">
