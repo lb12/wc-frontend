@@ -4,6 +4,7 @@ import React from "react";
 // Global components imports
 import Form from "../../Form";
 import Input from "../../Input";
+import Spinner from "../../Spinner";
 import ErrorNotifier from "../../ErrorNotifier";
 import { withTranslation } from "react-i18next";
 import "./SignUp.css";
@@ -14,6 +15,7 @@ class SignUp extends React.Component {
     super(props);
     this.state = {
       showError: false,
+      isLoading: false,
       errorMessage: []
     };
   }
@@ -48,22 +50,26 @@ class SignUp extends React.Component {
 
     const user = { username, email, password };
 
+    this.setState({ isLoading: true });
+
     await this.props.signUpUser(user);
 
     const result = this.props.user;
 
     // El usuario NO se guardó bien
     if (result.errors) {
-      this.setState({ showError: true, errorMessage: result.errors });
+      this.setState({ showError: true, errorMessage: result.errors, isLoading: false });
       return;
     }
+
+    this.setState({ isLoading: false });
 
     // redirijo a su zona privada
     this.props.history.push("/my-zone");
   };
 
   render() {
-    const { showError, errorMessage } = this.state;
+    const { showError, errorMessage, isLoading } = this.state;
     const { t, isLogged } = this.props;
     return (
       <div className="sign-in-up-container">
@@ -76,6 +82,8 @@ class SignUp extends React.Component {
             {showError && errorMessage && errorMessage.length > 0 && (
               <ErrorNotifier errors={errorMessage} />
             )}
+
+            <Spinner isLoading={isLoading} />
 
             <Form onSubmit={this.onSubmit}>
               <div className="form-group">
@@ -105,7 +113,7 @@ class SignUp extends React.Component {
                   placeholder={t("PASSWORD")}
                 />
               </div>
-              <button type="submit" className="btn btn-primary submit-btn">
+              <button type="submit" className="btn btn-primary submit-btn" disabled={isLoading} >
                 {t("SIGN_UP")}
               </button>
             </Form>

@@ -123,7 +123,7 @@ class ResetPassword extends React.Component {
                   placeholder={t("PASSWORD")}
                 />
               </div>
-              <button type="submit" className="btn btn-primary submit-btn">
+              <button type="submit" className="btn btn-primary submit-btn" disabled={isLoading}>
                 {t("CHANGE_PASSWORD")}
               </button>
             </Form>

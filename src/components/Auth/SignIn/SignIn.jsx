@@ -6,6 +6,7 @@ import { withTranslation } from "react-i18next";
 // Global components imports
 import Form from "../../Form";
 import Input from "../../Input";
+import Spinner from "../../Spinner";
 import ErrorNotifier from "../../ErrorNotifier";
 import "./SignIn.css";
 import "../Auth.css";
@@ -15,6 +16,7 @@ class SignIn extends React.Component {
     super(props);
     this.state = {
       showError: false,
+      isLoading: false,
       errorMessage: []
     };
   }
@@ -49,21 +51,25 @@ class SignIn extends React.Component {
 
     const user = { username, password };
 
+    this.setState({ isLoading: true });
+
     await this.props.signInUser(user);
 
     const result = this.props.user;
 
     // El usuario NO se guardó bien
     if (result.errors) {
-      this.setState({ showError: true, errorMessage: result.errors });
+      this.setState({ showError: true, errorMessage: result.errors, isLoading: false });
       return;
     }
+
+    this.setState({ isLoading: false });
 
     this.props.history.push("/my-zone"); // Redirect user to home page always
   };
 
   render() {
-    const { showError, errorMessage } = this.state;
+    const { showError, errorMessage, isLoading } = this.state;
     const { t, isLogged } = this.props;
     return (
       <div className="sign-in-up-container">
@@ -75,6 +81,8 @@ class SignIn extends React.Component {
             {showError && errorMessage && errorMessage.length > 0 && (
               <ErrorNotifier errors={errorMessage} />
             )}
+
+            <Spinner isLoading={isLoading} />
 
             <Form onSubmit={this.onSubmit}>
               <div className="form-group">
@@ -98,7 +106,7 @@ class SignIn extends React.Component {
               <Link to="/forgot-password" className="d-block text-center mb-2">
                 {t("I_HAVE_FORGOT_MY_PASSWORD")}
               </Link>
-              <button type="submit" className="btn btn-primary submit-btn">
+              <button type="submit" className="btn btn-primary submit-btn" disabled={isLoading}>
                 {t("SIGN_IN")}
               </button>
             </Form>
