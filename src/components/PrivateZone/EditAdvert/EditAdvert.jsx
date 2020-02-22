@@ -146,7 +146,7 @@ class EditAdvert extends React.Component {
 
     const formData = new FormData();
 
-    if (!photo) {
+    if (!editingAdvert && !photo) {
       return this.setState({ showError: true, errorMessage: [t("PHOTO_FILE_IS_MANDATORY")] });
     }
 

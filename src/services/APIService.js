@@ -205,7 +205,7 @@ const setReservedOrSoldAdvert = async (advert, data) => {
   let res = {};
 
   try {
-    res = await putRequest(`${API_URL}/adverts/set-reserved-or-sold/${'jue'/* advert.id */}/${advert.member._id}`, data);
+    res = await putRequest(`${API_URL}/adverts/set-reserved-or-sold/${advert.id}/${advert.member._id}`, data);
 
     res.result = new Advert(res.result);
   } catch (error) {
