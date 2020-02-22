@@ -5,6 +5,7 @@ import { withTranslation } from "react-i18next";
 // Component imports
 import "./AdvertDetail.css";
 import Advert from "../Advert";
+import Spinner from "../Spinner";
 import ErrorNotifier from "../ErrorNotifier";
 import errorCheckers from "../../utils/errorCheckers";
 
@@ -14,6 +15,7 @@ class AdvertDetail extends React.Component {
 
     this.state = {
       showError: false,
+      isLoading: true,
       errorMessage: []
     };
   }
@@ -22,6 +24,7 @@ class AdvertDetail extends React.Component {
     const { id } = this.props.match.params;
     await this.props.getAdvert(id);
     this.checkError();
+    this.setState({ isLoading: false });
   }
 
   checkError = () => {
@@ -37,7 +40,7 @@ class AdvertDetail extends React.Component {
 
   render() {
     const { advert } = this.props.advert;
-    const { showError, errorMessage } = this.state;
+    const { showError, errorMessage, isLoading } = this.state;
 
     return (
       <React.Fragment>
@@ -47,6 +50,7 @@ class AdvertDetail extends React.Component {
 
         {advert && (
           <div className="advert-detail p-3">
+            <Spinner isLoading={isLoading} />
             <Advert advert={advert} />
           </div>
         )}
