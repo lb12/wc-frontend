@@ -124,7 +124,7 @@ class Advert extends React.Component {
           {advert.tags.map(tag => (
             <span
               key={`${advert.id}_${tag}`}
-              className={`tag-badge tag-${tag}`}
+              className={`badge badge-info tag-badge`}
             >
               {tag}
             </span>

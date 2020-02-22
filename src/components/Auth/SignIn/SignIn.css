@@ -6,5 +6,5 @@
 }
 
 .sign-in-redirect-link a:hover {
-  color: #fd772c;
+  color: var(--main-brand-color);
 }

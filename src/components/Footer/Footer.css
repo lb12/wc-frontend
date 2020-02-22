@@ -23,5 +23,5 @@ footer.main-footer aside > span {
 }
 
 .main-footer .author:hover {
-  color: #fd772c;
+  color: var(--main-brand-color);
 }

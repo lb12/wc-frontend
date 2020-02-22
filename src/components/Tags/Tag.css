@@ -1,23 +1,6 @@
 .tag-badge {
-    border-radius: .25rem;
-    padding: .1rem .5rem;
+    padding: .5rem;
     white-space: nowrap;
-    color: white;
     margin: .3rem;
-}
-
-.tag-lifestyle {
-    background-color: #007BFF;
-}
-
-.tag-work {
-    background-color: #6C757D;
-}
-
-.tag-mobile {
-    background-color: #28A745;
-}
-
-.tag-motor {
-    background-color: #DC3545;
+    font-size: 85%;
 }

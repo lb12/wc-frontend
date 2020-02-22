@@ -7,9 +7,9 @@
 }
 
 .navbar .nav-item a:hover {
-  color: #fd772c;
+  color: var(--main-brand-color);
 }
 
 .navbar-brand .nav-logo {
-  color: #fd772c;
+  color: var(--main-brand-color);
 }
