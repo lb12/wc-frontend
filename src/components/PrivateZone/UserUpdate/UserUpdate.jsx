@@ -1,10 +1,10 @@
 import React from "react";
-
-import ErrorNotifier from "../../ErrorNotifier";
 import { withTranslation } from "react-i18next";
 import { withRouter } from "react-router-dom";
 
-import './UserUpdate.css';
+import ErrorNotifier from "../../ErrorNotifier";
+import Spinner from "../../Spinner";
+import "./UserUpdate.css";
 
 class UserUpdate extends React.Component {
   constructor(props) {
@@ -21,11 +21,13 @@ class UserUpdate extends React.Component {
       },
       usernameEmailErrorManager: {
         showError: false,
-        errorMessage: []
+        errorMessage: [],
+        isLoading: false
       },
       passwordErrorManager: {
         showError: false,
-        errorMessage: []
+        errorMessage: [],
+        isLoading: false
       }
     };
   }
@@ -64,7 +66,11 @@ class UserUpdate extends React.Component {
     }
 
     this.setState({
-      usernameEmailErrorManager: { showError: false, errorMessage: [] }
+      usernameEmailErrorManager: {
+        showError: false,
+        errorMessage: [],
+        isLoading: true
+      }
     });
 
     await this.props.updateLoginCredentials({ username, email });
@@ -76,14 +82,16 @@ class UserUpdate extends React.Component {
       this.setState({
         usernameEmailErrorManager: {
           showError: true,
-          errorMessage: result.errors
+          errorMessage: result.errors,
+          isLoading: false
         }
       });
       return;
     }
 
-    // redirijo a su zona privada
-    this.props.history.push("/my-zone");
+    this.setState({
+      usernameEmailErrorManager: { isLoading: false }
+    });
   };
 
   onPasswordSubmit = async evt => {
@@ -117,7 +125,11 @@ class UserUpdate extends React.Component {
     }
 
     this.setState({
-      passwordErrorManager: { showError: false, errorMessage: [] }
+      passwordErrorManager: {
+        showError: false,
+        errorMessage: [],
+        isLoading: true
+      }
     });
 
     await this.props.updatePassword(password);
@@ -127,13 +139,18 @@ class UserUpdate extends React.Component {
     // El usuario NO se guardó bien
     if (result.errors) {
       this.setState({
-        passwordErrorManager: { showError: true, errorMessage: result.errors }
+        passwordErrorManager: {
+          showError: true,
+          errorMessage: result.errors,
+          isLoading: false
+        }
       });
       return;
     }
 
-    // redirijo a su zona privada
-    this.props.history.push("/my-zone");
+    this.setState({
+      passwordErrorManager: { isLoading: false }
+    });
   };
 
   render() {
@@ -163,6 +180,9 @@ class UserUpdate extends React.Component {
                   errors={usernameEmailErrorManager.errorMessage}
                 />
               )}
+            <div className="text-center">
+              <Spinner isLoading={usernameEmailErrorManager.isLoading} />
+            </div>
             <form className="d-flex  flex-column" onSubmit={this.onLoginSubmit}>
               <div className="form-group">
                 <label htmlFor="username" className="font-weight-bold">
@@ -194,7 +214,11 @@ class UserUpdate extends React.Component {
                   placeholder={t("EMAIL")}
                 />
               </div>
-              <button type="submit" className="btn btn-primary submit-btn">
+              <button
+                type="submit"
+                className="btn btn-primary submit-btn"
+                disabled={usernameEmailErrorManager.isLoading}
+              >
                 {t("CHANGE_USERNAME_EMAIL")}
               </button>
             </form>
@@ -211,7 +235,13 @@ class UserUpdate extends React.Component {
               passwordErrorManager.errorMessage.length > 0 && (
                 <ErrorNotifier errors={passwordErrorManager.errorMessage} />
               )}
-            <form className="d-flex  flex-column" onSubmit={this.onPasswordSubmit}>
+            <div className="text-center">
+              <Spinner isLoading={passwordErrorManager.isLoading} />
+            </div>
+            <form
+              className="d-flex  flex-column"
+              onSubmit={this.onPasswordSubmit}
+            >
               <div className="form-group">
                 <label htmlFor="password" className="font-weight-bold">
                   {t("PASSWORD")}
@@ -242,7 +272,11 @@ class UserUpdate extends React.Component {
                   placeholder={t("CONFIRM_PASSWORD")}
                 />
               </div>
-              <button type="submit" className="btn btn-primary submit-btn">
+              <button
+                type="submit"
+                className="btn btn-primary submit-btn"
+                disabled={passwordErrorManager.isLoading}
+              >
                 {t("CHANGE_PASSWORD")}
               </button>
             </form>

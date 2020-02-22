@@ -1,12 +1,12 @@
 import React from "react";
-
-import Tags from "../../Tags";
-import Advert from "../../Advert";
-import ErrorNotifier from "../../ErrorNotifier";
-
-import "./EditAdvert.css";
 import { withTranslation } from "react-i18next";
 import { withRouter } from "react-router-dom";
+
+import "./EditAdvert.css";
+import Tags from "../../Tags";
+import Advert from "../../Advert";
+import Spinner from "../../Spinner";
+import ErrorNotifier from "../../ErrorNotifier";
 import errorCheckers from "../../../utils/errorCheckers";
 
 class EditAdvert extends React.Component {
@@ -29,6 +29,7 @@ class EditAdvert extends React.Component {
       },
       showError: false,
       errorMessage: [],
+      isLoading: false,
       photoError: "",
       successSave: false,
       editingPhoto: false,
@@ -50,6 +51,7 @@ class EditAdvert extends React.Component {
   }
 
   loadAdvert = async advertId => {
+    this.setState({ isLoading: true });
     await this.props.getAdvert(advertId);
 
     const { advert, t } = this.props;
@@ -58,10 +60,13 @@ class EditAdvert extends React.Component {
     if (advert && advert.data && advert.data.message) {
       this.setState({
         showError: true,
+        isLoading: false,
         errorMessage: [t(advert.data.message)]
       });
       return;
     }
+
+    this.setState({ isLoading: false });
 
     const loadedAdvert = advert.advert;
 
@@ -136,10 +141,14 @@ class EditAdvert extends React.Component {
     evt && evt.preventDefault();
 
     const { editingPhoto, editingAdvert, advert } = this.state;
-
     const { id, name, forSale, tags, price, description, photo } = advert;
+    const { t } = this.props;
 
     const formData = new FormData();
+
+    if (!photo) {
+      return this.setState({ showError: true, errorMessage: [t("PHOTO_FILE_IS_MANDATORY")] });
+    }
 
     editingPhoto && formData.append("photo", photo);
     editingAdvert && formData.append("id", id);
@@ -150,19 +159,21 @@ class EditAdvert extends React.Component {
     formData.append("description", description);
     formData.append("member", this.props.loggedUser._id);
 
+    this.setState({ isLoading: true });
+
     !editingAdvert && (await this.props.createAdvert(formData));
     editingAdvert && (await this.props.editAdvert(formData));
 
-    const { advert: newAdvert, t } = this.props;
+    const { advert: newAdvert } = this.props;
 
     // Ha ocurrido un error al guardar el anuncio en el backend, mostramos el error
     if (newAdvert && newAdvert.data && !newAdvert.data.success) {
       const errorMessage = errorCheckers(newAdvert, t);
-      this.setState({ showError: true, errorMessage });
+      this.setState({ showError: true, errorMessage, isLoading: false });
       return;
     }
 
-    this.setState({ showError: false, successSave: true });
+    this.setState({ showError: false, successSave: true, isLoading: false });
   };
 
   render() {
@@ -172,7 +183,8 @@ class EditAdvert extends React.Component {
       errorMessage,
       photoError,
       editingPhoto,
-      successSave
+      successSave,
+      isLoading
     } = this.state;
     const { name, price, description, tags, forSale } = advert;
     const { t } = this.props;
@@ -191,11 +203,13 @@ class EditAdvert extends React.Component {
             <ErrorNotifier errors={errorMessage} />
           )}
           {successSave && (
-            <div class="alert alert-success" role="alert">
+            <div className="alert alert-success" role="alert">
               <strong>{t("ADVERT_SAVED_SUCCESFULLY")}</strong>
             </div>
           )}
-
+          <div className="text-center">
+            <Spinner isLoading={isLoading} />
+          </div>
           <div className="card mb-5">
             <div className="p-4">
               <form className="d-flex flex-column" onSubmit={this.onSubmit}>
@@ -319,7 +333,8 @@ class EditAdvert extends React.Component {
 
                 <button
                   type="submit"
-                  className="btn btn-primary edit-ad-submit-btn"
+                  className={`btn btn-primary edit-ad-submit-btn ${ successSave ? 'hidden' : '' }`}
+                  disabled={isLoading}
                 >
                   {`${updateOrCreateAdvert} ${t("ADVERT").toLowerCase()}`}
                 </button>

@@ -4,6 +4,10 @@ div.create-edit-container .sell-reserve-container,
 div.create-edit-container .fav-container {
   display: none !important;
 }
+
+.create-edit-container .edit-ad-submit-btn.hidden {
+  display: none;
+}
  
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {

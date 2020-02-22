@@ -80,6 +80,7 @@
     "USERNAME_4_CHARS_LONG": "El nombre de usuario requiere de 4 caracteres como mínimo",
     "PASSWORD_6_CHARS_LONG": "La contraseña requiere de 6 caracteres como mínimo",
     "EMAIL_MUST_NOT_BE_EMPTY": "El email no debe estar vacío",
+    "PHOTO_FILE_IS_MANDATORY": "La foto del producto es obligatoria",
     "USERNAME_EMAIL_USED": "El usuario o email ya están escogidos",
     "NO_TOKEN_PROVIDED": "No se ha encontrado ningún token de autenticación",
     "INVALID_OR_EXPIRED_TOKEN": "El token de autenticación es inválido o ha expirado",

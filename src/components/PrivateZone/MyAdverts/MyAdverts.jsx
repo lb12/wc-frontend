@@ -1,6 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 
+import Spinner from "../../Spinner";
 import AdvertList from "../../AdvertList";
 import Pagination from "../../Pagination";
 import ErrorNotifier from "../../ErrorNotifier";
@@ -13,6 +14,7 @@ class MyAdverts extends React.Component {
 
     this.state = {
       showError: false,
+      isLoading: false,
       errorMessage: []
     };
   }
@@ -24,9 +26,11 @@ class MyAdverts extends React.Component {
   getMemberAdverts = () => {
     const { user, loadFavs, loadAdverts, loadFavouriteAdverts } = this.props;
     const { _id } = user;
+    this.setState({ isLoading: true });
 
     loadFavs && loadFavouriteAdverts(_id);
     !loadFavs && loadAdverts(_id);
+    this.setState({ isLoading: false });
   };
 
   onPageChanged = () => {
@@ -37,12 +41,17 @@ class MyAdverts extends React.Component {
   confirmDelete = async () => {
     const { advertToDelete } = this.props;
 
+    this.setState({ isLoading: true });
     await this.props.deleteAdvert(advertToDelete);
+    this.setState({ isLoading: false });
 
     const { errorMessage, t } = this.props;
 
     if (errorMessage && !errorMessage.success && errorMessage.message) {
-      this.setState({ showError: true, errorMessage: [t(errorMessage.message)] });
+      this.setState({
+        showError: true,
+        errorMessage: [t(errorMessage.message)]
+      });
       return;
     }
     this.props.resetPaginationFilters();
@@ -51,7 +60,7 @@ class MyAdverts extends React.Component {
 
   render() {
     const { t, loadFavs } = this.props;
-    const { showError, errorMessage } = this.state;
+    const { showError, errorMessage, isLoading } = this.state;
     return (
       <div className="p-3 mt-4">
         <h1 className="font-size-2 text-center mt-5 mb-5">
@@ -60,6 +69,9 @@ class MyAdverts extends React.Component {
         {showError && errorMessage.length > 0 && (
           <ErrorNotifier errors={errorMessage} />
         )}
+        <div className="text-center">
+          <Spinner isLoading={isLoading} />
+        </div>
         <AdvertList />
         <Pagination onPageChanged={this.onPageChanged} />
         <Modal

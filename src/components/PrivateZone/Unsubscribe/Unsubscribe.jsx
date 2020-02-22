@@ -2,12 +2,14 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import ErrorNotifier from "../../ErrorNotifier";
 import "./Unsubscribe.css";
+import Spinner from "../../Spinner";
 
 class Unsubscribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ensured: false
+      ensured: false,
+      isLoading: false
     };
   }
 
@@ -19,12 +21,14 @@ class Unsubscribe extends React.Component {
   };
 
   onSubmit = async () => {
+    this.setState({ isLoading: true });
     await this.props.unsubscribe();
+    this.setState({ isLoading: false });
   };
 
   render() {
     const { t, errorMessage } = this.props;
-    const { ensured } = this.state;
+    const { ensured, isLoading } = this.state;
 
     return (
       <div className="unsubscribe-container d-flex flex-column align-items-center p-3">
@@ -37,6 +41,7 @@ class Unsubscribe extends React.Component {
             errorMessage.errors.length > 0 && (
               <ErrorNotifier errors={errorMessage.errors} />
             )}
+          <Spinner isLoading={isLoading} />
           <div className="form-group">
             <label htmlFor="secure-unsubscription">
               {t("UNSUBSCRIBE_LABEL", { code: t("DELETE_MY_PROFILE") })}
@@ -52,7 +57,7 @@ class Unsubscribe extends React.Component {
             />
           </div>
           <button
-            disabled={!ensured}
+            disabled={!ensured || isLoading}
             onClick={this.onSubmit}
             className="btn btn-primary submit-btn"
           >

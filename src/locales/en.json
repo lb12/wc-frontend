@@ -80,6 +80,7 @@
     "USERNAME_4_CHARS_LONG": "Username length must be 4 chars at minimum",
     "PASSWORD_6_CHARS_LONG": "Password length must be 6 chars at minimum",
     "EMAIL_MUST_NOT_BE_EMPTY": "Email must not be empty",
+    "PHOTO_FILE_IS_MANDATORY": "Product photo is mandatory",
     "USERNAME_EMAIL_USED": "Username or email are currently in use",
     "NO_TOKEN_PROVIDED": "No token provided",
     "INVALID_OR_EXPIRED_TOKEN": "Token is invalid or expired",
