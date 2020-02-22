@@ -6,7 +6,10 @@ import {
 } from "../utils/axios";
 import Advert from "../models/Advert";
 
-const API_URL = "https://localhost:3000/api-v1";
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://api.depatitos.com/api-v1"
+    : "https://localhost:3000/api-v1";
 
 // [START]: Métodos relacionados con los anuncios
 
@@ -42,7 +45,9 @@ const listAdverts = async (
 
   try {
     res = await getRequest(`${API_URL}/adverts${queryParams}`);
-    res.results = res.results ? res.results.map(advert => new Advert(advert)) : [];
+    res.results = res.results
+      ? res.results.map(advert => new Advert(advert))
+      : [];
   } catch (error) {
     console.error(error);
     res = [];
@@ -58,7 +63,11 @@ const listAdverts = async (
  * @param {*} paginationFilters filtros referidos a la paginación actual
  * @param {*} getOnlyFavAds booleano que indica si sólo queremos obtener los ads favoritos del usuario
  */
-const listMemberAdverts = async (memberId, { adsPerPage, page }, favouriteAdverts) => {
+const listMemberAdverts = async (
+  memberId,
+  { adsPerPage, page },
+  favouriteAdverts
+) => {
   let queryParams = "";
   let res = {};
 
@@ -69,12 +78,14 @@ const listMemberAdverts = async (memberId, { adsPerPage, page }, favouriteAdvert
     page > 1
       ? `${getQueryParamToken(queryParams)}skip=${--page * adsPerPage}`
       : "";
-  
+
   try {
     res = await getRequest(
       `${API_URL}/adverts/member/${memberId}${queryParams}`
     );
-    res.results = res.results ? res.results.map(advert => new Advert(advert)) : [];
+    res.results = res.results
+      ? res.results.map(advert => new Advert(advert))
+      : [];
   } catch (error) {
     console.error(error);
     res = [];
@@ -88,7 +99,8 @@ const listMemberAdverts = async (memberId, { adsPerPage, page }, favouriteAdvert
 /**
  * Método auxiliar para saber si tenemos query params en la URL
  */
-const getQueryParamToken = queryParams => queryParams.length === 0 ? "?" : "&";
+const getQueryParamToken = queryParams =>
+  queryParams.length === 0 ? "?" : "&";
 
 /**
  * Obtiene un anuncio por su id.
@@ -159,7 +171,7 @@ const createAdvert = async formData => {
  */
 const editAdvert = async (advertId, memberId, formData) => {
   let res = {};
-  
+
   try {
     res = await putRequest(
       `${API_URL}/adverts/${advertId}/${memberId}`,
@@ -205,7 +217,10 @@ const setReservedOrSoldAdvert = async (advert, data) => {
   let res = {};
 
   try {
-    res = await putRequest(`${API_URL}/adverts/set-reserved-or-sold/${advert.id}/${advert.member._id}`, data);
+    res = await putRequest(
+      `${API_URL}/adverts/set-reserved-or-sold/${advert.id}/${advert.member._id}`,
+      data
+    );
 
     res.result = new Advert(res.result);
   } catch (error) {
@@ -229,7 +244,7 @@ const getTags = async () => {
 
   try {
     res = await getRequest(`${API_URL}/tags`);
-    res.results = res.results ? res.results.map( tag => tag.value) : [];
+    res.results = res.results ? res.results.map(tag => tag.value) : [];
   } catch (error) {
     console.error(error);
     res = [];
@@ -259,7 +274,7 @@ const signUp = async userObj => {
 
 /**
  * Loguear un usuario
- * @param {*} userObj user y password en un objeto 
+ * @param {*} userObj user y password en un objeto
  */
 const signIn = async userObj => {
   let result = {};
@@ -417,7 +432,7 @@ const unsubscribeUser = async (userId, token) => {
 
 /**
  * Pide al servidor que envíe un email a la dirección de correo con el link de recuperación
- * @param {*} email 
+ * @param {*} email
  */
 const sendPasswordRecoverEmail = async email => {
   let res = {};
@@ -428,7 +443,7 @@ const sendPasswordRecoverEmail = async email => {
     console.error(res);
   }
   return res;
-}
+};
 
 /**
  * Pide al servidor el email a partir del token y comprobar así el token
@@ -443,7 +458,7 @@ const getEmailFromRecoveryToken = async token => {
     console.error(res);
   }
   return res;
-}
+};
 
 /**
  * Envía la nueva contraseña junto con el email asociado y el token
@@ -462,7 +477,7 @@ const changePasswordFromRecoveryToken = async ({ email, password, token }) => {
     console.error(res);
   }
   return res;
-}
+};
 
 // [END]: Métodos relacionados con la recuperación de contraseña
 

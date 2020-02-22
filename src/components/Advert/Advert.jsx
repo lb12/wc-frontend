@@ -65,7 +65,7 @@ class Advert extends React.Component {
     let photoSrc = editingPhoto
       ? advert.photoPreview
       : advert.photo
-      ? `https://localhost:3000/images/adverts/${advert.photo}`
+      ? advert.photo
       : "/img/empty_advert_pic.png";
     const type = t(advert.forSale ? "ON_SALE" : "ON_PURCHASE").toUpperCase();
     const { sold, reserved } = this.state;

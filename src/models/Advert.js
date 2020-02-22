@@ -14,9 +14,10 @@ export default class Advert {
   constructor(advert) {
     this.id = advert._id;
     this.name = advert.name;
-    this.photo = advert.photo.startsWith("/images/anuncios/")
-      ? `http://localhost:3001${advert.photo}`
-      : advert.photo;
+    this.photo =
+      process.env.NODE_ENV === "production"
+        ? `https://api.depatitos.com/${advert.photo}`
+        : `http://localhost:3000${advert.photo}`;
     this.description = advert.description;
     this.price = advert.price;
     this.forSale = advert.for_sale;
