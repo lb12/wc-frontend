@@ -120,7 +120,7 @@ class ResetPassword extends React.Component {
 
           {(!errorMessage ||
             (errorMessage &&
-              errorMessage[0] !== t("Token is invalid or has expired"))) && (
+              errorMessage[0] !== t("INVALID_OR_EXPIRED_TOKEN"))) && (
             <Form onSubmit={this.updatePassword}>
               <div className="form-group">
                 <Input
