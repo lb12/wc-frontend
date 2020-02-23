@@ -1,5 +1,6 @@
 // React imports
 import React from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // Global components imports
 import Form from "../../Form";
@@ -7,6 +8,7 @@ import Input from "../../Input";
 import Spinner from "../../Spinner";
 import ErrorNotifier from "../../ErrorNotifier";
 import { withTranslation } from "react-i18next";
+
 import "./SignUp.css";
 import "../Auth.css";
 
@@ -16,7 +18,8 @@ class SignUp extends React.Component {
     this.state = {
       showError: false,
       isLoading: false,
-      errorMessage: []
+      errorMessage: [],
+      recaptchaConfirm: false
     };
   }
 
@@ -58,7 +61,11 @@ class SignUp extends React.Component {
 
     // El usuario NO se guardó bien
     if (result.errors) {
-      this.setState({ showError: true, errorMessage: result.errors, isLoading: false });
+      this.setState({
+        showError: true,
+        errorMessage: result.errors,
+        isLoading: false
+      });
       return;
     }
 
@@ -68,8 +75,12 @@ class SignUp extends React.Component {
     this.props.history.push("/my-zone");
   };
 
+  onReCaptchaChange = value => {
+    this.setState({ recaptchaConfirm: true });
+  };
+
   render() {
-    const { showError, errorMessage, isLoading } = this.state;
+    const { showError, errorMessage, isLoading, recaptchaConfirm } = this.state;
     const { t, isLogged } = this.props;
     return (
       <div className="sign-in-up-container">
@@ -113,7 +124,15 @@ class SignUp extends React.Component {
                   placeholder={t("PASSWORD")}
                 />
               </div>
-              <button type="submit" className="btn btn-primary submit-btn" disabled={isLoading} >
+              <ReCAPTCHA
+                sitekey={process.env.REACT_APP_RECAPTCHA_API_KEY}
+                onChange={this.onReCaptchaChange}
+              />
+              <button
+                type="submit"
+                className="btn btn-primary submit-btn"
+                disabled={!recaptchaConfirm || isLoading}
+              >
                 {t("SIGN_UP")}
               </button>
             </Form>

@@ -2,6 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // Our imports
 import Form from "../../Form";
@@ -23,7 +24,8 @@ class ResetPassword extends React.Component {
       errorMessage: [],
       passUpdated: false,
       isLoading: true,
-      showError: false
+      showError: false,
+      recaptchaConfirm: false
     };
   }
 
@@ -35,7 +37,7 @@ class ResetPassword extends React.Component {
 
     // validamos el token
     const response = await getEmailFromRecoveryToken(token);
-    
+
     this.setState({ passUpdated: false, isLoading: false });
 
     // todo ha ido bien
@@ -73,7 +75,11 @@ class ResetPassword extends React.Component {
     });
 
     if (response.success) {
-      return this.setState({ passUpdated: true, showError: false, isLoading: false });
+      return this.setState({
+        passUpdated: true,
+        showError: false,
+        isLoading: false
+      });
     }
 
     // No es success => tratamos los errores
@@ -84,12 +90,16 @@ class ResetPassword extends React.Component {
       isLoading: false,
       showError: true,
       errorMessage
-    });    
+    });
+  };
+
+  onReCaptchaChange = value => {
+    this.setState({ recaptchaConfirm: true });
   };
 
   render() {
     const { t } = this.props;
-    const { showError, isLoading, passUpdated, errorMessage } = this.state;
+    const { showError, isLoading, passUpdated, errorMessage, recaptchaConfirm } = this.state;
     return (
       <div className="sign-in-up-container">
         <React.Fragment>
@@ -100,9 +110,7 @@ class ResetPassword extends React.Component {
             <ErrorNotifier errors={errorMessage} />
           )}
 
-          {isLoading && (
-            <Spinner isLoading={isLoading}/>
-          )}
+          {isLoading && <Spinner isLoading={isLoading} />}
 
           {passUpdated && (
             <div className="alert alert-success" role="alert">
@@ -123,7 +131,15 @@ class ResetPassword extends React.Component {
                   placeholder={t("PASSWORD")}
                 />
               </div>
-              <button type="submit" className="btn btn-primary submit-btn" disabled={isLoading}>
+              <ReCAPTCHA
+                sitekey={process.env.REACT_APP_RECAPTCHA_API_KEY}
+                onChange={this.onReCaptchaChange}
+              />
+              <button
+                type="submit"
+                className="btn btn-primary submit-btn"
+                disabled={!recaptchaConfirm || isLoading}
+              >
                 {t("CHANGE_PASSWORD")}
               </button>
             </Form>

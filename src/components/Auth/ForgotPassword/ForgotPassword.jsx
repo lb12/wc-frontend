@@ -1,6 +1,7 @@
 // React imports
 import React from "react";
 import { withTranslation } from "react-i18next";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // Our imports
 import Form from "../../Form";
@@ -17,6 +18,7 @@ class ForgotPassword extends React.Component {
       showError: false,
       emailSent: false,
       isLoading: false,
+      recaptchaConfirm: false,
       errorMessage: []
     };
   }
@@ -60,9 +62,13 @@ class ForgotPassword extends React.Component {
     });
   };
 
+  onReCaptchaChange = value => {
+    this.setState({ recaptchaConfirm: true });
+  };
+
   render() {
     const { t } = this.props;
-    const { showError, errorMessage, emailSent, isLoading } = this.state;
+    const { showError, errorMessage, emailSent, isLoading, recaptchaConfirm } = this.state;
     return (
       <div className="sign-in-up-container">
         <React.Fragment>
@@ -94,7 +100,11 @@ class ForgotPassword extends React.Component {
                 placeholder={t("EMAIL")}
               />
             </div>
-            <button type="submit" className="btn btn-primary submit-btn" disabled={isLoading}>
+            <ReCAPTCHA
+              sitekey={process.env.REACT_APP_RECAPTCHA_API_KEY}
+              onChange={this.onReCaptchaChange}
+            />
+            <button type="submit" className="btn btn-primary submit-btn" disabled={!recaptchaConfirm || isLoading}>
               {t("RECOVER_PASSWORD")}
             </button>
           </Form>
