@@ -1,5 +1,5 @@
 .navbar {
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .navbar .nav-item a {
@@ -13,4 +13,12 @@
 .navbar-brand .nav-logo {
   color: var(--main-brand-color);
   font-size: 1.8rem;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .navbar {
+    justify-content: space-between;
+  }
 }
