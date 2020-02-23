@@ -1,68 +1,76 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Depatitos frontend
 
-## Available Scripts
+Front de depatitos hecho con React y Redux.
 
-In the project directory, you can run:
+## Características y dependencias
+* Uso de Redux avanzado (Thunks, multiple reducers, async creators y connected middlewares)
+* Aplicación completamente responsive utilizando flexbox y la librería de bootstrap
+* Integración con API vía JWT
+* Uso de Google Recaptcha como primera barrera antibots
+* Internacionalización de la web y language-detector.
+* Compartir anuncios via RRSS
+
+El proyecto hace uso de las siguientes dependencias:
+
+* react
+* react-dom
+* react-google-recaptcha
+* react-redux
+* react-router-dom
+* react-i18next
+* react-share
+* redux
+* redux-logger
+* redux-thunk
+* i18next
+* i18next-browser-languagedetector
+* axios
+
+A nivel de desarrollo también se hace uso de las devtools de redux mediante:
+* redux-devtools-extension
+
+
+### React
+Todo el front está desarrollado por React. El listado de rutas de la web es el siguiente:
+
+#### Zona privada
+
+* Dar de baja: `/my-zone/unsubscribe`
+* Actualizar mis datos: `/my-zone/update-my-data`
+* Crear un anuncio: `/my-zone/create-advert`
+* Editar un anuncio: `/my-zone/edit-advert/:id`
+* Ver mis anuncios: `/my-zone/my-adverts`
+* Ver mis anuncios favoritos: `/my-zone/favourite-adverts`
+* Mi zona: `/my-zone`
+
+#### Zona pública
+* Iniciar sesión: `/sign-in`
+* Registrarme: `/sign-up`
+* Ver perfil de un usuario: `/profile/:slug/:username/:id`
+* Ver un anuncio en detalle: `/advert/:advertSlug/:id`
+* Olvidé mi contraseña: `/forgot-password`
+* Homepage: `/`
+* Cualquier otra ruta que derive a 404: `*`
+
+### Redux 
+Utilizo redux para almacenar toda la información referente a:
+* Anuncios
+* Usuario logado y su token JWT
+* Tags
+* Algún mensaje de error
+* Paginación del listado actual de anuncios
+
+Redux prácticamente todas las llamadas a la API mediante sus actions, ya que casi todo lo que nos interese consultar vía API, se almacena en el store.
+
+
+## Scripts disponibles
+
+En la raíz del proyecto, puedes lanzar los siguientes comandos:
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Lanza la aplicación en el modo de desarrollo.<br /> Abre [http://localhost:3000](http://localhost:3000) para verlo en el navegador.
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Hace el build de la app para producción y la almacena en la carpeta `build`.<br />
